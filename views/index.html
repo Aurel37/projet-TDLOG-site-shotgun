@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Shotgun cours en ligne</title>
+	</head>
+
+	<body>
+		<h1>Site de shotgun</h1>
+
+		<select name="year" size="1" id="year">
+				<option>022
+				<option>021
+				<option>020
+				<option>019
+		</select>
+		</form>
+
+		<form action="/shotgun" method="post" id="form_class1">
+		<p>
+		Quelle première classe choisissez vous ?
+		<select name="class1" size="1" for="class1">
+			<option>anglais
+			<option>allemand
+		</select>
+		<input type="submit"/>
+		</p>
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"> </script>
+		<script src="/socket.io/socket.io.js"></script>
+		</form>
+	<script>
+		var socket = io.connect('http://localhost:8080');
+
+		var name = prompt('your name : ');
+		socket.emit('new_student', name);
+
+		var year = document.getElementById('year');
+		year.addEventListener('change', function () {
+			var answer = year.options[year.selectedIndex].innerHTML;
+			socket.emit('year', answer);
+		});
+				
+	</script>
+
+
+	</body>
+</html>
