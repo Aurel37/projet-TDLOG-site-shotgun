@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 01, 2019 at 07:37 PM
+-- Generation Time: Dec 04, 2019 at 09:28 AM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -13,6 +13,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `td_log_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `assignent`
+--
+
+CREATE TABLE `assignent` (
+  `id` int(11) NOT NULL,
+  `id_students` int(11) NOT NULL,
+  `id_class` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `choices`
+--
+
+CREATE TABLE `choices` (
+  `id` int(11) NOT NULL,
+  `id_students` int(11) NOT NULL,
+  `id_class` int(11) NOT NULL,
+  `rank` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -189,6 +214,18 @@ INSERT INTO `créneau` (`id`, `libele`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `language_wanted`
+--
+
+CREATE TABLE `language_wanted` (
+  `id` int(11) NOT NULL,
+  `id_students` int(11) NOT NULL,
+  `id_language` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `langue`
 --
 
@@ -283,6 +320,20 @@ INSERT INTO `promo` (`id`, `libele`) VALUES
 (0, '1A'),
 (1, '2A'),
 (2, '3A');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Students`
+--
+
+CREATE TABLE `Students` (
+  `id` int(11) NOT NULL,
+  `Name` text,
+  `First Name` text,
+  `Sport` int(11) DEFAULT NULL,
+  `Promo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables

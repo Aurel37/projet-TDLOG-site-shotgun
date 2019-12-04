@@ -5,7 +5,7 @@ var con = mysql.createConnection({
 	user : 'root',
 	password : 'root',
 	socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',
-	database : 'shotgun_website'
+	database : 'td_log_db'
 });
 
 con.connect(function(err) {
