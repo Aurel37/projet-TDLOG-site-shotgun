@@ -33,9 +33,14 @@ function add_data(data) {
 
 };
 
+function push_cookie(cookie, name, data) {
+	if (data != '') {
+		cookie[name] = data;
+	}
+};
 
 exports.db_manager = con;
 exports.add_data = add_data;
-
+exports.push_cookie = push_cookie
 
 

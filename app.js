@@ -1,11 +1,11 @@
 var app = require('express')();
-var server = require('http').createServer(app);
-//var session = require('cookie-session');
-//var bodyParser = require('body-parser');
-//var urlencodedParser = bodyParser.urlencoded({extended: false});
+//var server = require('http').createServer(app);
+var session = require('cookie-session');
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({extended: false});
 var model = require('./model');
 //var url = require('url');
-var io = require('socket.io').listen(server);
+//var io = require('socket.io').listen(server);
 model.db_manager;
 
 /*
@@ -17,12 +17,30 @@ model.db_manager;
 	next();
 })*/
 
-app.get('/shotgun', function(req, res) {
-	res.sendfile('views/index.html');
+app.use(session({secret: 'shotgun'}))
+
+.use(function(req, res, next) {
+	if (typeof(req.session.answers) == 'undefined') {
+		req.session.answers ={};
+	}
+	next();
 })
 
+.get('/shotgun', function(req, res) {
+	res.render('index.ejs');
+})
+
+.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
+	model.push_cookie(req.session.answers, 'name', req.body.name);
+	model.push_cookie(req.session.answers, 'year', req.body.year); 
+	model.push_cookie(req.session.answers, 'class1', req.body.class1);
+	console.log('coucou');
+	console.log(req.session.answers);
+	model.add_data([req.session.answers.name, req.session.answers.year, req.session.answers.class1]);
+});
+/*
 io.sockets.on('connection', function (socket, pseudo) {
-	socket.on('new_student', function(name) {
+	socket.on('name', function(name) {
 		socket.name = name;
 	});
 	socket.on('year', function(year) {
@@ -31,10 +49,14 @@ io.sockets.on('connection', function (socket, pseudo) {
 	});
 	socket.on('class1', function(class1) {
 		socket.class1 = class1;
-		model.add_data([socket.name, socket.year,  socket.class1]);
 	});
+	
+	socket.on('form_1', function() {
+		model.add_data([socket.name, socket.year, socket.class1]);
+	});
+	
 })
-/*
+
 .post('/shotgun/add/name', urlencodedParser, function(req, res) {
 	cookies.name = req.body.name;
 	model.add_data(req.body.name, 'name', 'student', true, cookies.name);
@@ -55,4 +77,4 @@ io.sockets.on('connection', function (socket, pseudo) {
 })
 */
 
-server.listen(8080);
+app.listen(8080);

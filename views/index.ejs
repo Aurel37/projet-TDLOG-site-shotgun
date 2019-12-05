@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Shotgun cours en ligne</title>
+	</head>
+
+	<body>
+		<h1>Site de shotgun</h1>
+		<form action="/shotgun/add/form_1" id="data1" method = "post" >
+
+		<label for="name">Votre nom :</label>
+                <input type="text" name="name" id="name" autofocus />
+		<p>
+		Votre année : 
+		<select name="year" size="1" id="year">
+				<option>022
+				<option>021
+				<option>020
+				<option>019
+		</select>
+		</p>
+		<p>
+		Quelle première classe choisissez vous ?
+		<select name="class1" size="1" for="class1">
+			<option>anglais
+			<option>allemand
+		</select>
+		<input type="submit" value="Suite"/>
+		</p>
+		</form>
+		<script src="/socket.io/socket.io.js"></script>
+	<script>
+		/*var socket = io.connect('http://localhost:8080');
+
+		var data1 = document.getElementById('data1');
+		data1.addEventMistener('change', function (e) {
+		alert('test de merde');
+		var name = document.getElementById('name');
+		name.addEventListener('change', function () {
+			var answer = name.options[name.selectedIndex].innerHTML:
+			socket.emit('name', answer);
+		});
+
+		var year = document.getElementById('year');
+		year.addEventListener('change', function () {
+			var answer = year.options[year.selectedIndex].innerHTML;
+			socket.emit('year', answer);
+		});
+				
+
+		var class1 = document.getElementById('class1');
+		class1.addEventListener('change', function () {
+			var answer = class1.options[class1.selectedIndex].innerHTML;
+			socket.emit('class1', answer);
+		});
+			socket.emit('form_1');
+		});
+		*/
+		
+		
+				
+	</script>
+
+
+	</body>
+</html>
