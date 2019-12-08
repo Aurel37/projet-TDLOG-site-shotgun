@@ -36,7 +36,7 @@ app.use(session({secret: 'shotgun'}))
 	model.push_cookie(req.session.answers, 'sport', req.body.class1);
 	console.log(req.session.answers);
 	model.add_data([req.session.answers.name, req.session.answers.sport, req.session.answers.year]);
-	res.redirect(index.ejs);
+	res.redirect('/shotgun');
 });
 /*
 io.sockets.on('connection', function (socket, pseudo) {
