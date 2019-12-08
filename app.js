@@ -33,10 +33,10 @@ app.use(session({secret: 'shotgun'}))
 .post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
 	model.push_cookie(req.session.answers, 'name', req.body.name);
 	model.push_cookie(req.session.answers, 'year', req.body.year); 
-	model.push_cookie(req.session.answers, 'class1', req.body.class1);
-	console.log('coucou');
+	model.push_cookie(req.session.answers, 'sport', req.body.class1);
 	console.log(req.session.answers);
-	model.add_data([req.session.answers.name, req.session.answers.year, req.session.answers.class1]);
+	model.add_data([req.session.answers.name, req.session.answers.sport, req.session.answers.year]);
+	res.redirect(index.ejs);
 });
 /*
 io.sockets.on('connection', function (socket, pseudo) {

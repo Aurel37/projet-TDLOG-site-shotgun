@@ -5,7 +5,7 @@ var con = mysql.createConnection({
 	user : 'root',
 	password : 'root',
 	socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',
-	database : 'td_log_db'
+	database : 'shotgun_website'
 });
 
 con.connect(function(err) {
@@ -23,7 +23,7 @@ function add_data(data) {
 		{
 			var sql = 'INSERT INTO ' +  table + ' (' + column + ') '  +  "VALUES" + ' (' + data + ') WHERE '  ;
 		}*/
-		con.query('INSERT INTO student(name, year, class1) VALUES (?, ?, ?)',
+		con.query('INSERT INTO Students(Name, Sport, Promo) VALUES (?, ?, ?)',
 		data,
 		function (err, result) {
 		if  (err) throw err;
@@ -41,6 +41,6 @@ function push_cookie(cookie, name, data) {
 
 exports.db_manager = con;
 exports.add_data = add_data;
-exports.push_cookie = push_cookie
+exports.push_cookie = push_cookie;
 
 
