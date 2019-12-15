@@ -1,4 +1,6 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
+
 //var server = require('http').createServer(app);
 var session = require('cookie-session');
 var bodyParser = require('body-parser');
@@ -7,6 +9,7 @@ var model = require('./model');
 //var url = require('url');
 //var io = require('socket.io').listen(server);
 model.db_manager;
+app.use(express.static("views"));
 
 /*
 .use(function(req, res, next) {
