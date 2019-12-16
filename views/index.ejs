@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 
 <html>
+
 	<head>
 		<title>Shotgun cours en ligne</title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+
 	</head>
 
 	<body>
 		<h1>Site de shotgun</h1>
+
 		<form action="/shotgun/add/form_1" id="data1" method = "post" >
+			<fieldset class="test">
 
 		<label for="name">Votre nom :</label>
                 <input type="text" name="name" id="name" autofocus />
@@ -20,14 +25,29 @@
 				<option>019
 		</select>
 		</p>
+	</fieldset>
+	<fieldset>
 		<p>
-		Quelle sport choisissez vous ?
-		<select name="sport" size="1" for="sport">
+		Quelle langue choisissez vous ?
+		<select name="langue" size="1" for="langue">
 			<option>anglais
 			<option>allemand
 		</select>
+		<p>
+		<label for="bail">Des bails chelous ?</label>
+                <input type="text" name="bail" id="bail" autofocus />
+        </p>
+		<p>
+		</p>
+		<p>
+		Quelle sport choisissez vous ?
+		<select name="sport" size="1" for="sport">
+			<option>tennis
+			<option>aviron
+		</select>
 		<input type="submit" value="Suite"/>
 		</p>
+	</fieldset>
 		</form>
 		<script src="/socket.io/socket.io.js"></script>
 	<script>
