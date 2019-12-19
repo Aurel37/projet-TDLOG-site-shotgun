@@ -2,41 +2,45 @@
 
 <html>
 
-	<head>
-		<title>Shotgun cours en ligne</title>
+	<head >
+		<title >Shotgun cours en ligne</title>
 		<link rel="stylesheet" type="text/css" href="/css/style.css" />
 
 	</head>
 
 	<body>
-		<h1>Site de shotgun</h1>
+	<form action="/shotgun/add/form_1" id="form" method = "post" >
+	<h1>Site de shotgun</h1>
+		
+	<div class="tab">
 
-		<form action="/shotgun/add/form_1" id="data1" method = "post" >
-			<fieldset class="test">
-
-		<label for="name">Votre nom :</label>
-                <input type="text" name="name" id="name" autofocus />
+	<h2> Your Profile </h2>
 		<p>
-		Votre année : 
-		<select name="year" size="1" id="year">
-				<option>022
-				<option>021
-				<option>020
-				<option>019
-		</select>
+			Your Name :
 		</p>
-	</fieldset>
-	<fieldset>
+
+		<label for="name">First Name:</label>
+        <input type="text" name="first_name" id="first_name" autofocus />
+        <label for="name">Last Name:</label>
+        <input type="text" name="last_name" id="last_name" autofocus />
+
+	<p>
+	Current Year : 
+	<select name="year" size="1" id="year">
+		<option>022
+		<option>021
+		<option>020
+		<option>019
+	</select>
+	</p>
+	</div>
+	<div class="tab">
 		<p>
 		Quelle langue choisissez vous ?
 		<select name="langue" size="1" for="langue">
 			<option>anglais
 			<option>allemand
 		</select>
-		<p>
-		<label for="bail">Des bails chelous ?</label>
-                <input type="text" name="bail" id="bail" autofocus />
-        </p>
 		<p>
 		</p>
 		<p>
@@ -45,12 +49,61 @@
 			<option>tennis
 			<option>aviron
 		</select>
-		<input type="submit" value="Suite"/>
 		</p>
-	</fieldset>
+	</div>	
+	<div class="tab">
+		<p>
+			Veuillez classer les cours disponibles pour vous:
+			<select name="year" size="1" id="year">
+		<option>cours1
+		<option>cours2
+		<option>cours3
+		<option>cours4
+	</select>
+</div>
+
+	<div style="overflow:auto;">
+  		<div style="float:right;">
+   	 		<button type="button" id="prevBtn" onclick="change(-1)">Previous</button>
+    		<button type="button" id="nextBtn" onclick="change(1)">Next</button>
+  		</div>
+	</div>
 		</form>
 		<script src="/socket.io/socket.io.js"></script>
 	<script>
+	// need to see in which slide we are
+	var counter = 0;
+	// show the current slide
+	showSlide(counter)
+
+	function showSlide(n){
+		// get the list of all the element of the class tab
+		tab = document.getElementsByClassName("tab");
+		// diplay the good one
+		tab[n].style.display = "block";
+		// need to display the button: we test if we are at the beggining or the end because the button changed
+		if (n == 0){ // we don't display the button next 
+			document.getElementById("prevBtn").style.display = "none";
+		}
+		else{
+			document.getElementById("prevBtn").style.display = "inline";
+		}
+		if (n == (tab.length - 1)){ //if we are at the end of the form 
+			document.getElementById("nextBtn").innerHTML = "Submit";
+		}
+		else{
+			document.getElementById("nextBtn").innerHTML = "Next";
+		}
+
+	}
+	function change(n){
+		tab = document.getElementsByClassName("tab");
+		if (n + counter >= 0 && n + counter < tab.length){
+			tab[counter].style.display = "none";
+			counter = counter + n;
+		}
+		showSlide(counter);
+	}
 		/*var socket = io.connect('http://localhost:8080');
 
 		var data1 = document.getElementById('data1');
