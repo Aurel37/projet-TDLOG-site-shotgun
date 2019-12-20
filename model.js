@@ -13,16 +13,9 @@ con.connect(function(err) {
 	console.log('connected !');
 });
 
-function add_data(data) {
+function add_data_form_1(data) {
 	if (data != '') 
 	{
-		//if (first) {
-		//	var sql = 'INSERT INTO ' +  table + ' (' + column + ') '  +  "VALUES" + ' (' + data + ')';
-		//}
-		/*else
-		{
-			var sql = 'INSERT INTO ' +  table + ' (' + column + ') '  +  "VALUES" + ' (' + data + ') WHERE '  ;
-		}*/
 		con.query('INSERT INTO Students(Name, Sport, Promo) VALUES (?, ?, ?)',
 		data,
 		function (err, result) {
@@ -33,6 +26,19 @@ function add_data(data) {
 
 };
 
+function query_first_l(data, list) {	
+	if (data != '')
+	{
+	 con.query('SELECT Cours.libelle FROM Cours JOIN langue ON Cours.id_langue = langue.id WHERE langue.libelle = ?', data, 
+			function (err, result, fields) {
+			if (err) throw err;
+			list.push(result);
+			//console.log(list);	
+			});
+			
+	}
+}
+
 function push_cookie(cookie, name, data) {
 	if (data != '') {
 		cookie[name] = data;
@@ -40,7 +46,9 @@ function push_cookie(cookie, name, data) {
 };
 
 exports.db_manager = con;
-exports.add_data = add_data;
+exports.add_data = add_data_form_1;
+exports.query_first_l = query_first_l;
 exports.push_cookie = push_cookie;
 
+//con.end((err) => {});
 

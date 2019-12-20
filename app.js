@@ -22,7 +22,8 @@ app.use(express.static("views"));
 app.use(session({secret: 'shotgun'}))
 
 .use(function(req, res, next) {
-	if (typeof(req.session.answers) == 'undefined') {
+	if (typeof(req.session.answers) == 'undefined')
+	{
 		req.session.answers ={};
 	}
 	next();
@@ -30,53 +31,37 @@ app.use(session({secret: 'shotgun'}))
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
+	if (typeof(req.session.answers.language) != 'undefined')
+	{
+		//console.log('langue' + req.session.answers.language);
+		var list = [];	
+		model.query_first_l([req.session.answers.language], list/*function(err, res) {
+			if (err) throw err;
+			list = res;
+			model.push_cookie(req.session.answers, 'language_list', list);
+		}*/);
+		req.session.answers['language_list'] = list; 
+		//model.push_cookie(req.session.answers, 'language_list', model.query_first_l([req.session.answers.language]));
+		//console.log(req.session.answers.language_list)
+		console.log(req.session.answers.language_list);
+	}
+	else
+	{
+		console.log('toujours rien');
+	}
+
 })
 
 .post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
 	model.push_cookie(req.session.answers, 'name', req.body.name);
-	model.push_cookie(req.session.answers, 'year', req.body.year); 
+	model.push_cookie(req.session.answers, 'year', req.body.year);
+	model.push_cookie(req.session.answers, 'language', req.body.langue);
 	model.push_cookie(req.session.answers, 'sport', req.body.class1);
-	console.log(req.session.answers);
-	model.add_data([req.session.answers.name, req.session.answers.sport, req.session.answers.year]);
+	
+	//model.add_data_form_1([req.session.answers.name, req.session.answers.sport, req.session.answers.year]);
 	res.redirect('/shotgun');
 });
-/*
-io.sockets.on('connection', function (socket, pseudo) {
-	socket.on('name', function(name) {
-		socket.name = name;
-	});
-	socket.on('year', function(year) {
-		console.log(year);
-		socket.year = year;
-	});
-	socket.on('class1', function(class1) {
-		socket.class1 = class1;
-	});
-	
-	socket.on('form_1', function() {
-		model.add_data([socket.name, socket.year, socket.class1]);
-	});
-	
-})
 
-.post('/shotgun/add/name', urlencodedParser, function(req, res) {
-	cookies.name = req.body.name;
-	model.add_data(req.body.name, 'name', 'student', true, cookies.name);
-})
 
-.post('/shotgun/add/year', urlencodedParser, function(req, res) {	
-	console.log(cookies);
-	model.add_data(req.body.year, 'year', 'student', false, cookies.name);	
-})
-
-.post('/shotgun/add/class1', urlencodedParser, function(req, res) {
-	model.add_data(req.body.class1, 'class1', 'student', false, cookies.name);
-	//res.redirect('/shotgun/finish');
-})
-
-.use(function(req, res, next){
-	res.redirect('/shotgun');
-})
-*/
 
 app.listen(8080);
