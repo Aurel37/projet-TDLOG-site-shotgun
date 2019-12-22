@@ -9,6 +9,16 @@
 	</head>
 
 	<body>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
+		var socket = io.connect('http://localhost:8080');
+		function send_data(tag, data, socket) {
+		data.addEventListener('change', function() {
+			alert(data.options[data.selectedIndex].innerHTML);
+			socket.emit(tag, data.options[data.selectedIndex].innerHTML);
+			});
+		}
+	</script>
 
 	<form action="/shotgun/add/form_1" id="form" method = "post" >
 	<h1>Site de shotgun</h1>
@@ -16,50 +26,69 @@
 	<div class="tab">
 
 
-	<h2> Your Profile </h2>
+	<h2> Votre profile </h2>
 		<p>
-			Your Name :
+			Votre nom :
 		</p>
 
-		<label for="name">First Name:</label>
+		<label for="name">Prénom :</label>
         <input type="text" name="first_name" id="first_name" autofocus />
-        <label for="name">Last Name:</label>
+        <label for="name">Nom :</label>
         <input type="text" name="last_name" id="last_name" autofocus />
-
+	<script>
+	/*send_data('first_name', document.getElementById("first_name"), socket);
+	send_data('last_name', document.getElementById("last_name"), socket);*/
+	var first_name = document.getElementById('first_name');
+	first_name.addEventListener('change',function() { 
+		console.log('first_name');
+		socket.emit('first_name', first_name.options[first_name.selectedIndex].innerHTML)});
+	var last_name = document.getElementById('last_name');
+	last_name.addEventListener('change',function() { socket.emit('last_name', last_name.options[last_name.selectedIndex].innerHTML)});
+	</script>
 	<p>
-	Current Year : 
+	Votre promo : 
 	<select name="year" size="1" id="year">
 		<option>022
 		<option>021
 		<option>020
 		<option>019
 	</select>
+	<script>
+	send_data('year', document.getElementById("year"), socket);
+	</script>
 	</p>
 	</div>
 	<div class="tab">
 		<p>
 		Quelle langue choisissez vous ?
-		<select name="langue" size="1" for="langue">
+		<select name="langue" size="1" for="langue" id="langue">
 			<option>anglais
 			<option>allemand
 		</select>
-
+		<script>
+		send_data('language', document.getElementById("langue")), socket;
+		</script>
 		<p>
 		Quelle sport choisissez vous ?
-		<select name="sport" size="1" for="sport">
+		<select name="sport" size="1" for="sport" id="sport">
 			<option>tennis
 			<option>aviron
 		</select>
+		<script>
+		send_data('sport', document.getElementById("sport"), socket);
+		</script>
 		</p>
 	</div>	
 	<div class="tab">
 		<p>
 			Veuillez classer les cours disponibles pour vous:
-			<select name="year" size="1" id="year">
-		<option>cours1
-		<option>cours2
-		<option>cours3
-		<option>cours4
+			<select name="class1" size="1" id="class1">
+		<option>-----
+		<% 
+		var n = language_list.length;
+		for (var i = 0;  i < n; i++) {
+			%><option><%=language_list[i].libelle; %>
+		<% } %>
 	</select>
 </div>
 
@@ -70,8 +99,16 @@
   		</div>
 	</div>
 		</form>
-		<script src="/socket.io/socket.io.js"></script>
+		
 	<script>
+		/*
+	var langue = document.getElementById('langue');
+	first_name.addEventListener('change',function() { socket.emit('language', first_name.options[langue.selectedIndex].innerHTML)});
+	var sport = document.getElementById('sport');
+	first_name.addEventListener('change',function() { socket.emit('sport', first_name.options[sport.selectedIndex].innerHTML)});
+	*/
+			
+		
 	// need to see in which slide we are
 	var counter = 0;
 	// show the current slide
@@ -105,6 +142,11 @@
 		}
 		showSlide(counter);
 	}
+
+
+	
+	
+	
 		
 	</script>
 

@@ -26,14 +26,21 @@ function add_data_form_1(data) {
 
 };
 
-function query_first_l(data, list) {	
+function query_first_l(data, callback) {	
 	if (data != '')
 	{
 	 con.query('SELECT Cours.libelle FROM Cours JOIN langue ON Cours.id_langue = langue.id WHERE langue.libelle = ?', data, 
 			function (err, result, fields) {
-			if (err) throw err;
-			list.push(result);
-			//console.log(list);	
+			if (err)
+			{
+				callback(err, null);
+			}
+			else
+			{
+				callback(null,  result);
+			}
+			
+			console.log('data selected');	
 			});
 			
 	}
