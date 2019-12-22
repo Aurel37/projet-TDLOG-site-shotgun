@@ -13,16 +13,22 @@ con.connect(function(err) {
 	console.log('connected !');
 });
 
-function add_data(data) {
+function analyse_word(word) {
+	var res = '';
+	var n = word.length;
+	var i = 0;
+	while (word[i] != '\n' && i<n)
+	{
+		res += word[i];
+		i++;
+	}
+	return res
+}
+	
+
+function add_data_form_1(data) {
 	if (data != '') 
 	{
-		//if (first) {
-		//	var sql = 'INSERT INTO ' +  table + ' (' + column + ') '  +  "VALUES" + ' (' + data + ')';
-		//}
-		/*else
-		{
-			var sql = 'INSERT INTO ' +  table + ' (' + column + ') '  +  "VALUES" + ' (' + data + ') WHERE '  ;
-		}*/
 		con.query('INSERT INTO Students(Name, Sport, Promo) VALUES (?, ?, ?)',
 		data,
 		function (err, result) {
@@ -33,6 +39,25 @@ function add_data(data) {
 
 };
 
+function query_first_l(data, callback) {	
+	if (typeof(data) != 'undefined')
+	{
+	var word = analyse_word(data);
+	 con.query('SELECT Cours.libelle FROM Cours JOIN langue ON Cours.id_langue = langue.id WHERE langue.libelle = ?', [word], 
+			function (err, result, fields) {
+			if (err)
+			{
+				callback(err, null);
+			}
+			else
+			{
+				callback(null,  result);
+			}	
+			});
+			
+	}
+}
+
 function push_cookie(cookie, name, data) {
 	if (data != '') {
 		cookie[name] = data;
@@ -40,7 +65,9 @@ function push_cookie(cookie, name, data) {
 };
 
 exports.db_manager = con;
-exports.add_data = add_data;
+exports.add_data = add_data_form_1;
+exports.query_first_l = query_first_l;
 exports.push_cookie = push_cookie;
 
+//con.end((err) => {});
 

@@ -9,44 +9,47 @@
 	</head>
 
 	<body>
+	
 	<form action="/shotgun/add/form_1" id="form" method = "post" >
 	<h1>Site de shotgun</h1>
 		
 	<img id= "logo" src="/css/logo_pont">
 	<div class="tab">
 
-	<h2> Your Profile </h2>
+
+	<h2> Votre profile </h2>
 		<p>
-			Your Name :
+			Votre nom :
 		</p>
 
-		<label for="name">First Name:</label>
-        <input type="text" name="first_name" id="first_name" autofocus />
-        <label for="name">Last Name:</label>
-        <input type="text" name="last_name" id="last_name" autofocus />
-
+		<label for="name">Prénom :</label>
+        <input type="text" name="first_name" id="first_name" />
+        <label for="name">Nom :</label>
+        <input type="text" name="last_name" id="last_name" />
+	
 	<p>
-	Current Year : 
+	Votre promo : 
 	<select name="year" size="1" id="year">
 		<option draggable="true">022
 		<option>021
 		<option>020
 		<option>019
 	</select>
+	
 	</p>
 	</div>
 	<div class="tab">
 		<p>
 		Quelle langue choisissez vous ?
-		<select name="langue" size="1" for="langue">
+		<select name="langue" size="1" id="langue">
+			<option>Votre langue
 			<option>anglais
 			<option>allemand
 		</select>
-		<p>
-		</p>
+		
 		<p>
 		Quelle sport choisissez vous ?
-		<select name="sport" size="1" for="sport">
+		<select name="sport" size="1" id="sport">
 			<option>tennis
 			<option>aviron
 		</select>
@@ -55,13 +58,9 @@
 	<div class="tab">
 		<p>
 			Veuillez classer les cours disponibles pour vous:
-			<select name="year" size="1" id="year">
-		<option>cours1
-		<option>cours2
-		<option>cours3
-		<option>cours4
+	<select id="class1">
 	</select>
-</div>
+	</div>
 
 	<div style="overflow:auto;">
   		<div style="float:right;">
@@ -70,8 +69,39 @@
   		</div>
 	</div>
 		</form>
-		<script src="/socket.io/socket.io.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
 	<script>
+		var socket = io.connect('http://localhost:8080');
+		function send_data(tag, data, socket, type, init) {
+		data.addEventListener(type, function() {
+			var analyse = data.options[data.selectedIndex].innerHTML;
+			if (data.options[data.selectedIndex].innerHTML != init) { 
+				alert(analyse);
+				socket.emit(tag, analyse);
+			}
+			});
+		}
+	
+	send_data('langue', document.getElementById("langue"), socket, 'change');
+
+	
+	socket.on('langue', function(langue_list) {
+		var n = langue_list.length;
+		document.getElementById("class1").innerHTML = "";	
+		document.getElementById("class1").innerHTML += "<option>Choix de votre cours";
+		for (var i=0; i<n; i++)
+		{
+			//$('#class1').prepend(langue_list[i].libelle);
+           		//alert(i);
+			document.getElementById("class1").innerHTML += "<option>" + langue_list[i].libelle;
+		}
+	});
+	</script>
+	<script>	
+
+			
+		
 	// need to see in which slide we are
 	var counter = 0;
 	// show the current slide
@@ -105,35 +135,12 @@
 		}
 		showSlide(counter);
 	}
-		/*var socket = io.connect('http://localhost:8080');
 
-		var data1 = document.getElementById('data1');
-		data1.addEventMistener('change', function (e) {
-		alert('test de merde');
-		var name = document.getElementById('name');
-		name.addEventListener('change', function () {
-			var answer = name.options[name.selectedIndex].innerHTML:
-			socket.emit('name', answer);
-		});
 
-		var year = document.getElementById('year');
-		year.addEventListener('change', function () {
-			var answer = year.options[year.selectedIndex].innerHTML;
-			socket.emit('year', answer);
-		});
-				
-
-		var class1 = document.getElementById('class1');
-		class1.addEventListener('change', function () {
-			var answer = class1.options[class1.selectedIndex].innerHTML;
-			socket.emit('class1', answer);
-		});
-			socket.emit('form_1');
-		});
-		*/
+	
+	
+	
 		
-		
-				
 	</script>
 
 
