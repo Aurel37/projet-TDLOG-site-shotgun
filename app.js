@@ -11,6 +11,7 @@ model.db_manager;
 
 function socket_add(tag, socket, req) {
 	socket.on(tag, function(data) {
+		console.log(data);
 		model.push_cookie(req.session.answers, tag, data);
 	});
 }
@@ -27,14 +28,18 @@ app.use(session({secret: 'shotgun'}))
 	next();
 })
 
-.get('/shotgun', function(req, res) {
+/*.all(function(req, res, next) {
 	
-	if (typeof(req.session.answers.language) != 'undefined')
+	next()
+})*/
+
+.get('/shotgun', function(req, res) {
+	res.render('index.ejs');
+	/*if (typeof(req.session.answers.language) != 'undefined')
 	{
 		console.log(req.session.answers.name);	
 		model.query_first_l([req.session.answers.language], function(err, result) {
 			if (err) throw err;
-			
 			res.render('index.ejs', {language_list: result});
 		});
 		
@@ -42,35 +47,28 @@ app.use(session({secret: 'shotgun'}))
 	else
 	{
 		res.render('index.ejs', {language_list: []});
-	}
+	}*/
 	
-
 })
 
 .post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
 	console.log('newt');
-	/*model.push_cookie(req.session.answers, 'name', req.body.name);
+	model.push_cookie(req.session.answers, 'name', req.body.first_name);
 	model.push_cookie(req.session.answers, 'year', req.body.year);
 	model.push_cookie(req.session.answers, 'language', req.body.langue);
-	model.push_cookie(req.session.answers, 'sport', req.body.class1);*/
+	model.push_cookie(req.session.answers, 'sport', req.body.class1);
 	
 	//model.add_data_form_1([req.session.answers.name, req.session.answers.sport, req.session.answers.year]);
 	res.redirect('/shotgun');
 });
-
-
 io.sockets.on('connection', function (socket) {
-	console.log('io fonctionne correctement');
-	socket.on('first_name', function(first_name) {
-		console.log(first_name);
-	});
-	app.get('/shotgun', function(req, res) {
-		console.log("coucou");
-		socket_add('first_name', socket, req);
-		socket_add('last_name', socket, req);
-		socket_add('year', socket, req);
-		socket_add('language', socket, req);
-	});
+		console.log('io fonctionne correctement');
+		socket.on('langue', function(langue_list) {
+			model.query_first_l(langue_list, function(err, result) {
+				if (err) throw err;
+				socket.emit('langue', result);
+			});
+		});
 });
 
 server.listen(8080);

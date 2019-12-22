@@ -13,6 +13,19 @@ con.connect(function(err) {
 	console.log('connected !');
 });
 
+function analyse_word(word) {
+	var res = '';
+	var n = word.length;
+	var i = 0;
+	while (word[i] != '\n' && i<n)
+	{
+		res += word[i];
+		i++;
+	}
+	return res
+}
+	
+
 function add_data_form_1(data) {
 	if (data != '') 
 	{
@@ -27,9 +40,10 @@ function add_data_form_1(data) {
 };
 
 function query_first_l(data, callback) {	
-	if (data != '')
+	if (typeof(data) != 'undefined')
 	{
-	 con.query('SELECT Cours.libelle FROM Cours JOIN langue ON Cours.id_langue = langue.id WHERE langue.libelle = ?', data, 
+	var word = analyse_word(data);
+	 con.query('SELECT Cours.libelle FROM Cours JOIN langue ON Cours.id_langue = langue.id WHERE langue.libelle = ?', [word], 
 			function (err, result, fields) {
 			if (err)
 			{
@@ -38,9 +52,7 @@ function query_first_l(data, callback) {
 			else
 			{
 				callback(null,  result);
-			}
-			
-			console.log('data selected');	
+			}	
 			});
 			
 	}

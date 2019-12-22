@@ -9,17 +9,7 @@
 	</head>
 
 	<body>
-	<script src="/socket.io/socket.io.js"></script>
-	<script>
-		var socket = io.connect('http://localhost:8080');
-		function send_data(tag, data, socket) {
-		data.addEventListener('change', function() {
-			alert(data.options[data.selectedIndex].innerHTML);
-			socket.emit(tag, data.options[data.selectedIndex].innerHTML);
-			});
-		}
-	</script>
-
+	
 	<form action="/shotgun/add/form_1" id="form" method = "post" >
 	<h1>Site de shotgun</h1>
 		
@@ -33,19 +23,10 @@
 		</p>
 
 		<label for="name">Prénom :</label>
-        <input type="text" name="first_name" id="first_name" autofocus />
+        <input type="text" name="first_name" id="first_name" />
         <label for="name">Nom :</label>
-        <input type="text" name="last_name" id="last_name" autofocus />
-	<script>
-	/*send_data('first_name', document.getElementById("first_name"), socket);
-	send_data('last_name', document.getElementById("last_name"), socket);*/
-	var first_name = document.getElementById('first_name');
-	first_name.addEventListener('change',function() { 
-		console.log('first_name');
-		socket.emit('first_name', first_name.options[first_name.selectedIndex].innerHTML)});
-	var last_name = document.getElementById('last_name');
-	last_name.addEventListener('change',function() { socket.emit('last_name', last_name.options[last_name.selectedIndex].innerHTML)});
-	</script>
+        <input type="text" name="last_name" id="last_name" />
+	
 	<p>
 	Votre promo : 
 	<select name="year" size="1" id="year">
@@ -54,44 +35,32 @@
 		<option>020
 		<option>019
 	</select>
-	<script>
-	send_data('year', document.getElementById("year"), socket);
-	</script>
+	
 	</p>
 	</div>
 	<div class="tab">
 		<p>
 		Quelle langue choisissez vous ?
-		<select name="langue" size="1" for="langue" id="langue">
+		<select name="langue" size="1" id="langue">
+			<option>Votre langue
 			<option>anglais
 			<option>allemand
 		</select>
-		<script>
-		send_data('language', document.getElementById("langue")), socket;
-		</script>
+		
 		<p>
 		Quelle sport choisissez vous ?
-		<select name="sport" size="1" for="sport" id="sport">
+		<select name="sport" size="1" id="sport">
 			<option>tennis
 			<option>aviron
 		</select>
-		<script>
-		send_data('sport', document.getElementById("sport"), socket);
-		</script>
 		</p>
 	</div>	
 	<div class="tab">
 		<p>
 			Veuillez classer les cours disponibles pour vous:
-			<select name="class1" size="1" id="class1">
-		<option>-----
-		<% 
-		var n = language_list.length;
-		for (var i = 0;  i < n; i++) {
-			%><option><%=language_list[i].libelle; %>
-		<% } %>
+	<select id="class1">
 	</select>
-</div>
+	</div>
 
 	<div style="overflow:auto;">
   		<div style="float:right;">
@@ -100,14 +69,37 @@
   		</div>
 	</div>
 		</form>
-		
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
 	<script>
-		/*
-	var langue = document.getElementById('langue');
-	first_name.addEventListener('change',function() { socket.emit('language', first_name.options[langue.selectedIndex].innerHTML)});
-	var sport = document.getElementById('sport');
-	first_name.addEventListener('change',function() { socket.emit('sport', first_name.options[sport.selectedIndex].innerHTML)});
-	*/
+		var socket = io.connect('http://localhost:8080');
+		function send_data(tag, data, socket, type, init) {
+		data.addEventListener(type, function() {
+			var analyse = data.options[data.selectedIndex].innerHTML;
+			if (data.options[data.selectedIndex].innerHTML != init) { 
+				alert(analyse);
+				socket.emit(tag, analyse);
+			}
+			});
+		}
+	
+	send_data('langue', document.getElementById("langue"), socket, 'change');
+
+	
+	socket.on('langue', function(langue_list) {
+		var n = langue_list.length;
+		document.getElementById("class1").innerHTML = "";	
+		document.getElementById("class1").innerHTML += "<option>Choix de votre cours";
+		for (var i=0; i<n; i++)
+		{
+			//$('#class1').prepend(langue_list[i].libelle);
+           		//alert(i);
+			document.getElementById("class1").innerHTML += "<option>" + langue_list[i].libelle;
+		}
+	});
+	</script>
+	<script>	
+
 			
 		
 	// need to see in which slide we are
