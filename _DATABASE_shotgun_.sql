@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 08, 2019 at 01:32 PM
+-- Generation Time: Dec 22, 2019 at 07:21 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -56,7 +56,7 @@ CREATE TABLE `Cours` (
   `id_creneau` int(11) DEFAULT NULL,
   `id_langue` int(11) DEFAULT NULL,
   `niveau` int(11) DEFAULT NULL,
-  `libele` text,
+  `libelle` text,
   `enseignant` text,
   `effectif_max` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -65,7 +65,7 @@ CREATE TABLE `Cours` (
 -- Dumping data for table `Cours`
 --
 
-INSERT INTO `Cours` (`indice`, `id_creneau`, `id_langue`, `niveau`, `libele`, `enseignant`, `effectif_max`) VALUES
+INSERT INTO `Cours` (`indice`, `id_creneau`, `id_langue`, `niveau`, `libelle`, `enseignant`, `effectif_max`) VALUES
 (0, 0, 0, 0, 'Speak Easy', 'ZD', 15),
 (1, 0, 0, 0, 'A Play for Today', 'CP', 15),
 (2, 0, 0, 0, 'Conversational English', 'TH', 15),
@@ -237,14 +237,14 @@ CREATE TABLE `language_wanted` (
 
 CREATE TABLE `langue` (
   `id` int(11) NOT NULL,
-  `libele` text
+  `libelle` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `langue`
 --
 
-INSERT INTO `langue` (`id`, `libele`) VALUES
+INSERT INTO `langue` (`id`, `libelle`) VALUES
 (0, 'anglais'),
 (1, 'espagnol'),
 (2, 'allemand'),
@@ -346,11 +346,24 @@ CREATE TABLE `Students` (
 
 INSERT INTO `Students` (`id`, `Name`, `Sport`, `Promo`) VALUES
 (1, 'aurelien', NULL, 21),
-(2, 'aurelien', NULL, 21);
+(2, 'aurelien', NULL, 21),
+(3, 'aurelien', NULL, 21),
+(4, 'aurelienp^sojd', NULL, 21),
+(5, 'aurelienskehf', NULL, 21),
+(6, 'aukjsdbf', NULL, 21),
+(7, 'jean-jacque', NULL, 21),
+(8, 'coucou', NULL, 21),
+(9, 'hello', NULL, 21);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `choices`
+--
+ALTER TABLE `choices`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `Cours`
@@ -381,10 +394,16 @@ ALTER TABLE `Students`
 --
 
 --
+-- AUTO_INCREMENT for table `choices`
+--
+ALTER TABLE `choices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `Students`
 --
 ALTER TABLE `Students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
