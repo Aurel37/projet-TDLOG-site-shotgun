@@ -21,20 +21,21 @@
 		<p>
 			Votre nom :
 		</p>
-				<p>
-		<label for="name">Prénom :</label>
-
+	<p>
+	<label for="name">Prénom :</label>
         <input type="text" name="first_name" id="first_name" />
-    </p>
-    <p>
+	</p>
+	<p>
         <label for="name">Nom :</label>
         <input type="text" name="last_name" id="last_name" />
-       </p>
-	
+	</p>
+
+>>>>>>> befdd323168eed1af7155e6470ba71d16cd05878
 	<p>
 	Votre promo : 
 	<select name="year" size="1" id="year">
-		<option draggable="true">022
+		<option>Votre année
+		<option>022
 		<option>021
 		<option>020
 		<option>019
@@ -54,6 +55,7 @@
 		<p>
 		Quelle sport choisissez vous ?
 		<select name="sport" size="1" id="sport">
+			<option>Votre sport
 			<option>tennis
 			<option>aviron
 		</select>
@@ -73,34 +75,40 @@
   		</div>
 	</div>
 		</form>
-	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
-		var socket = io.connect('http://localhost:8080');
-		function send_data(tag, data, socket, type, init) {
+	var socket = io.connect('http://localhost:8080');
+	function send_data_selected(tag, data, socket, type) {
 		data.addEventListener(type, function() {
 			var analyse = data.options[data.selectedIndex].innerHTML;
-			if (data.options[data.selectedIndex].innerHTML != init) { 
-				alert(analyse);
+			if (data.selectedIndex >= 1) { 
 				socket.emit(tag, analyse);
 			}
 			});
 		}
 	
-	send_data('langue', document.getElementById("langue"), socket, 'change');
-
+	function send_data_text(tag, data, socket, type) {
+		data.addEventListener(type, function() {
+			var analyse = data.value;
+			socket.emit(tag, analyse);
+		});
+	}
 	
+	send_data_text('first_name', document.getElementById("first_name"), socket, 'blur');
+	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
+	send_data_selected('year', document.getElementById("year"), socket, 'change');
+
+	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
 	socket.on('langue', function(langue_list) {
 		var n = langue_list.length;
 		document.getElementById("class1").innerHTML = "";	
 		document.getElementById("class1").innerHTML += "<option>Choix de votre cours";
 		for (var i=0; i<n; i++)
 		{
-			//$('#class1').prepend(langue_list[i].libelle);
-           		//alert(i);
 			document.getElementById("class1").innerHTML += "<option>" + langue_list[i].libelle;
 		}
 	});
+	send_data_selected('sport', document.getElementById("sport"), socket, 'change');
 	</script>
 	<script>	
 

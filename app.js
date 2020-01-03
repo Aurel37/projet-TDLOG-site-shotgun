@@ -1,9 +1,14 @@
 var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
-var session = require('cookie-session');
-var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({extended: false});
+var session = require('express-session')({
+	secret: 'shotgun',
+	resave: true,
+	saveUninitialized: true
+});
+var sharedsession = require("express-socket.io-session");
+//var bodyParser = require('body-parser');
+//var urlencodedParser = bodyParser.urlencoded({extended: false});
 var model = require('./model');
 //var url = require('url');
 var io = require('socket.io').listen(server);
@@ -11,22 +16,24 @@ model.db_manager;
 
 function socket_add(tag, socket, req) {
 	socket.on(tag, function(data) {
-		console.log(data);
 		model.push_cookie(req.session.answers, tag, data);
 	});
 }
 
+io.use(sharedsession(session, {
+	autoSave: true
+}));
+
 app.use(express.static("views"));
+app.use(session)
 
-app.use(session({secret: 'shotgun'}))
-
-.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
 	if (typeof(req.session.answers) == 'undefined')
 	{
 		req.session.answers ={};
 	}
 	next();
-})
+})*/
 
 /*.all(function(req, res, next) {
 	
@@ -35,23 +42,14 @@ app.use(session({secret: 'shotgun'}))
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
-	/*if (typeof(req.session.answers.language) != 'undefined')
+	if (typeof(req.session.langue) != 'undefined')
 	{
-		console.log(req.session.answers.name);	
-		model.query_first_l([req.session.answers.language], function(err, result) {
-			if (err) throw err;
-			res.render('index.ejs', {language_list: result});
-		});
-		
+		console.log('transfer operational');
 	}
-	else
-	{
-		res.render('index.ejs', {language_list: []});
-	}*/
-	
+
 })
 
-.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
+/*.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
 	console.log('newt');
 	model.push_cookie(req.session.answers, 'name', req.body.first_name);
 	model.push_cookie(req.session.answers, 'year', req.body.year);
@@ -60,14 +58,34 @@ app.use(session({secret: 'shotgun'}))
 	
 	//model.add_data_form_1([req.session.answers.name, req.session.answers.sport, req.session.answers.year]);
 	res.redirect('/shotgun');
-});
-io.sockets.on('connection', function (socket) {
-		console.log('io fonctionne correctement');
+});*/
+
+
+io.sockets.on('connection', function (socket){
+		socket.on('first_name', function(first_name) {
+			socket.handshake.session.first_name = first_name;
+			socket.handshake.session.save();
+			
+		});
+		socket.on('last_name', function(last_name) {
+			socket.handshake.session.last_name = last_name;
+			socket.handshake.session.save();
+		});
+		socket.on('year', function(year) {
+			socket.handshake.session.year = year;
+			socket.handshake.session.save();
+		});
 		socket.on('langue', function(langue_list) {
+			socket.handshake.session.langue = langue_list;
+			socket.handshake.session.save();
 			model.query_first_l(langue_list, function(err, result) {
 				if (err) throw err;
 				socket.emit('langue', result);
 			});
+		});
+		socket.on('sport', function(sport) {
+			socket.handshake.session.sport = sport;
+			socket.handshake.session.save();
 		});
 });
 
