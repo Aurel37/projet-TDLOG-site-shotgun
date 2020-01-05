@@ -12,6 +12,7 @@ var sharedsession = require("express-socket.io-session");
 var model = require('./model');
 //var url = require('url');
 var io = require('socket.io').listen(server);
+
 model.db_manager;
 
 function socket_add(tag, socket, req) {
@@ -42,11 +43,6 @@ app.use(session)
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
-	if (typeof(req.session.langue) != 'undefined')
-	{
-		console.log('transfer operational');
-	}
-
 })
 
 /*.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
