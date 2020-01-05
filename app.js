@@ -43,6 +43,7 @@ app.use(session)
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
+
 })
 
 /*.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
@@ -79,9 +80,13 @@ io.sockets.on('connection', function (socket){
 				socket.emit('langue', result);
 			});
 		});
-		socket.on('sport', function(sport) {
-			socket.handshake.session.sport = sport;
+		socket.on('sport', function(sport_list) {
+			socket.handshake.session.sport = sport_list;
 			socket.handshake.session.save();
+			model.get_sport(sport_list, function(err, result) {
+				if (err) throw err;
+				socket.emit('sport', result);
+			});
 		});
 });
 

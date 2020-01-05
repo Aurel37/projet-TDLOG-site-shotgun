@@ -29,7 +29,6 @@
         <label for="name">Nom :</label>
         <input type="text" name="last_name" id="last_name" />
 	</p>
-
 	<p>
 	Votre promo : 
 	<select name="year" size="1" id="year">
@@ -54,9 +53,6 @@
 		<p>
 		Quelle sport choisissez vous ?
 		<select name="sport" size="1" id="sport">
-			<option>Votre sport
-			<option>tennis
-			<option>aviron
 		</select>
 		</p>
 	</div>	
@@ -107,7 +103,15 @@
 			document.getElementById("class1").innerHTML += "<option>" + langue_list[i].libelle;
 		}
 	});
-	send_data_selected('sport', document.getElementById("sport"), socket, 'change');
+	socket.on(function(sport_list) {
+		var n = sport_list.length;
+		document.getElementById("sport").innerHTML = "";	
+		document.getElementById("sport").innerHTML += "<option>Choix de votre sport";
+		for (var i=0; i<n; i++)
+		{
+			document.getElementById("sport").innerHTML += "<option>" + sport_list[i].Libelle;
+		}
+	});
 	</script>
 	<script>	
 
