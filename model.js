@@ -57,6 +57,22 @@ function query_first_l(data, callback) {
 			
 	}
 }
+function get_sport(data, collback){
+	if(typeof(data) != 'undefined')
+	{
+	con.query('SELECT Libelle FROM Sports',
+	function (err, result, fields) {
+		if (err)
+		{
+			callback(err, null);
+		}
+		else
+		{
+			callback(null, result);
+		}
+	});
+	}
+}
 
 function push_cookie(cookie, name, data) {
 	if (data != '') {
@@ -66,6 +82,7 @@ function push_cookie(cookie, name, data) {
 
 exports.db_manager = con;
 exports.add_data = add_data_form_1;
+exports.get_sport = get_sport;
 exports.query_first_l = query_first_l;
 exports.push_cookie = push_cookie;
 
