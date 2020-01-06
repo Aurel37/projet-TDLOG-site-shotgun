@@ -103,7 +103,7 @@
 			document.getElementById("class1").innerHTML += "<option>" + langue_list[i].libelle;
 		}
 	});
-	socket.on(function(sport_list) {
+	socket.on('sport', function(sport_list) {
 		var n = sport_list.length;
 		document.getElementById("sport").innerHTML = "";	
 		document.getElementById("sport").innerHTML += "<option>Choix de votre sport";

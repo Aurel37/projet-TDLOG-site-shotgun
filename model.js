@@ -57,10 +57,8 @@ function query_first_l(data, callback) {
 			
 	}
 }
-function get_sport(data, collback){
-	if(typeof(data) != 'undefined')
-	{
-	con.query('SELECT Libelle FROM Sports',
+function get_sport( collback){
+	con.query('SELECT Sports.Libelle FROM Sports',
 	function (err, result, fields) {
 		if (err)
 		{
@@ -71,7 +69,6 @@ function get_sport(data, collback){
 			callback(null, result);
 		}
 	});
-	}
 }
 
 function push_cookie(cookie, name, data) {

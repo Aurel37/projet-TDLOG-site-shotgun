@@ -42,10 +42,6 @@ app.use(session)
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
-	if (typeof(req.session.sport) != 'undefined')
-	{
-		console.log('transfer operational');
-	}
 	if (typeof(req.session.langue) != 'undefined')
 	{
 		console.log('transfer operational');
@@ -66,6 +62,12 @@ app.use(session)
 
 
 io.sockets.on('connection', function (socket){
+
+	model.get_sport(function(err, result) {
+				if (err) throw err;
+				socket.emit('sport', result);
+			});
+
 		socket.on('first_name', function(first_name) {
 			socket.handshake.session.first_name = first_name;
 			socket.handshake.session.save();
@@ -87,14 +89,8 @@ io.sockets.on('connection', function (socket){
 				socket.emit('langue', result);
 			});
 		});
-		socket.on('sport', function(sport_list) {
-			socket.handshake.session.sport = sport_list;
-			socket.handshake.session.save();
-			model.get_sport(sport_list, function(err, result) {
-				if (err) throw err;
-				socket.emit('sport', result);
-			});
-		});
+			
+		
 });
 
 server.listen(8080);
