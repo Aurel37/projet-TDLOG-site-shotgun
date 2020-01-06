@@ -67,6 +67,10 @@ io.sockets.on('connection', function (socket){
 				if (err) throw err;
 				socket.emit('sport', result);
 			});
+	model.get_langue(function(err, result) {
+				if (err) throw err;
+				socket.emit('langue_list', result);
+			});
 
 		socket.on('first_name', function(first_name) {
 			socket.handshake.session.first_name = first_name;

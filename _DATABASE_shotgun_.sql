@@ -1,20 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 22, 2019 at 07:21 PM
--- Server version: 5.7.23
--- PHP Version: 7.2.10
+-- Generation Time: Jan 06, 2020 at 02:13 PM
+-- Server version: 5.7.25
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `shotgun_website`
@@ -330,6 +324,29 @@ INSERT INTO `promo` (`id`, `libele`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `Sports`
+--
+
+CREATE TABLE `Sports` (
+  `id` int(11) NOT NULL,
+  `Libelle` text,
+  `id_créneau` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Sports`
+--
+
+INSERT INTO `Sports` (`id`, `Libelle`, `id_créneau`) VALUES
+(0, 'Tennis', 4),
+(1, 'Basket', 1),
+(2, 'Natation', 15),
+(3, 'Danse', 1),
+(4, 'Aviron', 8);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `Students`
 --
 
@@ -384,6 +401,12 @@ ALTER TABLE `langue`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `Sports`
+--
+ALTER TABLE `Sports`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `Students`
 --
 ALTER TABLE `Students`
@@ -404,7 +427,3 @@ ALTER TABLE `choices`
 --
 ALTER TABLE `Students`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
