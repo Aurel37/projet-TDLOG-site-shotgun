@@ -43,6 +43,10 @@ app.use(session)
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
+	if (typeof(req.session.langue)  == 'undefined')
+	{
+		console.log('transfer managed');
+	}
 })
 
 /*.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
