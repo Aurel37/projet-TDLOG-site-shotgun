@@ -43,7 +43,7 @@ function query_first_l(data, callback) {
 	if (typeof(data) != 'undefined')
 	{
 	var word = analyse_word(data);
-	 con.query('SELECT Cours.libelle FROM Cours JOIN langue ON Cours.id_langue = langue.id WHERE langue.libelle = ?', [word], 
+	con.query('SELECT Cours.libelle FROM Cours JOIN langue ON Cours.id_langue = langue.id WHERE langue.libelle = ?', [word], 
 			function (err, result, fields) {
 			if (err)
 			{
@@ -57,10 +57,8 @@ function query_first_l(data, callback) {
 			
 	}
 }
-function get_sport(data, collback){
-	if(typeof(data) != 'undefined')
-	{
-	con.query('SELECT Libelle FROM Sports',
+function get_sport(callback){
+	con.query('SELECT Sports.Libelle FROM Sports',
 	function (err, result, fields) {
 		if (err)
 		{
@@ -71,7 +69,6 @@ function get_sport(data, collback){
 			callback(null, result);
 		}
 	});
-	}
 }
 
 function push_cookie(cookie, name, data) {
