@@ -56,3 +56,27 @@ button:hover {
   background-color: white; /* Green */
   color: #003399;
 }
+
+/*#row_langue:after {
+	content: "";
+	display: table;
+	clear: both;
+}*/
+
+#class1  {
+	width: 80%;
+	height: 330px;
+	overflow: scroll;
+}
+
+#class1 li {
+	border: 1px solid #ddd; 
+	margin-top: -1px; 
+	background-color: black; 
+	padding: 12px; 
+	font-size: 18px;
+	color: white; 
+	display: block; 
+}
+
+
