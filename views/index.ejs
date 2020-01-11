@@ -110,6 +110,15 @@
 			document.getElementById("langue").innerHTML += "<option>" + langue_list[i].libelle;
 		}
 	});
+	socket.on('promo_list', function(promo_list) {
+		var n = promo_list.length;
+		document.getElementById("year").innerHTML = "";	
+		document.getElementById("year").innerHTML += "<option>Choix de votre promo";
+		for (var i=0; i<n; i++)
+		{
+			document.getElementById("year").innerHTML += "<option>" + promo_list[i].libele;
+		}
+	});
 	socket.on('langue', function(langue_list) {
 		var n = langue_list.length;
 		document.getElementById("class1").innerHTML = "";	

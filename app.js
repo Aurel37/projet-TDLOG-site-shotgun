@@ -63,14 +63,21 @@ app.use(session)
 
 io.sockets.on('connection', function (socket){
 
-	model.get_sport(function(err, result) {
+	model.get_promo(function(err, result) {
 				if (err) throw err;
-				socket.emit('sport', result);
+				socket.emit('promo_list', result);
 			});
+
+
 	model.get_langue(function(err, result) {
 				if (err) throw err;
 				socket.emit('langue_list', result);
 			});
+		model.get_sport(function(err, result) {
+				if (err) throw err;
+				socket.emit('sport', result);
+			});
+
 
 		socket.on('first_name', function(first_name) {
 			socket.handshake.session.first_name = first_name;
