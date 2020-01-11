@@ -12,6 +12,7 @@ var sharedsession = require("express-socket.io-session");
 var model = require('./model');
 //var url = require('url');
 var io = require('socket.io').listen(server);
+
 model.db_manager;
 
 function socket_add(tag, socket, req) {
@@ -42,11 +43,10 @@ app.use(session)
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
-	if (typeof(req.session.langue) != 'undefined')
+	if (typeof(req.session.langue)  == 'undefined')
 	{
-		console.log('transfer operational');
+		console.log('transfer managed');
 	}
-
 })
 
 /*.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
@@ -63,22 +63,20 @@ app.use(session)
 
 io.sockets.on('connection', function (socket){
 
-	model.get_promo(function(err, result) {
+
+		model.get_promo(function(err, result) {
 				if (err) throw err;
 				socket.emit('promo_list', result);
 			});
 
-
-	model.get_langue(function(err, result) {
-				if (err) throw err;
-				socket.emit('langue_list', result);
-			});
 		model.get_sport(function(err, result) {
 				if (err) throw err;
 				socket.emit('sport', result);
 			});
-
-
+		model.get_langue(function(err, result) {
+				if (err) throw err;
+				socket.emit('langue_list', result);
+			});
 		socket.on('first_name', function(first_name) {
 			socket.handshake.session.first_name = first_name;
 			socket.handshake.session.save();

@@ -32,11 +32,6 @@
 	<p>
 	Votre promo : 
 	<select name="year" size="1" id="year">
-		<option>Votre année
-		<option>022
-		<option>021
-		<option>020
-		<option>019
 	</select>
 	
 	</p>
@@ -54,12 +49,16 @@
 		</p>
 	</div>	
 	<div class="tab">
-		<p>
 			Veuillez classer les cours disponibles pour vous:
-	<select id="class1">
-	</select>
+		
+		<ul id="rankclass1">
+		</ul>
+		<ul id="class1">
+		</ul>
+	
 	</div>
 
+	
 	<div style="overflow:auto;">
   		<div style="float:right;">
    	 		<button type="button" id="prevBtn" onclick="change(-1)">Previous</button>
@@ -90,7 +89,16 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
-
+	socket.on('promo_list', function(promo_list) {
+		var n = promo_list.length;
+		document.getElementById("year").innerHTML = "";	
+		document.getElementById("year").innerHTML += "<option>Choix de votre promo";
+		for (var i=0; i<n; i++)
+		{
+			document.getElementById("year").innerHTML += "<option>" + promo_list[i].libele;
+		}
+	});
+	
 	socket.on('sport', function(sport_list) {
 		var n = sport_list.length;
 		document.getElementById("sport").innerHTML = "";	
@@ -110,22 +118,13 @@
 			document.getElementById("langue").innerHTML += "<option>" + langue_list[i].libelle;
 		}
 	});
-	socket.on('promo_list', function(promo_list) {
-		var n = promo_list.length;
-		document.getElementById("year").innerHTML = "";	
-		document.getElementById("year").innerHTML += "<option>Choix de votre promo";
-		for (var i=0; i<n; i++)
-		{
-			document.getElementById("year").innerHTML += "<option>" + promo_list[i].libele;
-		}
-	});
+	
 	socket.on('langue', function(langue_list) {
 		var n = langue_list.length;
-		document.getElementById("class1").innerHTML = "";	
-		document.getElementById("class1").innerHTML += "<option>Choix de votre cours";
+		document.getElementById("class1").innerHTML = "";
 		for (var i=0; i<n; i++)
 		{
-			document.getElementById("class1").innerHTML += "<option>" + langue_list[i].libelle;
+			document.getElementById("class1").innerHTML += "<li id='langue_liste' draggable=true>" + langue_list[i].libelle;
 		}
 	});
 	</script>
