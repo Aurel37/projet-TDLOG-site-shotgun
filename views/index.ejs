@@ -39,24 +39,28 @@
 	<div class="tab">
 		<p>
 		Quelle langue choisissez vous ?
-		<select name="langue" size="1" id="langue">
-		</select>
+		<div id="langue">
+		</div>
 		
 		<p>
-		Quelle sport choisissez vous ?
+		Quel sport choisissez vous ?
 		<select name="sport" size="1" id="sport">
 		</select>
 		</p>
 	</div>	
 	<div class="tab">
 			Veuillez classer les cours disponibles pour vous:
-		
+			<?php foreach($_POST('list_langue') as $value){
+				echo($value);
+			}
+			?>
 		<ul id="rankclass1">
 		</ul>
 		<ul id="class1">
 		</ul>
-	
 	</div>
+	
+
 
 	
 	<div style="overflow:auto;">
@@ -89,6 +93,7 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
+
 	socket.on('promo_list', function(promo_list) {
 		var n = promo_list.length;
 		document.getElementById("year").innerHTML = "";	
@@ -98,7 +103,16 @@
 			document.getElementById("year").innerHTML += "<option>" + promo_list[i].libele;
 		}
 	});
-	
+
+	socket.on('langue_list', function(langue_list) {
+		var n = langue_list.length;
+		document.getElementById("langue").innerHTML = '';	
+		for (var i=0; i<n; i++)
+		{
+			document.getElementById("langue").innerHTML += '<input type="checkbox" name="list_langue[]" value="'+ langue_list[i].libelle +'" > '+ langue_list[i].libelle+' <br>';
+		}
+	});
+
 	socket.on('sport', function(sport_list) {
 		var n = sport_list.length;
 		document.getElementById("sport").innerHTML = "";	
@@ -109,15 +123,7 @@
 		}
 	});
 
-	socket.on('langue_list', function(langue_list) {
-		var n = langue_list.length;
-		document.getElementById("langue").innerHTML = "";	
-		document.getElementById("langue").innerHTML += "<option>Choix de votre langue";
-		for (var i=0; i<n; i++)
-		{
-			document.getElementById("langue").innerHTML += "<option>" + langue_list[i].libelle;
-		}
-	});
+
 	
 	socket.on('langue', function(langue_list) {
 		var n = langue_list.length;
