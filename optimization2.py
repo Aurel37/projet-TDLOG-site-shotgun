@@ -3,29 +3,83 @@
 
 import numpy as np
 from pulp import LpVariable, LpProblem, LpMinimize, GLPK, lpSum
+import mysql.connector
 
-## Constants
+## Connection à la base de donnée
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  passwd="root",
+  db="site"
+)
 
-nb_students = 4
-nb_courses = 2
+## Constante
+nb_choix=4
+coef_choix=3
 
-slots_courses = [[0], [1]]
+## Constante prise à partir de la base de donnée
+mycursor = mydb.cursor()
+mycursor.execute("SELECT * FROM students")
+myresult = mycursor.fetchall()
+students=[]
+for x in myresult:
+    (id, nom, sport, prom)=x
+    students.append([id,nom,sport,prom])
+nb_students = len(students)
+
+mycursor = mydb.cursor()
+mycursor.execute("SELECT * FROM créneau")
+myresult = mycursor.fetchall()
+slots_courses=[]
+for x in myresult:
+    slots_courses.append([])
+
+mycursor = mydb.cursor()
+mycursor.execute("SELECT * FROM cours")
+myresult = mycursor.fetchall()
+courses=[]
+capacities=[]
+for x in myresult:
+    (id_cours, id_creneau, id_langue, niveau, nom, enseignant, effectif)=x
+    courses.append([id_cours, id_creneau, id_langue, niveau, nom])
+    capacities.append(effectif)
+    slots_courses[id_creneau].append(id_cours)
+    
+nb_courses = len(courses)
 nb_slots = len(slots_courses)
 
-capacities = 3*np.ones(nb_courses)
+choix=[]
+
+for i in range(nb_students):
+    for k in range(1,5):
+        choix.append([i,np.random.randint(nb_courses),k])
+        
+        
+
+
+imposs = 1000
 
 ## Variable vectors (fill in with the students' requests)
 
 # list of weights given by each students to each courses
-weight = np.zeros((nb_students, nb_courses))
-weight[0, 0] = 2
-weight[0, 1] = 1
-weight[1, 0] = 2
-weight[1, 1] = 2
-weight[2, 0] = 1
-weight[2, 1] = 2
-weight[3, 0] = 1
-weight[3, 1] = 2
+def create_weight(choices):
+    #Create table
+    a=int(coef_choix*nb_choix)
+    weights=np.ones((nb_students, nb_courses))*a
+    
+    #Order choice 
+    for choice in choices:
+        student=choice[0]
+        course=choice[1]
+        rank=choice[2]
+        weights[student, course]=(rank-1)*coef_choix
+
+    
+    return weights
+
+weight=create_weight(choix)
+    
+
 
 # list of number of lessons wanted for each students
 nb_hours = np.ones(nb_students)
@@ -55,15 +109,23 @@ for j in range(nb_courses):
 # solve the problem
 prob.solve()
 
+# display the results
+for student in range(nb_students):
+    string_row = "student " + students[student][1] + " get courses"
+    for course in range(nb_courses):
+        if int(allocation[(student,course)].value()) == 1:
+            string_row += " " + courses[course][4]
+    print(string_row)
+
 # store and display the results
-with open("allocation.txt",'w') as f:
-    for student in range(nb_students):
-        string_row = "student " + str(student) + " get courses"
-        for course in range(nb_courses):
-            if allocation[(i,j)] == 1:
-                string_row += " " + str(course)
-        string_row += "\n"
-        # store
-        f.write(string_row)
-        # display
-        print(string_row)
+# with open("allocation.txt",'w') as f:
+#     for student in range(nb_students):
+#         string_row = "student " + str(student) + " get courses"
+#         for course in range(nb_courses):
+#             if allocation[(i,j)] == 1:
+#                 string_row += " " + str(course)
+#         string_row += "\n"
+#         # store
+#         f.write(string_row)
+#         # display
+#         print(string_row)
