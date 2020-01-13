@@ -245,17 +245,17 @@
 		}
 		if (n == 0){ // we don't display the button next 
 			document.getElementById("prevBtn").style.display = "none";
+
 		}
 		else{
 			document.getElementById("prevBtn").style.display = "inline";
+			document.getElementById("nextBtn").style.display = "inline";
 			
 		}
 		if (n == (tab.length - 1)){ //if we are at the end of the form 
 			document.getElementById("nextBtn").style.display = "none";
+			document.getElementById("finalBtn").style.display = "inline";
 			
-		}
-		else{
-			document.getElementById("nextBtn").innerHTML = "Next";
 		}
 
 	}
