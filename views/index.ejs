@@ -18,9 +18,6 @@
 
 
 	<h2> Votre profile </h2>
-		<p>
-			Votre nom :
-		</p>
 	<p>
 	<label for="name">Prénom :</label>
         <input type="text" name="first_name" id="first_name" />
@@ -38,9 +35,14 @@
 	</div>
 	<div class="tab">
 		<p>
-		Quelle langue choisissez vous ?
-		<div id="langue">
+		Quelles langues choisissez vous ?
+
+		<!-- 
+		 <div id="langue">
 		</div>
+	-->
+	<select name ="langue" size="1" id="langue">
+	</select>
 		
 		<p>
 		Quel sport choisissez vous ?
@@ -50,10 +52,14 @@
 	</div>	
 	<div class="tab">
 			Veuillez classer les cours disponibles pour vous:
-			<?php foreach($_POST('list_langue') as $value){
-				echo($value);
+			<!--
+			<?php 
+			//foreach($_POST('list_langue') as $value){
+			//	echo($value);
 			}
+
 			?>
+			-->
 		<ul id="rankclass1">
 		</ul>
 		<ul id="class1">
@@ -81,6 +87,9 @@
 			}
 			});
 		}
+	function send_list_selected(tag, data, socket, type){
+
+	}
 	
 	function send_data_text(tag, data, socket, type) {
 		data.addEventListener(type, function() {
@@ -93,24 +102,28 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
+	//send_list_selected('list_langue', document.getElementsByClassName('inputLangue'), socket, 'change');
+
 
 	socket.on('promo_list', function(promo_list) {
 		var n = promo_list.length;
 		document.getElementById("year").innerHTML = "";	
 		document.getElementById("year").innerHTML += "<option>Choix de votre promo";
-		for (var i=0; i<n; i++)
-		{
-			document.getElementById("year").innerHTML += "<option>" + promo_list[i].libele;
+		for (var i=0; i<n; i++){
+			document.getElementById("year").innerHTML += "<option>" + promo_list[i].libelle;
 		}
 	});
 
 	socket.on('langue_list', function(langue_list) {
 		var n = langue_list.length;
-		document.getElementById("langue").innerHTML = '';	
+		document.getElementById("langue").innerHTML = '<option> Choix de votre langue';	
 		for (var i=0; i<n; i++)
 		{
-			document.getElementById("langue").innerHTML += '<input type="checkbox" name="list_langue[]" value="'+ langue_list[i].libelle +'" > '+ langue_list[i].libelle+' <br>';
+			document.getElementById("langue").innerHTML += '<option>' + langue_list[i].libelle;
+			
+			//document.getElementById("langue").innerHTML += '<input class="inputLangue" type="checkbox" name="list_langue[]" value="'+ langue_list[i].libelle +'" > '+ langue_list[i].libelle +' <br>';
 		}
+
 	});
 
 	socket.on('sport', function(sport_list) {
@@ -119,7 +132,7 @@
 		document.getElementById("sport").innerHTML += "<option>Choix de votre sport";
 		for (var i=0; i<n; i++)
 		{
-			document.getElementById("sport").innerHTML += "<option>" + sport_list[i].Libelle;
+			document.getElementById("sport").innerHTML += "<option>" + sport_list[i].libelle;
 		}
 	});
 
@@ -130,7 +143,7 @@
 		document.getElementById("class1").innerHTML = "";
 		for (var i=0; i<n; i++)
 		{
-			document.getElementById("class1").innerHTML += "<li id='langue_liste' draggable=true>" + langue_list[i].libelle;
+			document.getElementById("class1").innerHTML += "<li id='langue_liste' draggable=true>" + langue_list[i].libelle + "<li>";
 		}
 	});
 	</script>

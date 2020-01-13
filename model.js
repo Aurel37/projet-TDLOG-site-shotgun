@@ -29,7 +29,7 @@ function analyse_word(word) {
 function add_data_form_1(data) {
 	if (data != '') 
 	{
-		con.query('INSERT INTO Students(Name, Sport, Promo) VALUES (?, ?, ?)',
+		con.query('INSERT INTO Students(libelle, sport, year) VALUES (?, ?, ?)',
 		data,
 		function (err, result) {
 		if  (err) throw err;
@@ -43,7 +43,7 @@ function query_first_l(data, callback) {
 	if (typeof(data) != 'undefined')
 	{
 	var word = analyse_word(data);
-	con.query('SELECT Cours.libelle FROM Cours JOIN langue ON Cours.id_langue = langue.id WHERE langue.libelle = ?', [word], 
+	con.query('SELECT Cours.libelle FROM Cours JOIN Langue ON Cours.id_langue = Langue.id WHERE Langue.libelle  = ?', [word], 
 			function (err, result, fields) {
 			if (err)
 			{
@@ -51,6 +51,7 @@ function query_first_l(data, callback) {
 			}
 			else
 			{
+				print(result);
 				callback(null,  result);
 			}	
 			});
@@ -59,7 +60,7 @@ function query_first_l(data, callback) {
 }
 
 function get_sport(callback){
-	con.query('SELECT Sports.Libelle FROM Sports',
+	con.query('SELECT libelle FROM Sports',
 	function (err, result, fields) {
 		if (err)
 		{
@@ -72,7 +73,7 @@ function get_sport(callback){
 	});
 }
 function get_langue( callback){
-	con.query('SELECT libelle FROM langue',
+	con.query('SELECT libelle FROM Langue',
 	function (err, result, fields) {
 		if (err)
 		{
@@ -85,7 +86,7 @@ function get_langue( callback){
 	});
 }
 function get_promo( callback){
-	con.query('SELECT libele FROM promo',
+	con.query('SELECT libelle FROM Year',
 	function (err, result, fields) {
 		if (err)
 		{

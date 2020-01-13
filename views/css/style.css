@@ -63,6 +63,10 @@ button:hover {
 	clear: both;
 }*/
 
+#langue {
+	text-align: left;
+}
+
 #class1  {
 	width: 80%;
 	height: 330px;
