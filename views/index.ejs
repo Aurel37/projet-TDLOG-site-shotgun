@@ -49,6 +49,11 @@
 		<select name="sport" size="1" id="sport">
 		</select>
 		</p>
+
+		<p> 
+			Combien de cours de langue voulez vous? 
+			<input type="number" id = "number" name="howmuch">
+		</p>
 	</div>	
 	<div class="tab">
 			Veuillez classer les cours disponibles pour vous:
@@ -102,6 +107,7 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
+	send_data_text('number', document.getElementById("number"), socket, 'change');
 	//send_list_selected('list_langue', document.getElementsByClassName('inputLangue'), socket, 'change');
 
 
