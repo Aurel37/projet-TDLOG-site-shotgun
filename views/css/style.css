@@ -35,7 +35,7 @@ p{
   min-width: 300px;
   border: 10px solid#003399; 
 }
-button{
+.button{
 	color: white;
 	background-color: #003399;
 	border-radius: 10%;
@@ -52,7 +52,7 @@ button{
   padding: 0;
 }
 
-button:hover {
+.button:hover {
   background-color: white; /* Green */
   color: #003399;
 }
@@ -63,18 +63,31 @@ button:hover {
 	clear: both;
 }*/
 
-#class1  {
-	width: 80%;
-	height: 330px;
-	overflow: scroll;
+.ranking_form_class1 {
+	display: flex;
+	justify-content: space-around;
 }
 
-#class1 li {
+
+
+.column {
+	background-color: white;
+	border: 1px solid black;
+	width: 50%;
+	height: 200px;
+	overflow: scroll;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+
+
+.column li {
 	border: 1px solid #ddd; 
 	margin-top: -1px; 
 	background-color: black; 
-	padding: 12px; 
-	font-size: 18px;
+	padding: 20px; 
+	font-size: 10px;
 	color: white; 
 	display: block; 
 }

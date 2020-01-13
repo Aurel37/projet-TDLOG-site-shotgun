@@ -7,10 +7,10 @@ var session = require('express-session')({
 	saveUninitialized: true
 });
 var sharedsession = require("express-socket.io-session");
-//var bodyParser = require('body-parser');
-//var urlencodedParser = bodyParser.urlencoded({extended: false});
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({extended: false});
 var model = require('./model');
-//var url = require('url');
+var url = require('url');
 var io = require('socket.io').listen(server);
 
 model.db_manager;
@@ -45,20 +45,24 @@ app.use(session)
 	res.render('index.ejs');
 	if (typeof(req.session.langue)  == 'undefined')
 	{
-		console.log('transfer managed');
+		console.log(req.session.langue);
 	}
 })
+.get('/shotgun/end_page', function(req, res) {
+	res.render('end_page.ejs');
+})
 
-/*.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
+.post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
 	console.log('newt');
-	model.push_cookie(req.session.answers, 'name', req.body.first_name);
-	model.push_cookie(req.session.answers, 'year', req.body.year);
-	model.push_cookie(req.session.answers, 'language', req.body.langue);
-	model.push_cookie(req.session.answers, 'sport', req.body.class1);
+	/*model.push_cookie(req.session.answers, 'name', req.session.first_name);
+	model.push_cookie(req.session.answers, 'year', req.session.year);
+	model.push_cookie(req.session.answers, 'language', req.session.langue);
+	//model.push_cookie(req.session.answers, 'sport', req.session.class1);*/
 	
 	//model.add_data_form_1([req.session.answers.name, req.session.answers.sport, req.session.answers.year]);
-	res.redirect('/shotgun');
-});*/
+	res.redirect('/shotgun/end_page');
+});
+
 
 
 io.sockets.on('connection', function (socket){
@@ -92,7 +96,11 @@ io.sockets.on('connection', function (socket){
 				socket.emit('langue', result);
 			});
 		});
-			
+		socket.on('rank_langue', function(rank) {
+			socket.handshake.session.langue = rank;
+			socket.handshake.session.save();
+			console.log(rank);
+		});
 		
 });
 

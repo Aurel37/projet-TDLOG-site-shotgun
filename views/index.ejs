@@ -55,24 +55,80 @@
 	</div>	
 	<div class="tab">
 			Veuillez classer les cours disponibles pour vous:
-		
-		<ul id="rankclass1">
-		</ul>
-		<ul id="class1">
-		</ul>
-	
+		<div class ="ranking_form_class1">
+				<ul class = "column" id = "rank_class1">
+				</ul>
+			
+				<ul class = "column" id = "class1">
+				</ul>
+			
+		</div>
 	</div>
 
 	
 	<div style="overflow:auto;">
   		<div style="float:right;">
-   	 		<button type="button" id="prevBtn" onclick="change(-1)">Previous</button>
-    		<button type="button" id="nextBtn" onclick="change(1)">Next</button>
+   	 		<button type="button" class="button"  id="prevBtn" onclick="change(-1)">Previous</button>
+    			<button type="button" class="button"  id="nextBtn" onclick="change(1)">Next</button>
+			<input type="submit" class="button"  id="finalBtn"  value="Valider" />
   		</div>
 	</div>
-		</form>
+	</form>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
+	
+	function drag_n_drop(){
+	var dnd_Manager = {
+
+			draggedElement: null,
+
+			dragEvents: function(element) {
+				element.draggable = true;
+				var dnd_Manager = this;
+				element.addEventListener('dragstart', function(e) {
+					dnd_Manager.draggedElement = e.target;
+					e.dataTransfer.setData('text.plain', '');
+				});
+			},
+
+			dropEvents: function(dropper) {
+				dropper.addEventListener('dragover', function(e) {
+					e.preventDefault();
+				});
+
+				var dnd_Manager = this;
+
+				dropper.addEventListener('drop',function(e) {
+					var target= e.target,
+					    draggedElement = dnd_Manager.draggedElement;
+
+					 var clone = draggedElement.cloneNode(true);
+					while  (target.className.indexOf('column') == -1) {
+						target = target.parentNode;
+					}
+					clone = target.appendChild(clone);
+					dnd_Manager.dragEvents(clone);
+					draggedElement.parentNode.removeChild(draggedElement);
+					clone.className = 'list_langue_ranked'; 
+			});
+			}
+				
+	};
+	var list_langue = document.querySelectorAll('.list_langue'),
+		list_size = list_langue.length;
+
+	for (var i = 0; i < list_size; i++) {
+		dnd_Manager.dragEvents(list_langue[i]);
+		}
+
+		var columns = document.querySelectorAll('.column'),
+		    col_size = columns.length;
+
+		for (var i = 0; i < col_size; i++) {
+			dnd_Manager.dropEvents(columns[i]);
+		}
+	}
+
 	var socket = io.connect('http://localhost:8080');
 	function send_data_selected(tag, data, socket, type) {
 		data.addEventListener(type, function() {
@@ -89,6 +145,7 @@
 			socket.emit(tag, analyse);
 		});
 	}
+	
 	
 	send_data_text('first_name', document.getElementById("first_name"), socket, 'blur');
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
@@ -119,13 +176,27 @@
 		document.getElementById("class1").innerHTML = "";
 		for (var i=0; i<n; i++)
 		{
-			document.getElementById("class1").innerHTML += "<li id='langue_liste' draggable=true>" + langue_list[i].libelle;
+			document.getElementById("class1").innerHTML += "<li class = 'list_langue'>" + langue_list[i].libelle;
 		}
+		drag_n_drop();
+		
+
+		var submit = document.getElementById("finalBtn");
+		submit.addEventListener('click', function () {
+			var rank = document.querySelectorAll('.list_langue_ranked'),
+		    	rank_size = rank.length;
+			alert(rank_size);
+			var rank_emit = new Array();
+			for (var i = 0; i < rank_size; i++) {
+				//alert(rank[i].innerHTML);
+				rank_emit.push(rank[i].innerHTML);
+			}
+			socket.emit('rank_langue', rank_emit);});
 	});
 	</script>
 	<script>	
 
-			
+				
 		
 	// need to see in which slide we are
 	var counter = 0;
@@ -138,14 +209,22 @@
 		// diplay the good one
 		tab[n].style.display = "block";
 		// need to display the button: we test if we are at the beggining or the end because the button changed
+		if (n != (tab.length - 1)) {
+			document.getElementById("finalBtn").style.display = "none";
+		}
+		else {
+			document.getElementById("finalBtn").style.display = "inline";
+		}
 		if (n == 0){ // we don't display the button next 
 			document.getElementById("prevBtn").style.display = "none";
 		}
 		else{
 			document.getElementById("prevBtn").style.display = "inline";
+			
 		}
 		if (n == (tab.length - 1)){ //if we are at the end of the form 
-			document.getElementById("nextBtn").innerHTML = "Submit";
+			document.getElementById("nextBtn").style.display = "none";
+			
 		}
 		else{
 			document.getElementById("nextBtn").innerHTML = "Next";
@@ -160,13 +239,7 @@
 		}
 		showSlide(counter);
 	}
-
-
-	
-	
-	
-		
-	</script>
+		</script>
 
 
 	</body>
