@@ -95,8 +95,8 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.save();
 			model.query_first_l(langue_list, function(err, result) {
 				if (err) throw err;
-				//socket.emit('langue', result);
-				socket.emit('list_langue', result)
+				socket.emit('langue', result);
+				//socket.emit('list_langue', result)
 			});
 		});
 			

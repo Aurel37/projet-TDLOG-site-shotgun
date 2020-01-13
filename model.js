@@ -51,7 +51,6 @@ function query_first_l(data, callback) {
 			}
 			else
 			{
-				print(result);
 				callback(null,  result);
 			}	
 			});
