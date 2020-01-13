@@ -49,6 +49,11 @@
 		<select name="sport" size="1" id="sport">
 		</select>
 		</p>
+
+		<p> 
+			Combien de cours de langue voulez vous? 
+			<input type="number" id = "number" name="howmuch">
+		</p>
 	</div>	
 	<div class="tab">
 			Veuillez classer les cours disponibles pour vous:
@@ -161,6 +166,7 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
+	send_data_text('number', document.getElementById("number"), socket, 'change');
 	//send_list_selected('list_langue', document.getElementsByClassName('inputLangue'), socket, 'change');
 
 
@@ -239,23 +245,24 @@
 		// need to display the button: we test if we are at the beggining or the end because the button changed
 		if (n == 0){ // we don't display the button next 
 			document.getElementById("prevBtn").style.display = "none";
+
 		}
 		else{
 			document.getElementById("prevBtn").style.display = "inline";
 			document.getElementById("nextBtn").style.display = "inline";
+
 		}
 		if (n == (tab.length - 1)){ //if we are at the end of the form 
 			document.getElementById("nextBtn").style.display = "none";
 			document.getElementById("finalBtn").style.display = "inline";
-
-
-			
+	
 		}
 		else{
 			document.getElementById("nextBtn").innerHTML = "Next";
 			document.getElementById("finalBtn").style.display = "none";
 
 		}
+
 
 	}
 	function change(n){
