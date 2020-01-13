@@ -76,7 +76,7 @@
   		<div style="float:right;">
    	 		<button type="button" class="button"  id="prevBtn" onclick="change(-1)">Previous</button>
     			<button type="button" class="button"  id="nextBtn" onclick="change(1)">Next</button>
-			<input type="submit" class="button"  id="finalBtn"  value="Valider" />
+			<input type="submit" class="button"  id="finalBtn"  value="Valider" onclikck="change(1)"/>
   		</div>
 	</div>
 	</form>
@@ -94,6 +94,7 @@
 				element.addEventListener('dragstart', function(e) {
 					dnd_Manager.draggedElement = e.target;
 					e.dataTransfer.setData('text.plain', '');
+
 				});
 			},
 
@@ -115,7 +116,12 @@
 					clone = target.appendChild(clone);
 					dnd_Manager.dragEvents(clone);
 					draggedElement.parentNode.removeChild(draggedElement);
-					clone.className = 'list_langue_ranked'; 
+					if (clone.className != 'list_langue_ranked') {
+						clone.className = 'list_langue_ranked'; 
+					}
+					else if (target.id == 'class1') {
+  						clone.className = 'list_langue';
+					}
 			});
 			}
 				
@@ -160,6 +166,7 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
+	send_data_selected('sport', document.getElementById("sport"), socket, 'change');
 	send_data_text('number', document.getElementById("number"), socket, 'change');
 	//send_list_selected('list_langue', document.getElementsByClassName('inputLangue'), socket, 'change');
 
@@ -213,7 +220,7 @@
 		submit.addEventListener('click', function () {
 			var rank = document.querySelectorAll('.list_langue_ranked'),
 		    	rank_size = rank.length;
-			alert(rank_size);
+			//alert(rank_size);
 			var rank_emit = new Array();
 			for (var i = 0; i < rank_size; i++) {
 				//alert(rank[i].innerHTML);
@@ -237,12 +244,6 @@
 		// diplay the good one
 		tab[n].style.display = "block";
 		// need to display the button: we test if we are at the beggining or the end because the button changed
-		if (n != (tab.length - 1)) {
-			document.getElementById("finalBtn").style.display = "none";
-		}
-		else {
-			document.getElementById("finalBtn").style.display = "inline";
-		}
 		if (n == 0){ // we don't display the button next 
 			document.getElementById("prevBtn").style.display = "none";
 
@@ -250,13 +251,19 @@
 		else{
 			document.getElementById("prevBtn").style.display = "inline";
 			document.getElementById("nextBtn").style.display = "inline";
-			
+
 		}
 		if (n == (tab.length - 1)){ //if we are at the end of the form 
 			document.getElementById("nextBtn").style.display = "none";
 			document.getElementById("finalBtn").style.display = "inline";
-			
+	
 		}
+		else{
+			document.getElementById("nextBtn").innerHTML = "Next";
+			document.getElementById("finalBtn").style.display = "none";
+
+		}
+
 
 	}
 	function change(n){
