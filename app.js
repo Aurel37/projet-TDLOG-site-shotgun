@@ -67,6 +67,12 @@ app.use(session)
 
 io.sockets.on('connection', function (socket){
 
+
+		model.get_promo(function(err, result) {
+				if (err) throw err;
+				socket.emit('promo_list', result);
+			});
+
 		model.get_sport(function(err, result) {
 				if (err) throw err;
 				socket.emit('sport', result);
@@ -94,6 +100,7 @@ io.sockets.on('connection', function (socket){
 			model.query_first_l(langue_list, function(err, result) {
 				if (err) throw err;
 				socket.emit('langue', result);
+				//socket.emit('list_langue', result)
 			});
 		});
 		socket.on('rank_langue', function(rank) {

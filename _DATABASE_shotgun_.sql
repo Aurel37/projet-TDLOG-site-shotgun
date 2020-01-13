@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jan 06, 2020 at 02:13 PM
+-- Generation Time: Jan 13, 2020 at 04:37 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `assignent`
+-- Table structure for table `Assignments`
 --
 
-CREATE TABLE `assignent` (
+CREATE TABLE `Assignments` (
   `id` int(11) NOT NULL,
   `id_students` int(11) NOT NULL,
   `id_class` int(11) NOT NULL
@@ -29,10 +29,10 @@ CREATE TABLE `assignent` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `choices`
+-- Table structure for table `Choices`
 --
 
-CREATE TABLE `choices` (
+CREATE TABLE `Choices` (
   `id` int(11) NOT NULL,
   `id_students` int(11) NOT NULL,
   `id_class` int(11) NOT NULL,
@@ -46,20 +46,20 @@ CREATE TABLE `choices` (
 --
 
 CREATE TABLE `Cours` (
-  `indice` int(11) NOT NULL,
-  `id_creneau` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `id_slot` int(11) DEFAULT NULL,
   `id_langue` int(11) DEFAULT NULL,
-  `niveau` int(11) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
   `libelle` text,
-  `enseignant` text,
-  `effectif_max` int(11) DEFAULT NULL
+  `teacher` text,
+  `size` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Cours`
 --
 
-INSERT INTO `Cours` (`indice`, `id_creneau`, `id_langue`, `niveau`, `libelle`, `enseignant`, `effectif_max`) VALUES
+INSERT INTO `Cours` (`id`, `id_slot`, `id_langue`, `level`, `libelle`, `teacher`, `size`) VALUES
 (0, 0, 0, 0, 'Speak Easy', 'ZD', 15),
 (1, 0, 0, 0, 'A Play for Today', 'CP', 15),
 (2, 0, 0, 0, 'Conversational English', 'TH', 15),
@@ -182,91 +182,20 @@ INSERT INTO `Cours` (`indice`, `id_creneau`, `id_langue`, `niveau`, `libelle`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `créneau`
+-- Table structure for table `For_who`
 --
 
-CREATE TABLE `créneau` (
-  `id` int(11) NOT NULL,
-  `libele` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `créneau`
---
-
-INSERT INTO `créneau` (`id`, `libele`) VALUES
-(0, 'Lundi- 11h30 / 13h00'),
-(1, 'Lundi - 16h45 / 18h15'),
-(2, 'Mardi - 12h30 / 14h00'),
-(3, 'Mardi - 14h15 / 17h30'),
-(4, 'Mardi - 14h15 / 15h45'),
-(5, 'Mardi - 16h30 / 18h00'),
-(6, 'Mardi - 18h15 / 19h45'),
-(7, 'Mercredi - 13h30 / 15h00'),
-(8, 'Jeudi - 12h30 / 14h00'),
-(9, 'Jeudi - 14h15 / 17h30'),
-(10, 'Jeudi - 14h15 / 15h45'),
-(11, 'Jeudi - 16h00 / 17h30'),
-(12, 'Vendredi - 8h30 / 11h45'),
-(13, 'Vendredi - 11h15 / 12h45'),
-(14, 'Hors creneaux / Projets');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `language_wanted`
---
-
-CREATE TABLE `language_wanted` (
-  `id` int(11) NOT NULL,
-  `id_students` int(11) NOT NULL,
-  `id_language` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `langue`
---
-
-CREATE TABLE `langue` (
-  `id` int(11) NOT NULL,
-  `libelle` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `langue`
---
-
-INSERT INTO `langue` (`id`, `libelle`) VALUES
-(0, 'anglais'),
-(1, 'espagnol'),
-(2, 'allemand'),
-(3, 'chinois'),
-(4, 'italien'),
-(5, 'russe'),
-(6, 'portugais '),
-(7, 'japonais'),
-(8, 'arabe'),
-(9, 'français');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pour_qui`
---
-
-CREATE TABLE `pour_qui` (
+CREATE TABLE `For_who` (
   `id` int(11) NOT NULL,
   `id_creneau` int(11) DEFAULT NULL,
   `id_promo` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `pour_qui`
+-- Dumping data for table `For_who`
 --
 
-INSERT INTO `pour_qui` (`id`, `id_creneau`, `id_promo`) VALUES
+INSERT INTO `For_who` (`id`, `id_creneau`, `id_promo`) VALUES
 (0, 0, 0),
 (1, 0, 1),
 (2, 0, 2),
@@ -304,22 +233,73 @@ INSERT INTO `pour_qui` (`id`, `id_creneau`, `id_promo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `promo`
+-- Table structure for table `Language_wanted`
 --
 
-CREATE TABLE `promo` (
+CREATE TABLE `Language_wanted` (
   `id` int(11) NOT NULL,
-  `libele` text NOT NULL
+  `id_students` int(11) NOT NULL,
+  `id_language` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Langue`
+--
+
+CREATE TABLE `Langue` (
+  `id` int(11) NOT NULL,
+  `libelle` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `promo`
+-- Dumping data for table `Langue`
 --
 
-INSERT INTO `promo` (`id`, `libele`) VALUES
-(0, '1A'),
-(1, '2A'),
-(2, '3A');
+INSERT INTO `Langue` (`id`, `libelle`) VALUES
+(0, 'anglais'),
+(1, 'espagnol'),
+(2, 'allemand'),
+(3, 'chinois'),
+(4, 'italien'),
+(5, 'russe'),
+(6, 'portugais '),
+(7, 'japonais'),
+(8, 'arabe'),
+(9, 'français');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Slots`
+--
+
+CREATE TABLE `Slots` (
+  `id` int(11) NOT NULL,
+  `libelle` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Slots`
+--
+
+INSERT INTO `Slots` (`id`, `libelle`) VALUES
+(0, 'Lundi- 11h30 / 13h00'),
+(1, 'Lundi - 16h45 / 18h15'),
+(2, 'Mardi - 12h30 / 14h00'),
+(3, 'Mardi - 14h15 / 17h30'),
+(4, 'Mardi - 14h15 / 15h45'),
+(5, 'Mardi - 16h30 / 18h00'),
+(6, 'Mardi - 18h15 / 19h45'),
+(7, 'Mercredi - 13h30 / 15h00'),
+(8, 'Jeudi - 12h30 / 14h00'),
+(9, 'Jeudi - 14h15 / 17h30'),
+(10, 'Jeudi - 14h15 / 15h45'),
+(11, 'Jeudi - 16h00 / 17h30'),
+(12, 'Vendredi - 8h30 / 11h45'),
+(13, 'Vendredi - 11h15 / 12h45'),
+(14, 'Hors creneaux / Projets');
 
 -- --------------------------------------------------------
 
@@ -329,15 +309,15 @@ INSERT INTO `promo` (`id`, `libele`) VALUES
 
 CREATE TABLE `Sports` (
   `id` int(11) NOT NULL,
-  `Libelle` text,
-  `id_créneau` int(11) DEFAULT NULL
+  `libelle` text,
+  `id_slot` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Sports`
 --
 
-INSERT INTO `Sports` (`id`, `Libelle`, `id_créneau`) VALUES
+INSERT INTO `Sports` (`id`, `libelle`, `id_slot`) VALUES
 (0, 'Tennis', 4),
 (1, 'Basket', 1),
 (2, 'Natation', 15),
@@ -352,52 +332,80 @@ INSERT INTO `Sports` (`id`, `Libelle`, `id_créneau`) VALUES
 
 CREATE TABLE `Students` (
   `id` int(11) NOT NULL,
-  `Name` text,
-  `Sport` int(11) DEFAULT NULL,
-  `Promo` int(11) DEFAULT NULL
+  `title` text,
+  `first_name` text NOT NULL,
+  `sport` int(11) DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
+  `number_class` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Students`
 --
 
-INSERT INTO `Students` (`id`, `Name`, `Sport`, `Promo`) VALUES
-(1, 'aurelien', NULL, 21),
-(2, 'aurelien', NULL, 21),
-(3, 'aurelien', NULL, 21),
-(4, 'aurelienp^sojd', NULL, 21),
-(5, 'aurelienskehf', NULL, 21),
-(6, 'aukjsdbf', NULL, 21),
-(7, 'jean-jacque', NULL, 21),
-(8, 'coucou', NULL, 21),
-(9, 'hello', NULL, 21);
+INSERT INTO `Students` (`id`, `title`, `first_name`, `sport`, `year`, `number_class`) VALUES
+(1, 'aurelien', '', NULL, 21, 0),
+(2, 'aurelien', '', NULL, 21, 0),
+(3, 'aurelien', '', NULL, 21, 0),
+(4, 'aurelienp^sojd', '', NULL, 21, 0),
+(5, 'aurelienskehf', '', NULL, 21, 0),
+(6, 'aukjsdbf', '', NULL, 21, 0),
+(7, 'jean-jacque', '', NULL, 21, 0),
+(8, 'coucou', '', NULL, 21, 0),
+(9, 'hello', '', NULL, 21, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Year`
+--
+
+CREATE TABLE `Year` (
+  `id` int(11) NOT NULL,
+  `libelle` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `Year`
+--
+
+INSERT INTO `Year` (`id`, `libelle`) VALUES
+(0, '1A'),
+(1, '2A'),
+(2, '3A');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `choices`
+-- Indexes for table `Assignments`
 --
-ALTER TABLE `choices`
+ALTER TABLE `Assignments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Choices`
+--
+ALTER TABLE `Choices`
   ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `Cours`
 --
 ALTER TABLE `Cours`
-  ADD PRIMARY KEY (`indice`);
-
---
--- Indexes for table `créneau`
---
-ALTER TABLE `créneau`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `langue`
+-- Indexes for table `Langue`
 --
-ALTER TABLE `langue`
+ALTER TABLE `Langue`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `Slots`
+--
+ALTER TABLE `Slots`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -417,9 +425,9 @@ ALTER TABLE `Students`
 --
 
 --
--- AUTO_INCREMENT for table `choices`
+-- AUTO_INCREMENT for table `Choices`
 --
-ALTER TABLE `choices`
+ALTER TABLE `Choices`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

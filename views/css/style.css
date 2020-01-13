@@ -63,6 +63,7 @@ p{
 	clear: both;
 }*/
 
+
 .ranking_form_class1 {
 	display: flex;
 	justify-content: space-around;
@@ -75,6 +76,7 @@ p{
 	border: 1px solid black;
 	width: 50%;
 	height: 200px;
+
 	overflow: scroll;
 	padding: 10px;
 	border-radius: 5px;

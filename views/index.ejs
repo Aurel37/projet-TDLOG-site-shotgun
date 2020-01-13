@@ -18,9 +18,6 @@
 
 
 	<h2> Votre profile </h2>
-		<p>
-			Votre nom :
-		</p>
 	<p>
 	<label for="name">Prénom :</label>
         <input type="text" name="first_name" id="first_name" />
@@ -32,29 +29,30 @@
 	<p>
 	Votre promo : 
 	<select name="year" size="1" id="year">
-		<option>Votre année
-		<option>022
-		<option>021
-		<option>020
-		<option>019
 	</select>
 	
 	</p>
 	</div>
 	<div class="tab">
 		<p>
-		Quelle langue choisissez vous ?
-		<select name="langue" size="1" id="langue">
-		</select>
+		Quelles langues choisissez vous ?
+
+		<!-- 
+		 <div id="langue">
+		</div>
+	-->
+	<select name ="langue" size="1" id="langue">
+	</select>
 		
 		<p>
-		Quelle sport choisissez vous ?
+		Quel sport choisissez vous ?
 		<select name="sport" size="1" id="sport">
 		</select>
 		</p>
 	</div>	
 	<div class="tab">
 			Veuillez classer les cours disponibles pour vous:
+
 		<div class ="ranking_form_class1">
 				<ul class = "column" id = "rank_class1">
 				</ul>
@@ -63,7 +61,10 @@
 				</ul>
 			
 		</div>
+
 	</div>
+	
+
 
 	
 	<div style="overflow:auto;">
@@ -138,6 +139,9 @@
 			}
 			});
 		}
+	function send_list_selected(tag, data, socket, type){
+
+	}
 	
 	function send_data_text(tag, data, socket, type) {
 		data.addEventListener(type, function() {
@@ -151,6 +155,29 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
+	//send_list_selected('list_langue', document.getElementsByClassName('inputLangue'), socket, 'change');
+
+
+	socket.on('promo_list', function(promo_list) {
+		var n = promo_list.length;
+		document.getElementById("year").innerHTML = "";	
+		document.getElementById("year").innerHTML += "<option>Choix de votre promo";
+		for (var i=0; i<n; i++){
+			document.getElementById("year").innerHTML += "<option>" + promo_list[i].libelle;
+		}
+	});
+
+	socket.on('langue_list', function(langue_list) {
+		var n = langue_list.length;
+		document.getElementById("langue").innerHTML = '<option> Choix de votre langue';	
+		for (var i=0; i<n; i++)
+		{
+			document.getElementById("langue").innerHTML += '<option>' + langue_list[i].libelle;
+			
+			//document.getElementById("langue").innerHTML += '<input class="inputLangue" type="checkbox" name="list_langue[]" value="'+ langue_list[i].libelle +'" > '+ langue_list[i].libelle +' <br>';
+		}
+
+	});
 
 	socket.on('sport', function(sport_list) {
 		var n = sport_list.length;
@@ -158,25 +185,20 @@
 		document.getElementById("sport").innerHTML += "<option>Choix de votre sport";
 		for (var i=0; i<n; i++)
 		{
-			document.getElementById("sport").innerHTML += "<option>" + sport_list[i].Libelle;
+			document.getElementById("sport").innerHTML += "<option>" + sport_list[i].libelle;
 		}
 	});
 
-	socket.on('langue_list', function(langue_list) {
-		var n = langue_list.length;
-		document.getElementById("langue").innerHTML = "";	
-		document.getElementById("langue").innerHTML += "<option>Choix de votre langue";
-		for (var i=0; i<n; i++)
-		{
-			document.getElementById("langue").innerHTML += "<option>" + langue_list[i].libelle;
-		}
-	});
+
+	
 	socket.on('langue', function(langue_list) {
 		var n = langue_list.length;
 		document.getElementById("class1").innerHTML = "";
 		for (var i=0; i<n; i++)
 		{
+
 			document.getElementById("class1").innerHTML += "<li class = 'list_langue'>" + langue_list[i].libelle;
+
 		}
 		drag_n_drop();
 		
