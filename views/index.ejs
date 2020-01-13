@@ -71,7 +71,7 @@
   		<div style="float:right;">
    	 		<button type="button" class="button"  id="prevBtn" onclick="change(-1)">Previous</button>
     			<button type="button" class="button"  id="nextBtn" onclick="change(1)">Next</button>
-			<input type="submit" class="button"  id="finalBtn"  value="Valider" />
+			<input type="submit" class="button"  id="finalBtn"  value="Valider" onclikck="change(1)"/>
   		</div>
 	</div>
 	</form>
@@ -110,7 +110,13 @@
 					clone = target.appendChild(clone);
 					dnd_Manager.dragEvents(clone);
 					draggedElement.parentNode.removeChild(draggedElement);
-					clone.className = 'list_langue_ranked'; 
+					alert(clone.className);
+					if (clone.className != 'list_langue_ranked') {
+						clone.className = 'list_langue_ranked'; 
+					}
+					else {
+						clone.className = 'list_langue';
+					}
 			});
 			}
 				
@@ -231,25 +237,24 @@
 		// diplay the good one
 		tab[n].style.display = "block";
 		// need to display the button: we test if we are at the beggining or the end because the button changed
-		if (n != (tab.length - 1)) {
-			document.getElementById("finalBtn").style.display = "none";
-		}
-		else {
-			document.getElementById("finalBtn").style.display = "inline";
-		}
 		if (n == 0){ // we don't display the button next 
 			document.getElementById("prevBtn").style.display = "none";
 		}
 		else{
 			document.getElementById("prevBtn").style.display = "inline";
-			
+			document.getElementById("nextBtn").style.display = "inline";
 		}
 		if (n == (tab.length - 1)){ //if we are at the end of the form 
 			document.getElementById("nextBtn").style.display = "none";
+			document.getElementById("finalBtn").style.display = "inline";
+
+
 			
 		}
 		else{
 			document.getElementById("nextBtn").innerHTML = "Next";
+			document.getElementById("finalBtn").style.display = "none";
+
 		}
 
 	}
