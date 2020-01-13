@@ -26,18 +26,51 @@ function analyse_word(word) {
 }
 	
 
-function add_data_form_1(data) {
-	if (data != '') 
-	{
-		con.query('INSERT INTO Students(libelle, sport, year) VALUES (?, ?, ?)',
+function add_data_student_id(data) {
+	if (typeof(data) != 'undefined') 	{
+		con.query('INSERT INTO Students(first_name, title, sport, year, number_class) VALUES (?, ?, ?, ?, ?)',
 		data,
-		function (err, result) {
+		function (err) {
 		if  (err) throw err;
 		console.log("1 record inserted");
 		});
 	}
 
 };
+
+function select_add_class(data, name, i) {
+		con.query('SELECT id FROM Students WHERE title = ?', [name],
+			function(err, result)  {
+				if (err) throw err;
+				var id_student = result[0].id;
+				var head_data = data.pop();
+				con.query('SELECT id FROM Cours WHERE libelle = ?', [head_data],
+				function(err, result) {
+					if (err) throw err;
+					var id_class = result[0].id;
+					con.query('INSERT INTO Choices(id_students, id_class, rank) VALUES (?, ?, ?)', 
+					[id_student, id_class, i], 
+					function(err) {
+						if (err) throw err;
+						console.log('1 record inserted');
+					});
+				});
+			});
+}
+
+function add_data_class(data, name) {
+	if (typeof(data) != 'undefined') {
+		var n = data.length;
+		console.log('n ', n);
+		console.log('inside : ', data);
+		var cursor = data.length;
+		while (cursor > 0) {
+			select_add_class(data, name, cursor);
+			cursor--;
+		}
+	}
+}
+
 
 function query_first_l(data, callback) {	
 	if (typeof(data) != 'undefined')
@@ -106,7 +139,8 @@ function push_cookie(cookie, name, data) {
 };
 
 exports.db_manager = con;
-exports.add_data = add_data_form_1;
+exports.add_data_student_id = add_data_student_id;
+exports.add_data_class = add_data_class;
 exports.get_sport = get_sport;
 exports.get_langue = get_langue;
 exports.get_promo = get_promo;

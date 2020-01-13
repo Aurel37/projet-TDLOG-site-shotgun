@@ -43,10 +43,10 @@ app.use(session)
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
-	if (typeof(req.session.langue)  == 'undefined')
+	/*if (typeof(req.session.langue)  == 'undefined')
 	{
 		console.log(req.session.langue);
-	}
+	}*/
 })
 .get('/shotgun/end_page', function(req, res) {
 	res.render('end_page.ejs');
@@ -54,6 +54,8 @@ app.use(session)
 
 .post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
 	console.log('newt');
+	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.sport, req.session.year, req.session.number]);
+	model.add_data_class(req.session.rank_langue_list, req.session.last_name);
 	/*model.push_cookie(req.session.answers, 'name', req.session.first_name);
 	model.push_cookie(req.session.answers, 'year', req.session.year);
 	model.push_cookie(req.session.answers, 'language', req.session.langue);
@@ -103,8 +105,16 @@ io.sockets.on('connection', function (socket){
 				//socket.emit('list_langue', result)
 			});
 		});
+		socket.on('sport', function(sport) {
+			socket.handshake.session.sport = sport;
+			socket.handshake.session.save();
+		});
+		socket.on('number', function(number) {
+			socket.handshake.session.number = number;
+			socket.handshake.session.save();
+		});
 		socket.on('rank_langue', function(rank) {
-			socket.handshake.session.langue = rank;
+			socket.handshake.session.rank_langue_list = rank;
 			socket.handshake.session.save();
 			console.log(rank);
 		});
