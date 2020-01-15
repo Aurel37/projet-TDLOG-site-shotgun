@@ -39,6 +39,7 @@ app.use(session)
 .post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
 	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.year, req.session.number, req.session.sport]);
 	model.add_data_class(req.session.rank_langue_list, req.session.last_name);
+	model.add_data_langue([req.session.last_name, req.session.langue]);
 	res.redirect('/shotgun/end_page');
 });
 

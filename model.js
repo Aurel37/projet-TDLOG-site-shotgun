@@ -70,6 +70,16 @@ function add_data_class(data, name) {
 	}
 }
 
+function add_data_langue(data) {
+	if (typeof(data) != 'undefined')
+	{
+	con.query('INSERT INTO Language_wanted(id_students, id_language) VALUES ((SELECT id FROM Students WHERE last_name = ?), (SELECT id FROM Langue WHERE libelle = ?))', data,
+		function (err) {
+			if (err) throw err;
+			console.log('1 record inserted');
+		});
+	}
+}
 
 function query_first_l(data, callback) {	
 	if (typeof(data) != 'undefined')
@@ -140,6 +150,7 @@ function push_cookie(cookie, name, data) {
 exports.db_manager = con;
 exports.add_data_student_id = add_data_student_id;
 exports.add_data_class = add_data_class;
+exports.add_data_langue = add_data_langue;
 exports.get_sport = get_sport;
 exports.get_langue = get_langue;
 exports.get_promo = get_promo;
