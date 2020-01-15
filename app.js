@@ -54,7 +54,8 @@ app.use(session)
 
 .post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
 	console.log('newt');
-	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.sport, req.session.year, req.session.number]);
+	console.log(req.session.sport);
+	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.year, req.session.number, req.session.sport]);
 	model.add_data_class(req.session.rank_langue_list, req.session.last_name);
 	/*model.push_cookie(req.session.answers, 'name', req.session.first_name);
 	model.push_cookie(req.session.answers, 'year', req.session.year);
@@ -106,6 +107,7 @@ io.sockets.on('connection', function (socket){
 			});
 		});
 		socket.on('sport', function(sport) {
+			console.log('sport choose', sport);
 			socket.handshake.session.sport = sport;
 			socket.handshake.session.save();
 		});

@@ -44,7 +44,7 @@
 		
 	<select name ="langue" size="1" id="langue">
 	</select>
-		
+		</p>	
 		<p>
 		Quel sport choisissez vous ?
 		<select name="sport" size="1" id="sport">
@@ -198,7 +198,7 @@
 		document.getElementById("sport").innerHTML += "<option>Choix de votre sport";
 		for (var i=0; i<n; i++)
 		{
-			document.getElementById("sport").innerHTML += "<option value = "+sport_list[i].id+">" + sport_list[i].libelle;
+			document.getElementById("sport").innerHTML += '<option>' + sport_list[i].libelle;
 		}
 	});
 

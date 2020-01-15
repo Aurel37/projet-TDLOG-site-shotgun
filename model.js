@@ -27,19 +27,21 @@ function analyse_word(word) {
 	
 
 function add_data_student_id(data) {
-	if (typeof(data) != 'undefined') 	{
-		con.query('INSERT INTO Students(first_name, libelle, sport, year, number_class) VALUES (?, ?, ?, ?, ?)',
-		data,
-		function (err) {
-		if  (err) throw err;
-		console.log("1 record inserted");
-		});
+	if (typeof(data) != 'undefined') {
+		console.log('d', data[4]);
+		con.query('INSERT INTO Students(first_name, last_name, year, number_class, sport) VALUES (?, ?, ?, ?, (SELECT id FROM Sports WHERE libelle = ?))',
+			data,
+			function (err) {
+				if  (err) throw err;
+				console.log("1 record inserted");
+			});
+		
 	}
 
 };
 
 function select_add_class(data, name, i) {
-		con.query('SELECT id FROM Students WHERE title = ?', [name],
+		con.query('SELECT id FROM Students WHERE last_name = ?', [name],
 			function(err, result)  {
 				if (err) throw err;
 				var id_student = result[0].id;
