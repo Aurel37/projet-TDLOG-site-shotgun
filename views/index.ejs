@@ -36,11 +36,12 @@
 	<div class="tab">
 		<p>
 		Quelles langues choisissez vous ?
-
-		<!-- 
+		<!--
+		
 		 <div id="langue">
 		</div>
 	-->
+		
 	<select name ="langue" size="1" id="langue">
 	</select>
 		
@@ -57,7 +58,6 @@
 	</div>	
 	<div class="tab">
 			Veuillez classer les cours disponibles pour vous:
-
 		<div class ="ranking_form_class1">
 				<ul class = "column" id = "rank_class1">
 				</ul>
@@ -157,6 +157,7 @@
 	function send_data_text(tag, data, socket, type) {
 		data.addEventListener(type, function() {
 			var analyse = data.value;
+			console.log(data.value);
 			socket.emit(tag, analyse);
 		});
 	}
@@ -166,7 +167,7 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
-	send_data_selected('sport', document.getElementById("sport"), socket, 'change');
+	send_data_text('sport', document.getElementById("sport"), socket, 'change');
 	send_data_text('number', document.getElementById("number"), socket, 'change');
 	//send_list_selected('list_langue', document.getElementsByClassName('inputLangue'), socket, 'change');
 
@@ -182,14 +183,13 @@
 
 	socket.on('langue_list', function(langue_list) {
 		var n = langue_list.length;
-		document.getElementById("langue").innerHTML = '<option> Choix de votre langue';	
+		document.getElementById("langue").innerHTML = '<option>Choix de votre langue';	
 		for (var i=0; i<n; i++)
 		{
 			document.getElementById("langue").innerHTML += '<option>' + langue_list[i].libelle;
 			
 			//document.getElementById("langue").innerHTML += '<input class="inputLangue" type="checkbox" name="list_langue[]" value="'+ langue_list[i].libelle +'" > '+ langue_list[i].libelle +' <br>';
 		}
-
 	});
 
 	socket.on('sport', function(sport_list) {
@@ -198,7 +198,7 @@
 		document.getElementById("sport").innerHTML += "<option>Choix de votre sport";
 		for (var i=0; i<n; i++)
 		{
-			document.getElementById("sport").innerHTML += "<option>" + sport_list[i].libelle;
+			document.getElementById("sport").innerHTML += "<option value = "+sport_list[i].id+">" + sport_list[i].libelle;
 		}
 	});
 
@@ -268,11 +268,57 @@
 	}
 	function change(n){
 		tab = document.getElementsByClassName("tab");
-		if (n + counter >= 0 && n + counter < tab.length){
-			tab[counter].style.display = "none";
-			counter = counter + n;
+		if( n > 0){
+			if(validate_part() ){
+				if (n + counter >= 0 && n + counter < tab.length){
+					tab[counter].style.display = "none";
+					counter = counter + n;
+					}
+				}
+			}
+
+		else {
+			if (n + counter >= 0 && n + counter < tab.length){
+				tab[counter].style.display = "none";
+				counter = counter + n;
+		}
 		}
 		showSlide(counter);
+	}
+
+	function validate_part(){
+		var validate = true;
+		var x = document.getElementsByClassName("tab");
+		if(counter == 0){
+			var y = x[counter].getElementsByTagName("input");
+			for(i=0; i < y.length; i++){
+				if(y[i].value == ""){
+					validate = false;
+				}
+			}
+			var z = document.getElementById("year");
+			if(z.value == "Choix de votre promo"){
+				validate = false;
+			}
+		}
+		else{
+			if(counter == 1){
+			var y = document.getElementById("langue");
+				if(y.value == "Choix de votre langue"){
+				validate = false;
+			}
+			var z = document.getElementById("sport");
+				if(z.value == "Choix de votre sport"){
+				validate = false;
+			}
+			var w = document.getElementById("number");
+				if(w.value == "" || w.value == "0"){
+				validate = false;
+			}
+		}
+		}
+		return validate;
+		
 	}
 		</script>
 
