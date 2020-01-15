@@ -28,7 +28,6 @@ function analyse_word(word) {
 
 function add_data_student_id(data) {
 	if (typeof(data) != 'undefined') {
-		console.log('d', data[4]);
 		con.query('INSERT INTO Students(first_name, last_name, year, number_class, sport) VALUES (?, ?, ?, ?, (SELECT id FROM Sports WHERE libelle = ?))',
 			data,
 			function (err) {
@@ -63,8 +62,6 @@ function select_add_class(data, name, i) {
 function add_data_class(data, name) {
 	if (typeof(data) != 'undefined') {
 		var n = data.length;
-		console.log('n ', n);
-		console.log('inside : ', data);
 		var cursor = data.length;
 		while (cursor > 0) {
 			select_add_class(data, name, cursor);

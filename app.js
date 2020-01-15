@@ -28,41 +28,17 @@ io.use(sharedsession(session, {
 app.use(express.static("views"));
 app.use(session)
 
-/*app.use(function(req, res, next) {
-	if (typeof(req.session.answers) == 'undefined')
-	{
-		req.session.answers ={};
-	}
-	next();
-})*/
-
-/*.all(function(req, res, next) {
-	
-	next()
-})*/
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
-	/*if (typeof(req.session.langue)  == 'undefined')
-	{
-		console.log(req.session.langue);
-	}*/
 })
 .get('/shotgun/end_page', function(req, res) {
 	res.render('end_page.ejs');
 })
 
 .post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
-	console.log('newt');
-	console.log(req.session.sport);
 	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.year, req.session.number, req.session.sport]);
 	model.add_data_class(req.session.rank_langue_list, req.session.last_name);
-	/*model.push_cookie(req.session.answers, 'name', req.session.first_name);
-	model.push_cookie(req.session.answers, 'year', req.session.year);
-	model.push_cookie(req.session.answers, 'language', req.session.langue);
-	//model.push_cookie(req.session.answers, 'sport', req.session.class1);*/
-	
-	//model.add_data_form_1([req.session.answers.name, req.session.answers.sport, req.session.answers.year]);
 	res.redirect('/shotgun/end_page');
 });
 
@@ -103,11 +79,9 @@ io.sockets.on('connection', function (socket){
 			model.query_first_l(langue_list, function(err, result) {
 				if (err) throw err;
 				socket.emit('langue', result);
-				//socket.emit('list_langue', result)
 			});
 		});
 		socket.on('sport', function(sport) {
-			console.log('sport choose', sport);
 			socket.handshake.session.sport = sport;
 			socket.handshake.session.save();
 		});
@@ -118,7 +92,6 @@ io.sockets.on('connection', function (socket){
 		socket.on('rank_langue', function(rank) {
 			socket.handshake.session.rank_langue_list = rank;
 			socket.handshake.session.save();
-			console.log(rank);
 		});
 		
 });
