@@ -28,7 +28,7 @@ function analyse_word(word) {
 
 function add_data_student_id(data) {
 	if (typeof(data) != 'undefined') {
-		con.query('INSERT INTO Students(first_name, last_name, year, number_class, sport) VALUES (?, ?, ?, ?, (SELECT id FROM Sports WHERE libelle = ?))',
+		con.query('INSERT INTO Students(first_name, last_name, year, number_class, sport) VALUES (?, ?, (SELECT id FROM Year WHERE libelle = ?), ?, (SELECT id FROM Sports WHERE libelle = ?))',
 			data,
 			function (err) {
 				if  (err) throw err;
