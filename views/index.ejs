@@ -295,6 +295,7 @@
 				if(y[i].value == ""){
 					validate = false;
 					y[i].className += " invalide";
+					y[i].classList.remove("valide");
 				}
 				else{
 					y[i].classList.remove("invalide");
@@ -305,6 +306,7 @@
 			if(z.value == "Choix de votre promo"){
 				validate = false;
 				z.className += " invalide";
+				z.classListe.remove("valide");
 			}
 			else{
 				z.classList.remove("invalide");
@@ -317,17 +319,17 @@
 				if(y.value == "Choix de votre langue"){
 				validate = false;
 				y.className += " invalide";
+				y.classList.remove("valide");
 				}
 				else{
 					y.classList.remove("invalide");
 					y.className += " valide";
 				}
-
-			}
 			var z = document.getElementById("sport");
 				if(z.value == "Choix de votre sport"){
 				validate = false;
 				z.className += " invalide";
+				z.classListe.remove("valide");
 			}
 			else{
 				z.classList.remove("invalide");
@@ -335,17 +337,17 @@
 			}
 			var w = document.getElementById("number");
 				if(w.value == "" || w.value == "0"){
-				validate = false;
-				w.className += " invalide";
+					validate = false;
+					w.className += " invalide";
+					w.classList.remove("valide");
 			}
-			else{
+				else{
 				w.classList.remove("invalide");
 				w.className += " valide";
 			}
 		}
-		if(!validate){
-			alert("Veuillez remplir tout les champs du formulaire");
-		}
+	}
+
 		return validate;
 		
 	}

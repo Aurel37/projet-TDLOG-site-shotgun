@@ -70,7 +70,7 @@ p{
 }
 
 input.invalide{
-	background-color: #F48159;
+	background-color: rgba(244, 129, 118, 0.25);
 	transition-property: background-color; /* Active la transition sur background-color */
     transition-duration: 1s; /* La transition dure 1s */
 }
@@ -80,7 +80,7 @@ input.invalide:hover{
 }
 
 input.valide{
-	background-color: #B6F376;
+	background-color: rgba(182, 243, 118, 0.25);
 	transition-property: background-color; /* Active la transition sur background-color */
     transition-duration: 1s; /* La transition dure 1s */
 }
@@ -90,7 +90,7 @@ input.valide:hover{
 }
 
 select.invalide{
-	background-color: #F48159;
+	background-color: rgba(244, 129, 118, 0.25);
 	transition-property: background-color; /* Active la transition sur background-color */
     transition-duration: 1s; /* La transition dure 1s */
 }
@@ -100,7 +100,7 @@ select.invalide:hover:{
 }
 
 select.valide{
-	background-color: #B6F376;
+	background-color: rgba(182, 243, 118, 0.25);
 	transition-property: background-color; /* Active la transition sur background-color */
     transition-duration: 1s; /* La transition dure 1s */
 }
