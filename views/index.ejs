@@ -286,65 +286,49 @@
 		showSlide(counter);
 	}
 
+	function change_statu(element, cas_base){
+
+		var validate = true;
+		if(element.value == cas_base){
+			validate = false;
+			element.className += " invalide";
+			element.classList.remove("valide");
+		}
+		else{
+			element.classList.remove("invalide");
+			element.className += " valide";
+				}
+			
+		return validate;
+	}
+
 	function validate_part(){
 		var validate = true;
 		var x = document.getElementsByClassName("tab");
 		if(counter == 0){
 			var y = x[counter].getElementsByTagName("input");
 			for(i=0; i < y.length; i++){
-				if(y[i].value == ""){
-					validate = false;
-					y[i].className += " invalide";
-					y[i].classList.remove("valide");
-				}
-				else{
-					y[i].classList.remove("invalide");
-					y[i].className += " valide";
-				}
+				validate = change_statu(y[i], "");
 			}
 			var z = document.getElementById("year");
-			if(z.value == "Choix de votre promo"){
-				validate = false;
-				z.className += " invalide";
-				z.classListe.remove("valide");
-			}
-			else{
-				z.classList.remove("invalide");
-				z.className += " valide";
-			}
+			validate = change_statu(z, "Choix de votre promo");
 		}
 		else{
 			if(counter == 1){
-			var y = document.getElementById("langue");
-				if(y.value == "Choix de votre langue"){
-				validate = false;
-				y.className += " invalide";
-				y.classList.remove("valide");
-				}
-				else{
-					y.classList.remove("invalide");
-					y.className += " valide";
-				}
-			var z = document.getElementById("sport");
-				if(z.value == "Choix de votre sport"){
-				validate = false;
-				z.className += " invalide";
-				z.classListe.remove("valide");
-			}
-			else{
-				z.classList.remove("invalide");
-				z.className += " valide";
-			}
-			var w = document.getElementById("number");
+				var y = document.getElementById("langue");
+				validate = change_statu(y, "Choix de votre langue");
+				var z = document.getElementById("sport");
+				validate = change_statu(z, "Choix de votre sport");
+				var w = document.getElementById("number");
 				if(w.value == "" || w.value == "0"){
 					validate = false;
 					w.className += " invalide";
 					w.classList.remove("valide");
-			}
+				}
 				else{
-				w.classList.remove("invalide");
-				w.className += " valide";
-			}
+					w.classList.remove("invalide");				
+					w.className += " valide";		
+				}
 		}
 	}
 
