@@ -294,11 +294,21 @@
 			for(i=0; i < y.length; i++){
 				if(y[i].value == ""){
 					validate = false;
+					y[i].className += " invalide";
+				}
+				else{
+					y[i].classList.remove("invalide");
+					y[i].className += " valide";
 				}
 			}
 			var z = document.getElementById("year");
 			if(z.value == "Choix de votre promo"){
 				validate = false;
+				z.className += " invalide";
+			}
+			else{
+				z.classList.remove("invalide");
+				z.className += " valide";
 			}
 		}
 		else{
@@ -306,16 +316,35 @@
 			var y = document.getElementById("langue");
 				if(y.value == "Choix de votre langue"){
 				validate = false;
+				y.className += " invalide";
+				}
+				else{
+					y.classList.remove("invalide");
+					y.className += " valide";
+				}
+
 			}
 			var z = document.getElementById("sport");
 				if(z.value == "Choix de votre sport"){
 				validate = false;
+				z.className += " invalide";
+			}
+			else{
+				z.classList.remove("invalide");
+				z.className += " valide";
 			}
 			var w = document.getElementById("number");
 				if(w.value == "" || w.value == "0"){
 				validate = false;
+				w.className += " invalide";
+			}
+			else{
+				w.classList.remove("invalide");
+				w.className += " valide";
 			}
 		}
+		if(!validate){
+			alert("Veuillez remplir tout les champs du formulaire");
 		}
 		return validate;
 		

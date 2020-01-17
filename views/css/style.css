@@ -69,7 +69,45 @@ p{
 	justify-content: space-around;
 }
 
+input.invalide{
+	background-color: #F48159;
+	transition-property: background-color; /* Active la transition sur background-color */
+    transition-duration: 1s; /* La transition dure 1s */
+}
 
+input.invalide:hover{
+	background-color: white;
+}
+
+input.valide{
+	background-color: #B6F376;
+	transition-property: background-color; /* Active la transition sur background-color */
+    transition-duration: 1s; /* La transition dure 1s */
+}
+
+input.valide:hover{
+	background-color: white;
+}
+
+select.invalide{
+	background-color: #F48159;
+	transition-property: background-color; /* Active la transition sur background-color */
+    transition-duration: 1s; /* La transition dure 1s */
+}
+
+select.invalide:hover:{
+	background-color: white;
+}
+
+select.valide{
+	background-color: #B6F376;
+	transition-property: background-color; /* Active la transition sur background-color */
+    transition-duration: 1s; /* La transition dure 1s */
+}
+
+select.valide:hover:{
+	background-color: white;
+}
 
 .column {
 	background-color: white;
