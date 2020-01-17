@@ -288,9 +288,9 @@
 
 	function change_statu(element, cas_base){
 
-		var validate = true;
+		var v = true;
 		if(element.value == cas_base){
-			validate = false;
+			v = false;
 			element.className += " invalide";
 			element.classList.remove("valide");
 		}
@@ -299,7 +299,7 @@
 			element.className += " valide";
 				}
 			
-		return validate;
+		return v;
 	}
 
 	function validate_part(){
@@ -308,17 +308,17 @@
 		if(counter == 0){
 			var y = x[counter].getElementsByTagName("input");
 			for(i=0; i < y.length; i++){
-				validate = change_statu(y[i], "");
+				validate = (change_statu(y[i], "") && validate);
 			}
 			var z = document.getElementById("year");
-			validate = change_statu(z, "Choix de votre promo");
+			validate = (change_statu(z, "Choix de votre promo") && validate);
 		}
 		else{
 			if(counter == 1){
 				var y = document.getElementById("langue");
-				validate = change_statu(y, "Choix de votre langue");
+				validate = (change_statu(y, "Choix de votre langue") && validate);
 				var z = document.getElementById("sport");
-				validate = change_statu(z, "Choix de votre sport");
+				validate = (change_statu(z, "Choix de votre sport") && validate);
 				var w = document.getElementById("number");
 				if(w.value == "" || w.value == "0"){
 					validate = false;
