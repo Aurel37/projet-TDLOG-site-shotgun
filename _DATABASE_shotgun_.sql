@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jan 13, 2020 at 04:37 PM
+-- Generation Time: Jan 18, 2020 at 11:25 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -39,6 +39,10 @@ CREATE TABLE `Choices` (
   `rank` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Choices`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -71,11 +75,11 @@ INSERT INTO `Cours` (`id`, `id_slot`, `id_langue`, `level`, `libelle`, `teacher`
 (8, 0, 0, 0, 'The HeArt of the Matter', 'LME', 15),
 (9, 0, 0, 0, 'Model United Nations', 'SB', 15),
 (10, 0, 0, 0, 'Netflix and Beyond', 'JH', 15),
-(11, 0, 2, 0, 'Débutants I', 'DP', 15),
+(11, 0, 2, 0, 'Allemand: Débutants', 'DP', 15),
 (12, 0, 2, 0, 'Der aktuelle deutsche Film', 'SFL', 15),
 (13, 0, 2, 0, 'Energiewende in Deutschland', 'GM', 15),
-(14, 0, 1, 0, 'Débutants gr1', 'MJ', 15),
-(15, 0, 1, 0, 'Débutants gr2', 'MV', 15),
+(14, 0, 1, 0, 'Espagnol Débutants Gr1', 'MJ', 15),
+(15, 0, 1, 0, 'Espagnol Débutants Gr2', 'MV', 15),
 (16, 0, 1, 0, 'Lengua y Música hispana B1', 'MDL', 15),
 (17, 0, 1, 0, 'Dinamica profesional B2', 'RG', 15),
 (18, 0, 1, 0, 'Lengua y culturas hispanas Grpe 1', 'NF', 15),
@@ -83,13 +87,13 @@ INSERT INTO `Cours` (`id`, `id_slot`, `id_langue`, `level`, `libelle`, `teacher`
 (20, 0, 9, 0, 'Prendre la parole 2', 'CR', 15),
 (21, 0, 9, 0, 'Partager les cultures des Français', 'IS', 15),
 (22, 0, 9, 0, 'Échanges multiculturels', '1K', 15),
-(23, 0, 4, 0, 'Débutants', 'GB', 15),
-(24, 0, 8, 0, 'Débutants', 'MCD', 15),
-(25, 0, 3, 0, 'Débutants', 'DZ', 15),
-(26, 0, 7, 0, 'Débutants gr1', 'EB', 15),
-(27, 0, 7, 0, 'Débutants gr2', 'MD', 15),
-(28, 0, 5, 0, 'Débutants', 'IM', 15),
-(29, 0, 6, 0, 'Débutants', 'IAS', 15),
+(23, 0, 4, 0, 'Italien Débutants', 'GB', 15),
+(24, 0, 8, 0, 'Arabe Débutants', 'MCD', 15),
+(25, 0, 3, 0, 'Chinois Débutants', 'DZ', 15),
+(26, 0, 7, 0, 'Japonais Débutants gr1', 'EB', 15),
+(27, 0, 7, 0, 'Japonais Débutants gr2', 'MD', 15),
+(28, 0, 5, 0, 'Russe Débutants', 'IM', 15),
+(29, 0, 6, 0, 'Portugais Débutants', 'IAS', 15),
 (30, 1, 0, 0, 'Getting it Right', 'CL', 15),
 (31, 1, 0, 0, 'Breaking (the) News', 'LME', 15),
 (32, 1, 2, 0, 'Kulturtreffen', 'SFL', 15),
@@ -111,9 +115,9 @@ INSERT INTO `Cours` (`id`, `id_slot`, `id_langue`, `level`, `libelle`, `teacher`
 (48, 4, 0, 0, 'Speak Out', 'DH', 15),
 (49, 4, 2, 0, 'Intermédiaires', 'DP', 15),
 (50, 4, 1, 0, 'Lengua y cine hispano', 'LE', 15),
-(51, 4, 8, 0, 'Intermédiaires', 'MCD', 15),
-(52, 4, 4, 0, 'Intermédiaires', 'GB', 15),
-(53, 4, 5, 0, 'Intermédiaires', 'IM', 15),
+(51, 4, 8, 0, 'Arabe Intermédiaires', 'MCD', 15),
+(52, 4, 4, 0, 'Italien Intermédiaires', 'GB', 15),
+(53, 4, 5, 0, 'Russe Intermédiaires', 'IM', 15),
 (54, 5, 0, 0, 'Spotlight on Cinema', 'AS', 15),
 (55, 5, 0, 0, 'Speaking Near and Far', 'SB', 15),
 (56, 5, 0, 0, 'Engineers and Responsibility', 'DH', 15),
@@ -123,28 +127,28 @@ INSERT INTO `Cours` (`id`, `id_slot`, `id_langue`, `level`, `libelle`, `teacher`
 (60, 5, 0, 0, 'From Daguerre to Digital', 'JC', 15),
 (61, 5, 0, 0, 'World Issues and Events gr2', 'KW', 15),
 (62, 5, 0, 0, 'Pop Corner', 'RM', 15),
-(63, 5, 2, 0, 'Débutants I', 'DP', 15),
+(63, 5, 2, 0, 'Allemand Débutants I', 'DP', 15),
 (64, 5, 2, 0, 'Berlin von 1920 bis heute', 'AN', 15),
 (65, 5, 2, 0, 'Mein Deutschprojekt', 'SFL', 15),
-(66, 5, 1, 0, 'Débutants gr1', 'MJ', 15),
-(67, 5, 1, 0, 'Débutants gr2', 'MV', 15),
+(66, 5, 1, 0, 'Espagnol Débutants gr1', 'MJ', 15),
+(67, 5, 1, 0, 'Espagnol Débutants gr2', 'MV', 15),
 (68, 5, 1, 0, 'Escribir y narrar relatos', 'MDL', 15),
 (69, 5, 1, 0, 'Lengua y culturas hispanas ', 'LE', 15),
 (70, 5, 1, 0, 'Interacciones y culturas hispanas ', 'RG', 15),
-(71, 5, 4, 0, 'Débutants', 'GB', 15),
-(72, 5, 8, 0, 'Débutants', 'MCD', 15),
-(73, 5, 3, 0, 'Débutants', 'DZ', 15),
-(74, 5, 7, 0, 'Débutants gr1', 'EB', 15),
-(75, 5, 7, 0, 'Débutants gr2', 'MD', 15),
-(76, 5, 5, 0, 'Débutants ', 'IM', 15),
+(71, 5, 4, 0, 'Italien Débutants', 'GB', 15),
+(72, 5, 8, 0, 'Arabe Débutants', 'MCD', 15),
+(73, 5, 3, 0, 'Chinois Débutants', 'DZ', 15),
+(74, 5, 7, 0, 'Japonais Débutants gr1', 'EB', 15),
+(75, 5, 7, 0, 'Japonais Débutants gr2', 'MD', 15),
+(76, 5, 5, 0, 'Russe Débutants ', 'IM', 15),
 (77, 5, 6, 0, 'Débutants', 'IAS', 15),
 (78, 6, 0, 0, 'English Debating Club Gr.1', 'KW', 15),
 (79, 6, 0, 0, 'English Debating Club Gr.2', 'DH', 15),
 (80, 6, 0, 0, 'Keep the Ball Rolling', 'JC', 15),
 (81, 6, 1, 0, 'Debate en español', 'MC', 15),
-(82, 6, 7, 0, 'Intermédiaires', 'EB', 15),
-(83, 6, 3, 0, 'Intermédiaires', 'DZ', 15),
-(84, 6, 4, 0, 'Intermédiaires', 'GB', 15),
+(82, 6, 7, 0, 'Japonais Intermédiaires', 'EB', 15),
+(83, 6, 3, 0, 'Chinois Intermédiaires', 'DZ', 15),
+(84, 6, 4, 0, 'Italien Intermédiaires', 'GB', 15),
 (85, 7, 0, 0, 'In the News', 'CL', 15),
 (86, 7, 0, 0, 'Tech Impact', 'NH', 15),
 (87, 7, 0, 0, 'English Project Workshop', 'TH', 15),
@@ -242,6 +246,11 @@ CREATE TABLE `Language_wanted` (
   `id_language` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `Language_wanted`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -321,8 +330,17 @@ INSERT INTO `Sports` (`id`, `libelle`, `id_slot`) VALUES
 (0, 'Tennis', 4),
 (1, 'Basket', 1),
 (2, 'Natation', 15),
-(3, 'Danse', 1),
-(4, 'Aviron', 8);
+(3, 'Danse', 8),
+(4, 'Aviron', 8),
+(5, 'Badminton', 2),
+(6, 'Boxe', 2),
+(7, 'Volley Ball', 4),
+(8, 'Tennis de Table', 8),
+(9, 'Rugby', 15),
+(10, 'Musculation', 4),
+(11, 'Handball', 6),
+(12, 'Football', 4),
+(13, 'Escalade', 10);
 
 -- --------------------------------------------------------
 
@@ -332,7 +350,7 @@ INSERT INTO `Sports` (`id`, `libelle`, `id_slot`) VALUES
 
 CREATE TABLE `Students` (
   `id` int(11) NOT NULL,
-  `title` text,
+  `last_name` text,
   `first_name` text NOT NULL,
   `sport` int(11) DEFAULT NULL,
   `year` int(11) DEFAULT NULL,
@@ -342,19 +360,7 @@ CREATE TABLE `Students` (
 --
 -- Dumping data for table `Students`
 --
-
-INSERT INTO `Students` (`id`, `title`, `first_name`, `sport`, `year`, `number_class`) VALUES
-(1, 'aurelien', '', NULL, 21, 0),
-(2, 'aurelien', '', NULL, 21, 0),
-(3, 'aurelien', '', NULL, 21, 0),
-(4, 'aurelienp^sojd', '', NULL, 21, 0),
-(5, 'aurelienskehf', '', NULL, 21, 0),
-(6, 'aukjsdbf', '', NULL, 21, 0),
-(7, 'jean-jacque', '', NULL, 21, 0),
-(8, 'coucou', '', NULL, 21, 0),
-(9, 'hello', '', NULL, 21, 0);
-
--- --------------------------------------------------------
+---------------------------------------------
 
 --
 -- Table structure for table `Year`
@@ -397,6 +403,12 @@ ALTER TABLE `Cours`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `Language_wanted`
+--
+ALTER TABLE `Language_wanted`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `Langue`
 --
 ALTER TABLE `Langue`
@@ -428,10 +440,16 @@ ALTER TABLE `Students`
 -- AUTO_INCREMENT for table `Choices`
 --
 ALTER TABLE `Choices`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `Language_wanted`
+--
+ALTER TABLE `Language_wanted`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `Students`
 --
 ALTER TABLE `Students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
