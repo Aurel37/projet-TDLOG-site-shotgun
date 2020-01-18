@@ -150,9 +150,6 @@
 			}
 			});
 		}
-	function send_list_selected(tag, data, socket, type){
-
-	}
 	
 	function send_data_text(tag, data, socket, type) {
 		data.addEventListener(type, function() {
@@ -167,7 +164,7 @@
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	send_data_selected('year', document.getElementById("year"), socket, 'change');
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
-	send_data_text('sport', document.getElementById("sport"), socket, 'change');
+	send_data_selected('sport', document.getElementById("sport"), socket, 'change');
 	send_data_text('number', document.getElementById("number"), socket, 'change');
 	//send_list_selected('list_langue', document.getElementsByClassName('inputLangue'), socket, 'change');
 
@@ -192,7 +189,7 @@
 		}
 	});
 
-	socket.on('sport', function(sport_list) {
+	socket.on('sport_list', function(sport_list) {
 		var n = sport_list.length;
 		document.getElementById("sport").innerHTML = "";	
 		document.getElementById("sport").innerHTML += "<option>Choix de votre sport";
@@ -204,7 +201,7 @@
 
 
 	
-	socket.on('langue', function(langue_list) {
+	socket.on('classs', function(langue_list) {
 		var n = langue_list.length;
 		document.getElementById("class1").innerHTML = "";
 		for (var i=0; i<n; i++)

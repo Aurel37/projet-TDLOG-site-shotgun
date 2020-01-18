@@ -100,6 +100,18 @@ function query_first_l(data, callback) {
 	}
 }
 
+function get_class(sport, promo, langue, callback){
+	con.query('SELECT Cours.libelle FROM Cours JOIN Langue ON Cours.id_langue = Langue.id WHERE Langue.libelle  = ? AND Cours.id_slot != (SELECT id_slot FROM Sports WHERE libelle = ?) AND Cours.id_slot IN (SELECT For_who.id_creneau FROM For_who JOIN Year WHERE For_who.id_promo = (SELECT id FROM Year WHERE Year.libelle = ?))', [langue, sport, promo], function(err, result){
+		if(err){
+			callback(err, null);
+		}
+		else{
+			callback(null, result);
+		}
+
+	});
+}
+
 function get_sport(callback){
 	con.query('SELECT libelle FROM Sports',
 	function (err, result, fields) {
@@ -154,7 +166,8 @@ exports.add_data_langue = add_data_langue;
 exports.get_sport = get_sport;
 exports.get_langue = get_langue;
 exports.get_promo = get_promo;
-exports.query_first_l = query_first_l;
+exports.get_class = get_class;
+//exports.query_first_l = query_first_l;
 exports.push_cookie = push_cookie;
 
 //con.end((err) => {});

@@ -55,7 +55,7 @@ io.sockets.on('connection', function (socket){
 
 		model.get_sport(function(err, result) {
 				if (err) throw err;
-				socket.emit('sport', result);
+				socket.emit('sport_list', result);
 			});
 		model.get_langue(function(err, result) {
 				if (err) throw err;
@@ -74,18 +74,21 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.year = year;
 			socket.handshake.session.save();
 		});
-		socket.on('langue', function(langue_list) {
-			socket.handshake.session.langue = langue_list;
+		socket.on('langue', function(langue) {
+			socket.handshake.session.langue = langue;
 			socket.handshake.session.save();
-			model.query_first_l(langue_list, function(err, result) {
-				if (err) throw err;
-				socket.emit('langue', result);
-			});
 		});
+
 		socket.on('sport', function(sport) {
 			socket.handshake.session.sport = sport;
 			socket.handshake.session.save();
 		});
+		
+		model.get_class(socket.handshake.session.sport, socket.handshake.session.year, socket.handshake.session.langue, function(err, result) {
+				if (err) throw err;
+				socket.emit('classs', result);
+			});
+
 		socket.on('number', function(number) {
 			socket.handshake.session.number = number;
 			socket.handshake.session.save();
