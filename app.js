@@ -91,6 +91,10 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.save();
 
 		});
+		socket.on('sport', function(sport) {
+			socket.handshake.session.sport = sport;
+			socket.handshake.session.save();
+		});
 
 		socket.on('classs', function(){
 			model.get_class(socket.handshake.session.sport, socket.handshake.session.year, socket.handshake.session.langue, function(err, result) {
@@ -100,10 +104,7 @@ io.sockets.on('connection', function (socket){
 		})
 		
 
-		socket.on('sport', function(sport) {
-			socket.handshake.session.sport = sport;
-			socket.handshake.session.save();
-		});
+
 		
 		
 
