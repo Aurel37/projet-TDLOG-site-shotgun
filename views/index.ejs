@@ -17,7 +17,7 @@
 	<div class="tab">
 
 
-	<h2> Votre profile </h2>
+	<h2> Votre profil </h2>
 	<p>
 	<label for="name">Prénom :</label>
         <input type="text" name="first_name" id="first_name" />
@@ -32,13 +32,6 @@
 		</select>
 	
 	</p>
-	<p>
-
-		Quel sport choisissez vous ?
-		<select name="sport" size="1" id="sport">
-		</select>
-	</p>
-
 
 	</div>
 	<div class="tab">
@@ -52,6 +45,12 @@
 		
 	<select name ="langue" size="1" id="langue">
 	</select>
+		</p>
+	<p>
+	Quel sport choisissez vous ?
+	<select name="sport" size="1" id="sport">
+	</select>
+
 		</p>	
 
 
@@ -167,6 +166,7 @@
 	send_data_text('first_name', document.getElementById("first_name"), socket, 'blur');
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	socket.on('last_name', function(invalid) {
+		console.log('socket')
 		if (invalid) { 
 			alert("Ce nom est déjà pris veuillez en choisir un autre")
 			document.getElementById("last_name").value = "";
@@ -208,6 +208,8 @@
 			document.getElementById("sport").innerHTML += '<option>' + sport_list[i].libelle;
 		}
 	});
+
+
 
 
 	
@@ -263,6 +265,7 @@
 		if (n == (tab.length - 1)){ //if we are at the end of the form 
 			document.getElementById("nextBtn").style.display = "none";
 			document.getElementById("finalBtn").style.display = "inline";
+			socket.emit('classs');
 	
 		}
 		else{
@@ -319,13 +322,14 @@
 			}
 			var z = document.getElementById("year");
 			validate = (change_statu(z, "Choix de votre promo") && validate);
-			var w = document.getElementById("sport");
-			validate = (change_statu(w, "Choix de votre sport") && validate);
+			
 		}
 		else{
 			if(counter == 1){
 				var y = document.getElementById("langue");
 				validate = (change_statu(y, "Choix de votre langue") && validate);
+				var z = document.getElementById("sport");
+			validate = (change_statu(z, "Choix de votre sport") && validate);
 				
 				var w = document.getElementById("number");
 				if(w.value == "" || w.value == "0"){

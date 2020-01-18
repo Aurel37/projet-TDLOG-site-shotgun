@@ -37,10 +37,24 @@ app.use(session)
 })
 
 .post('/shotgun/add/form_1', urlencodedParser, function(req, res) {
+	console.log('first_name', typeof(req.session.first_name));
+	console.log('last_name', typeof(req.session.last_name));
+	console.log('year', typeof(req.session.year));
+console.log('langue_list', typeof(req.session.langue_list));
+console.log('sport', typeof(req.session.sport));
+console.log('number', typeof(req.session.number));
+
+
+
+	if (typeof(req.session.first_name) ==  'undefined' || typeof(req.session.last_name) ==  'undefined' || typeof(req.session.year) ==  'undefined' || typeof(req.session.rank_langue_list) ==  'undefined' || typeof(req.session.sport) ==  'undefined' ||  typeof(req.session.number) ==  'undefined') {
+		res.redirect('/shotgun');
+	}
+	else {
 	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.year, req.session.number, req.session.sport]);
 	model.add_data_class(req.session.rank_langue_list, req.session.last_name);
 	model.add_data_langue([req.session.last_name, req.session.langue]);
 	res.redirect('/shotgun/end_page');
+	}
 });
 
 
@@ -71,15 +85,16 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.save();
 			model.get_last_name(last_name, function(err, result) {
 					if (err) throw err;
-					
-					if (result == []) {
-						socket.emit('last_name' , true);
+					console.log(result);
+					if (result.length == 0) {
+						console.log('true');
+						socket.emit('last_name', false);
 					}
 					else
 					{
-						socket.emit('last_name', false);
-					}
-					
+						console.log('false');
+						socket.emit('last_name', true);
+					}	
 				});
 		});
 		socket.on('year', function(year) {
@@ -96,11 +111,20 @@ io.sockets.on('connection', function (socket){
 		socket.on('langue', function(langue) {
 			socket.handshake.session.langue = langue;
 			socket.handshake.session.save();
+
+
+		});
+		socket.on('sport', function(sport) {
+			socket.handshake.session.sport = sport;
+			socket.handshake.session.save();
+		});
+
+		socket.on('classs', function(){
 			model.get_class(socket.handshake.session.sport, socket.handshake.session.year, socket.handshake.session.langue, function(err, result) {
 				if (err) throw err;
 				socket.emit('classs', result);
 			});
-		});
+		})
 
 		socket.on('number', function(number) {
 			socket.handshake.session.number = number;
