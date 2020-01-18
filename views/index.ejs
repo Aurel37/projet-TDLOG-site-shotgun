@@ -37,13 +37,9 @@
 	<div class="tab">
 		<p>
 		Quelles langues choisissez vous ?
-		<!--
+		 
 		
-		 <div id="langue">
-		</div>
-	-->
-		
-	<select name ="langue" size="1" id="langue">
+	<select multiple  name ="langue" size="1" id="langue">
 	</select>
 		</p>
 	<p>
@@ -162,7 +158,6 @@
 		});
 	}
 	
-	
 	send_data_text('first_name', document.getElementById("first_name"), socket, 'blur');
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	socket.on('last_name', function(invalid) {
@@ -176,7 +171,6 @@
 	send_data_selected('langue', document.getElementById("langue"), socket, 'change');
 	send_data_selected('sport', document.getElementById("sport"), socket, 'change');
 	send_data_text('number', document.getElementById("number"), socket, 'change');
-	//send_list_selected('list_langue', document.getElementsByClassName('inputLangue'), socket, 'change');
 
 
 	socket.on('promo_list', function(promo_list) {
@@ -189,8 +183,7 @@
 	});
 
 	socket.on('langue_list', function(langue_list) {
-		var n = langue_list.length;
-		document.getElementById("langue").innerHTML = '<option>Choix de votre langue';	
+		var n = langue_list.length;	
 		for (var i=0; i<n; i++)
 		{
 			document.getElementById("langue").innerHTML += '<option>' + langue_list[i].libelle;
@@ -247,6 +240,21 @@
 	// show the current slide
 	showSlide(counter)
 
+	 function getSelectValues(select) {
+ 		var result = [];
+ 		var options = select && select.options;
+		var opt;
+
+  		for (var i=0, iLen=options.length; i<iLen; i++) {
+    	opt = options[i];
+
+    	if (opt.selected) {
+      		result.push(opt.value || opt.text);
+    		}
+  		}
+  	return result;
+	}
+
 	function showSlide(n){
 		// get the list of all the element of the class tab
 		tab = document.getElementsByClassName("tab");
@@ -265,6 +273,10 @@
 		if (n == (tab.length - 1)){ //if we are at the end of the form 
 			document.getElementById("nextBtn").style.display = "none";
 			document.getElementById("finalBtn").style.display = "inline";
+			var x = document.getElementById("langue");
+			var y = getSelectValues(x);
+			socket.emit('langue_selected', y);
+			alert(y);
 			socket.emit('classs');
 	
 		}
@@ -274,8 +286,7 @@
 
 		}
 
-
-	}
+}
 	function change(n){
 		tab = document.getElementsByClassName("tab");
 		if( n > 0){
@@ -327,9 +338,10 @@
 		else{
 			if(counter == 1){
 				var y = document.getElementById("langue");
-				validate = (change_statu(y, "Choix de votre langue") && validate);
+				var yy = getSelectValues(y);
+				validate = (yy.length > 0) && validate;
 				var z = document.getElementById("sport");
-			validate = (change_statu(z, "Choix de votre sport") && validate);
+				validate = (change_statu(z, "Choix de votre sport") && validate);
 				
 				var w = document.getElementById("number");
 				if(w.value == "" || w.value == "0"){

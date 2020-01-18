@@ -102,6 +102,7 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.save();
 		});
 
+
 		socket.on('sport', function(sport) {
 			socket.handshake.session.sport = sport;
 			socket.handshake.session.save();
@@ -118,13 +119,19 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.sport = sport;
 			socket.handshake.session.save();
 		});
+		socket.on('langue_selected', function(langue_selected){
+			socket.handshake.session.langue_selected = langue_selected;
+			socket.handshake.session.save();
+		});
 
 		socket.on('classs', function(){
-			model.get_class(socket.handshake.session.sport, socket.handshake.session.year, socket.handshake.session.langue, function(err, result) {
+			model.get_class(socket.handshake.session.sport, socket.handshake.session.year, socket.handshake.session.langue_selected, function(err, result) {
 				if (err) throw err;
 				socket.emit('classs', result);
 			});
 		})
+
+		
 
 		socket.on('number', function(number) {
 			socket.handshake.session.number = number;
