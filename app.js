@@ -86,24 +86,21 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.year = year;
 			socket.handshake.session.save();
 		});
-		
+
 		socket.on('sport', function(sport) {
 			socket.handshake.session.sport = sport;
 			socket.handshake.session.save();
 		});
+
 
 		socket.on('langue', function(langue) {
 			socket.handshake.session.langue = langue;
 			socket.handshake.session.save();
 			model.get_class(socket.handshake.session.sport, socket.handshake.session.year, socket.handshake.session.langue, function(err, result) {
 				if (err) throw err;
-				console.log(result);
 				socket.emit('classs', result);
 			});
 		});
-
-				
-		
 
 		socket.on('number', function(number) {
 			socket.handshake.session.number = number;

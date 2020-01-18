@@ -33,10 +33,12 @@
 	
 	</p>
 	<p>
+
 		Quel sport choisissez vous ?
 		<select name="sport" size="1" id="sport">
 		</select>
 	</p>
+
 
 	</div>
 	<div class="tab">
@@ -51,7 +53,7 @@
 	<select name ="langue" size="1" id="langue">
 	</select>
 		</p>	
-		
+
 
 		<p> 
 			Combien de cours de langue voulez vous? 
@@ -317,13 +319,14 @@
 			}
 			var z = document.getElementById("year");
 			validate = (change_statu(z, "Choix de votre promo") && validate);
+			var w = document.getElementById("sport");
+			validate = (change_statu(w, "Choix de votre sport") && validate);
 		}
 		else{
 			if(counter == 1){
 				var y = document.getElementById("langue");
 				validate = (change_statu(y, "Choix de votre langue") && validate);
-				var z = document.getElementById("sport");
-				validate = (change_statu(z, "Choix de votre sport") && validate);
+				
 				var w = document.getElementById("number");
 				if(w.value == "" || w.value == "0"){
 					validate = false;
