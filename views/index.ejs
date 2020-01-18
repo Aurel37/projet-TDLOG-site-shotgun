@@ -207,6 +207,8 @@
 	});
 
 
+
+
 	
 	socket.on('classs', function(langue_list) {
 		var n = langue_list.length;
@@ -260,6 +262,7 @@
 		if (n == (tab.length - 1)){ //if we are at the end of the form 
 			document.getElementById("nextBtn").style.display = "none";
 			document.getElementById("finalBtn").style.display = "inline";
+			socket.emit('classs');
 	
 		}
 		else{
