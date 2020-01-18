@@ -109,13 +109,18 @@
 					    draggedElement = dnd_Manager.draggedElement;
 
 					var clone = draggedElement.cloneNode(true);
-					
-					while  (target.className != "column") {
-						target = target.parentNode;
+						
+					if  (target.className != "column") {
+						target.parentNode.insertBefore(clone, target);
+						dnd_Manager.dragEvents(clone);
+						draggedElement.parentNode.removeChild(draggedElement);
+						//target = target.parentNode;
 					}
-					clone = target.appendChild(clone);
-					dnd_Manager.dragEvents(clone);
-					draggedElement.parentNode.removeChild(draggedElement);
+					else {
+						clone = target.appendChild(clone);
+						dnd_Manager.dragEvents(clone);
+						draggedElement.parentNode.removeChild(draggedElement);
+					}
 					if (clone.className != 'list_langue_ranked') {
 						clone.className = 'list_langue_ranked'; 
 					}
