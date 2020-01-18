@@ -71,10 +71,15 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.save();
 			model.get_last_name(last_name, function(err, result) {
 					if (err) throw err;
-					console.log(last_name);
-					if (typeof(result) != 'undefined') {
-						socket.emit('last_name' ,true)
+					
+					if (result == []) {
+						socket.emit('last_name' , true);
 					}
+					else
+					{
+						socket.emit('last_name', false);
+					}
+					
 				});
 		});
 		socket.on('year', function(year) {
