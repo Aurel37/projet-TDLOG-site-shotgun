@@ -120,7 +120,7 @@ function query_first_l(data, callback) {
 }
 
 function get_class(sport, promo, langue, callback){
-	con.query('SELECT Cours.libelle FROM Cours JOIN Langue ON Cours.id_langue = Langue.id WHERE Langue.libelle  = ? AND Cours.id_slot != (SELECT id_slot FROM Sports WHERE libelle = ?) AND Cours.id_slot IN (SELECT For_who.id_creneau FROM For_who JOIN Year WHERE For_who.id_promo = (SELECT id FROM Year WHERE Year.libelle = ?))', [langue, sport, promo], function(err, result){
+	con.query('SELECT Cours.libelle FROM Cours JOIN Langue ON Cours.id_langue = Langue.id WHERE Langue.libelle  IN ? AND Cours.id_slot != (SELECT id_slot FROM Sports WHERE libelle = ?) AND Cours.id_slot IN (SELECT For_who.id_creneau FROM For_who JOIN Year WHERE For_who.id_promo = (SELECT id FROM Year WHERE Year.libelle = ?))', [[langue], sport, promo], function(err, result){
 		if(err){
 			callback(err, null);
 		}
