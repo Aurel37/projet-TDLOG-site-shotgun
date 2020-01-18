@@ -24,7 +24,26 @@ function analyse_word(word) {
 	}
 	return res
 }
-	
+
+function get_last_name(name, callback) {
+	if (typeof(name) != 'undefined') {
+		var word = analyse_word(name);
+		con.query('SELECT last_name FROM Students WHERE last_name  = ?', 
+			[word],
+			function(err, result) {
+				if (err)
+				{
+					return callback(err, null);
+				}
+				else
+				{
+					return callback(null, result);
+				}
+			});
+	}
+}
+
+
 
 function add_data_student_id(data) {
 	if (typeof(data) != 'undefined') {
@@ -148,6 +167,7 @@ function push_cookie(cookie, name, data) {
 };
 
 exports.db_manager = con;
+exports.get_last_name = get_last_name;
 exports.add_data_student_id = add_data_student_id;
 exports.add_data_class = add_data_class;
 exports.add_data_langue = add_data_langue;

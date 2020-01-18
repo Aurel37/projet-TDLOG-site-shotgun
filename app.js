@@ -69,6 +69,13 @@ io.sockets.on('connection', function (socket){
 		socket.on('last_name', function(last_name) {
 			socket.handshake.session.last_name = last_name;
 			socket.handshake.session.save();
+			model.get_last_name(last_name, function(err, result) {
+					if (err) throw err;
+					console.log(last_name);
+					if (typeof(result) != 'undefined') {
+						socket.emit('last_name' ,true)
+					}
+				});
 		});
 		socket.on('year', function(year) {
 			socket.handshake.session.year = year;
