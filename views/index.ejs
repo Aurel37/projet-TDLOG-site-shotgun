@@ -109,11 +109,12 @@
 				var dnd_Manager = this;
 
 				dropper.addEventListener('drop',function(e) {
-					var target= e.target,
+					var target = e.target,
 					    draggedElement = dnd_Manager.draggedElement;
 
-					 var clone = draggedElement.cloneNode(true);
-					while  (target.className.indexOf('column') == -1) {
+					var clone = draggedElement.cloneNode(true);
+					
+					while  (target.className != "column") {
 						target = target.parentNode;
 					}
 					clone = target.appendChild(clone);
@@ -126,7 +127,7 @@
   						clone.className = 'list_langue';
 					}
 			});
-			}
+		}
 				
 	};
 	var list_langue = document.querySelectorAll('.list_langue'),
@@ -134,13 +135,14 @@
 
 	for (var i = 0; i < list_size; i++) {
 		dnd_Manager.dragEvents(list_langue[i]);
+
 		}
 
-		var columns = document.querySelectorAll('.column'),
-		    col_size = columns.length;
+	var columns = document.querySelectorAll('.column'),
+		col_size = columns.length;
 
-		for (var i = 0; i < col_size; i++) {
-			dnd_Manager.dropEvents(columns[i]);
+	for (var i = 0; i < col_size; i++) {
+		dnd_Manager.dropEvents(columns[i]);
 		}
 	}
 
