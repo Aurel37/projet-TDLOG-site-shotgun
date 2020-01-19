@@ -73,29 +73,35 @@ input.invalide{
 	background-color: rgba(244, 129, 118, 0.25);
 	transition-property: background-color; /* Active la transition sur background-color */
     transition-duration: 1s; /* La transition dure 1s */
+    border: 2px solid red;
 }
 
 input.invalide:hover{
 	background-color: white;
+
 }
 
 input.valide{
 	background-color: rgba(182, 243, 118, 0.25);
 	transition-property: background-color; /* Active la transition sur background-color */
     transition-duration: 1s; /* La transition dure 1s */
+    border: 2px solid green;
 }
 
 input.valide:hover{
 	background-color: white;
+	
 }
 
 select.invalide{
 	background-color: rgba(244, 129, 118, 0.25);
+	border: 2px solid red;
 }
+
 
 select.valide{
 	background-color: rgba(182, 243, 118, 0.25);
-
+	border: 2px solid green;
 }
 
 .column {
