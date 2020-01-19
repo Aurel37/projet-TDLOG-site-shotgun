@@ -113,15 +113,19 @@
 						
 					if  (target.className != "column") {
 						clone = target.parentNode.insertBefore(clone, target);
-						dnd_Manager.dragEvents(clone);
-						target.parentNode.removeChild(draggedElement);
 						target = target.parentNode;
+						//target.removeChild(draggedElement);
 					}
 					else {
 						clone = target.appendChild(clone);
-						dnd_Manager.dragEvents(clone);
-						draggedElement.parentNode.removeChild(draggedElement);
+						
+						//dnd_Manager.dragEvents(clone);
+						//draggedELement.parentNode.removeChild(draggedElement);
 					}
+					dnd_Manager.dragEvents(clone);
+					draggedElement.parentNode.removeChild(draggedElement);
+					
+
 					if (clone.className != 'list_langue_ranked') {
 						clone.className = 'list_langue_ranked'; 
 					}
@@ -231,10 +235,11 @@
 		submit.addEventListener('click', function () {
 			var rank = document.querySelectorAll('.list_langue_ranked'),
 		    	rank_size = rank.length;
-			//alert(rank_size);
+			
+		
 			var rank_emit = new Array();
 			for (var i = 0; i < rank_size; i++) {
-				//alert(rank[i].innerHTML);
+				
 				rank_emit.push(rank[i].innerHTML);
 			}
 			socket.emit('rank_langue', rank_emit);});

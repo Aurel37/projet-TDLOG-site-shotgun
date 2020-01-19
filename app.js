@@ -40,19 +40,20 @@ app.use(session)
 	console.log('first_name', typeof(req.session.first_name));
 	console.log('last_name', typeof(req.session.last_name));
 	console.log('year', typeof(req.session.year));
-console.log('langue_list', typeof(req.session.langue_list));
+console.log('langue_list', typeof(req.session.rank_langue_list));
 console.log('sport', typeof(req.session.sport));
 console.log('number', typeof(req.session.number));
 
 
 
-	if (typeof(req.session.first_name) ==  'undefined' || typeof(req.session.last_name) ==  'undefined' || typeof(req.session.year) ==  'undefined' || typeof(req.session.rank_langue_list) ==  'undefined' || typeof(req.session.sport) ==  'undefined' ||  typeof(req.session.number) ==  'undefined') {
+
+	if (typeof(req.session.first_name) ==  'undefined' || typeof(req.session.last_name) ==  'undefined' || typeof(req.session.year) ==  'undefined' || typeof(req.session.rank_langue_list) ==  'undefined' || typeof(req.session.sport) ==  'undefined' ||  typeof(req.session.number) ==  'undefined' || typeof(req.session.langue_selected) == 'undefined') {
 		res.redirect('/shotgun');
 	}
 	else {
 	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.year, req.session.number, req.session.sport]);
 	model.add_data_class(req.session.rank_langue_list, req.session.last_name);
-	model.add_data_langue([req.session.last_name, req.session.langue]);
+	model.add_data_langue(req.session.last_name, req.session.langue_selected);
 	res.redirect('/shotgun/end_page');
 	}
 });
@@ -109,17 +110,18 @@ io.sockets.on('connection', function (socket){
 		});
 
 
-		socket.on('langue', function(langue) {
+		/*socket.on('langue', function(langue) {
 			socket.handshake.session.langue = langue;
 			socket.handshake.session.save();
 
 
-		});
+		});*/
 		socket.on('sport', function(sport) {
 			socket.handshake.session.sport = sport;
 			socket.handshake.session.save();
 		});
 		socket.on('langue_selected', function(langue_selected){
+			console.log('langue slected' + langue_selected);
 			socket.handshake.session.langue_selected = langue_selected;
 			socket.handshake.session.save();
 		});
@@ -138,6 +140,7 @@ io.sockets.on('connection', function (socket){
 			socket.handshake.session.save();
 		});
 		socket.on('rank_langue', function(rank) {
+			console.log('rank', rank);
 			socket.handshake.session.rank_langue_list = rank;
 			socket.handshake.session.save();
 		});
