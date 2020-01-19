@@ -89,14 +89,17 @@ function add_data_class(data, name) {
 	}
 }
 
-function add_data_langue(data) {
+function add_data_langue(last_name, data) {
 	if (typeof(data) != 'undefined')
 	{
-	con.query('INSERT INTO Language_wanted(id_students, id_language) VALUES ((SELECT id FROM Students WHERE last_name = ?), (SELECT id FROM Langue WHERE libelle = ?))', data,
+	var n = data.length;
+	for (var i = 0; i < n;  i++) {
+	con.query('INSERT INTO Language_wanted(id_students, id_language) VALUES ((SELECT id FROM Students WHERE last_name = ?), (SELECT id FROM Langue WHERE libelle = ?))', [last_name, data[i]],
 		function (err) {
 			if (err) throw err;
-			console.log('1 record inserted');
+			console.log('1 record inserted difg');
 		});
+	}
 	}
 }
 
