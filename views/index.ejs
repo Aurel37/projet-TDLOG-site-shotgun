@@ -106,33 +106,38 @@
 				var dnd_Manager = this;
 
 				dropper.addEventListener('drop',function(e) {
+					
 					var target = e.target,
 					    draggedElement = dnd_Manager.draggedElement;
-
+					if (draggedElement.parentNode != null) {
 					var clone = draggedElement.cloneNode(true);
-						
+					//alert('cherche ' + draggedElement.innerHTML);
 					if  (target.className != "column") {
+						//alert('in ');
 						clone = target.parentNode.insertBefore(clone, target);
 						target = target.parentNode;
 						//target.removeChild(draggedElement);
 					}
 					else {
+						//alert('innot');
 						clone = target.appendChild(clone);
 						
 						//dnd_Manager.dragEvents(clone);
 						//draggedELement.parentNode.removeChild(draggedElement);
 					}
+				//	alert('la bas');
 					dnd_Manager.dragEvents(clone);
+					//alert('after');
 					draggedElement.parentNode.removeChild(draggedElement);
-					
-
 					if (clone.className != 'list_langue_ranked') {
 						clone.className = 'list_langue_ranked'; 
 					}
 					else if (target.id == 'class1') {
   						clone.className = 'list_langue';
 					}
-			});
+				//	alert('final');
+					}
+				});
 		}
 				
 	};
@@ -220,7 +225,12 @@
 	
 	socket.on('classs', function(langue_list) {
 		var n = langue_list.length;
-		document.getElementById("rank_class1").innerHTML = "";
+		var d_n_b_rank = document.querySelectorAll('.list_langue_ranked');
+		     d_n_b_rank_size = d_n_b_rank.length;
+		for (var i = 0; i < d_n_b_rank_size; i++) {
+			d_n_b_rank[i].parentNode.removeChild(d_n_b_rank[i]);
+		}
+		//document.getElementById("rank_class1").innerHTML = "";
 		document.getElementById("class1").innerHTML = "";
 		for (var i=0; i<n; i++)
 		{
