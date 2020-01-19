@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jan 18, 2020 at 11:25 PM
+-- Generation Time: Jan 19, 2020 at 09:31 AM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -42,7 +42,6 @@ CREATE TABLE `Choices` (
 --
 -- Dumping data for table `Choices`
 --
-
 -- --------------------------------------------------------
 
 --
@@ -106,14 +105,14 @@ INSERT INTO `Cours` (`id`, `id_slot`, `id_langue`, `level`, `libelle`, `teacher`
 (39, 2, 2, 0, 'Babylon Berlin', 'SFL', 15),
 (40, 2, 9, 0, 'Théâtre et société', 'ALB', 15),
 (41, 2, 9, 0, 'Francophonies', 'IS', 15),
-(42, 2, 3, 0, 'Intermédiaires', 'LS', 15),
+(42, 2, 3, 0, 'Chinois Intermédiaires', 'LS', 15),
 (43, 3, 9, 0, 'Améliorer ses écrits académiques 4', 'IS', 15),
 (44, 3, 9, 0, 'Améliorer ses écrits académiques 4 (DD)', 'LS', 15),
 (45, 4, 0, 0, 'Photography', 'KC', 15),
 (46, 4, 0, 0, 'World Issues and Events gr1', 'KW', 15),
 (47, 4, 0, 0, 'US TV series', 'AS', 15),
 (48, 4, 0, 0, 'Speak Out', 'DH', 15),
-(49, 4, 2, 0, 'Intermédiaires', 'DP', 15),
+(49, 4, 2, 0, 'Allemand Intermédiaires', 'DP', 15),
 (50, 4, 1, 0, 'Lengua y cine hispano', 'LE', 15),
 (51, 4, 8, 0, 'Arabe Intermédiaires', 'MCD', 15),
 (52, 4, 4, 0, 'Italien Intermédiaires', 'GB', 15),
@@ -141,7 +140,7 @@ INSERT INTO `Cours` (`id`, `id_slot`, `id_langue`, `level`, `libelle`, `teacher`
 (74, 5, 7, 0, 'Japonais Débutants gr1', 'EB', 15),
 (75, 5, 7, 0, 'Japonais Débutants gr2', 'MD', 15),
 (76, 5, 5, 0, 'Russe Débutants ', 'IM', 15),
-(77, 5, 6, 0, 'Débutants', 'IAS', 15),
+(77, 5, 6, 0, 'Portugais Débutants', 'IAS', 15),
 (78, 6, 0, 0, 'English Debating Club Gr.1', 'KW', 15),
 (79, 6, 0, 0, 'English Debating Club Gr.2', 'DH', 15),
 (80, 6, 0, 0, 'Keep the Ball Rolling', 'JC', 15),
@@ -360,7 +359,10 @@ CREATE TABLE `Students` (
 --
 -- Dumping data for table `Students`
 --
----------------------------------------------
+
+
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `Year`
