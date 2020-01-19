@@ -112,10 +112,10 @@
 					var clone = draggedElement.cloneNode(true);
 						
 					if  (target.className != "column") {
-						target.parentNode.insertBefore(clone, target);
+						clone = target.parentNode.insertBefore(clone, target);
 						dnd_Manager.dragEvents(clone);
-						draggedElement.parentNode.removeChild(draggedElement);
-						//target = target.parentNode;
+						target.parentNode.removeChild(draggedElement);
+						target = target.parentNode;
 					}
 					else {
 						clone = target.appendChild(clone);
