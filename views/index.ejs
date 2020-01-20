@@ -41,8 +41,9 @@
 		
 	<select multiple  name ="langue" size="3" id="langue">
 	</select>
-		</p>
 	<p>
+		Veuillez maintenir la toûche controle pour sélectionner plusieurs langues.
+	</p>
 	Quel sport choisissez vous ?
 	<select name="sport" size="1" id="sport">
 	</select>
@@ -361,6 +362,14 @@
 			if(counter == 1){
 				var y = document.getElementById("langue");
 				var yy = getSelectValues(y);
+				if(yy.length > 0){
+					y.classList.remove("invalide");				
+					y.className += " valide";	
+				}
+				else{
+					y.className += " invalide";
+					y.classList.remove("valide");
+				}
 				validate = (yy.length > 0) && validate;
 				var z = document.getElementById("sport");
 				validate = (change_statu(z, "Choix de votre sport") && validate);
