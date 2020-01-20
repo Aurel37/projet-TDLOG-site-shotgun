@@ -21,6 +21,7 @@ function socket_add(tag, socket, req) {
 	});
 }
 
+
 io.use(sharedsession(session, {
 	autoSave: true
 }));
