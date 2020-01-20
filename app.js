@@ -13,6 +13,8 @@ var model = require('./model');
 var url = require('url');
 var io = require('socket.io').listen(server);
 
+
+
 model.db_manager;
 
 function socket_add(tag, socket, req) {
@@ -25,6 +27,7 @@ function socket_add(tag, socket, req) {
 io.use(sharedsession(session, {
 	autoSave: true
 }));
+
 
 app.use(express.static("views"));
 app.use(session)
