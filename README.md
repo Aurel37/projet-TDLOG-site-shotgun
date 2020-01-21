@@ -20,7 +20,7 @@ The data from the DataBase provided comes from l'Ecole des Ponts (the classes).
 
 <h1>Installation</h1>
 
-You can install the website thanks git-hub anywhere you want on your computer however you need Node.Js and MySQL to run the code. PLease read the following parts.
+You can install the website thanks git-hub anywhere you want on your computer however you need Node.Js and MySQL to run the code. Please read the following parts.
 	
 <h2>Node.js</h2>
 	
@@ -28,6 +28,16 @@ The first step is to install Node.js, you can easily managed it with the officia
 
 <h2>MySQL</h2>
 
-The website runs thanks MySQL as DataBase manager, you either can install it directly on <a href="https://www.mysql.com/">official website</a>. You can use Wamp or Mamp as well. However be careful when using Mamp you'll need to uncomment this line : 
+The website runs thanks MySQL as DataBase manager, you either can install it directly from the <a href="https://www.mysql.com/">official website</a>. You can use WAMP or MAMP as well. However be careful when using Mamp you'll need to uncomment the line "socketPath" : 
 
-in the file app.js. If it doesn't work go on the start page of Mamp and change the path with the indication provided :
+<pre><code>
+var con = mysql.createConnection({
+	host : 'localhost',
+	user : 'root',
+	password : 'root',
+	//socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',  //uncomment this line if you're using Mamp 
+	database : 'shotgun_website'
+});
+</code></pre>
+in the file model.js. If it doesn't work go on the WebStart page of MAMP and change the path with the indication provided here :
+<img src="Mamp_socket.png">
