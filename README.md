@@ -40,4 +40,6 @@ var con = mysql.createConnection({
 });
 </code></pre>
 in the file model.js. If it doesn't work go on the WebStart page of MAMP and change the path with the indication provided here :
+
+
 <img src="Mamp_socket.png">
