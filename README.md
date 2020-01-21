@@ -35,7 +35,8 @@ var con = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
 	password : 'root',
-	//socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',  //uncomment this line if you're using Mamp 
+	//socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',  //uncomment this line 
+								   // if you're using Mamp 
 	database : 'shotgun_website'
 });
 </code></pre>
