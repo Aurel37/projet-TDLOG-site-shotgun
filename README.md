@@ -50,4 +50,4 @@ in the file <strong>model.js</strong>. If it doesn't work go on the WebStart pag
 To run the code simply use this command in your terminal (Mac0S or Linux otherwise use the Node.Js terminal) : 
 <pre><code> node app.js
 </code></pre>
-Then browse url : <a href="http://localhost:8080/shotgun">http://localhost:8080/shotgun</a>.
+Then browse the url : <a href="http://localhost:8080/shotgun">http://localhost:8080/shotgun</a>.
