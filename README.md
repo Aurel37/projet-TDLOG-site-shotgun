@@ -31,8 +31,7 @@ The first step is to install Node.js, you can easily managed it with the officia
 
 The website runs thanks MySQL as DataBase manager, you can either install it directly from the <a href="https://www.mysql.com/">official website</a> or you can use WAMP or MAMP as well. However be careful when using MAMP you'll need to uncomment the line "socketPath" : 
 
-<pre><code>
-var con = mysql.createConnection({
+<pre><code> var con = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
 	password : 'root',
@@ -49,7 +48,6 @@ in the file <strong>model.js</strong>. If it doesn't work go on the WebStart pag
 <h1>Quick Start</h1>
 
 To run the code simply use this command in your terminal (Mac0S or Linux otherwise use the Node.Js terminal) : 
-<pre><code>
-node app.js
+<pre><code> node app.js
 </code></pre>
 Then go to this url : <a href="http://localhost:8080/shotgun">http://localhost:8080/shotgun</a>.
