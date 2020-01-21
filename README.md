@@ -28,7 +28,7 @@ The first step is to install Node.js, you can easily managed it with the officia
 
 <h2>MySQL</h2>
 
-The website runs thanks MySQL as DataBase manager, you either can install it directly from the <a href="https://www.mysql.com/">official website</a>. You can use WAMP or MAMP as well. However be careful when using Mamp you'll need to uncomment the line "socketPath" : 
+The website runs thanks MySQL as DataBase manager, you can either install it directly from the <a href="https://www.mysql.com/">official website</a> or you can use WAMP or MAMP as well. However be careful when using MAMP you'll need to uncomment the line "socketPath" : 
 
 <pre><code>
 var con = mysql.createConnection({
