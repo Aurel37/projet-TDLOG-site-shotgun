@@ -45,7 +45,7 @@ in the file <strong>model.js</strong>. If it doesn't work go on the WebStart pag
 
 <img src="Mamp_socket.png">
 
-After this step do note forget to import the database <strong>\_DATABASE_shotgun_.sql</strong> in MySQL, and to name it : 'shotgun_website'.
+After this step do note forget to import the database <strong>\_DATABASE_shotgun_.sql</strong> in MySQL, and to name it 'shotgun_website'.
 
 <h1>Quick Start</h1>
 
