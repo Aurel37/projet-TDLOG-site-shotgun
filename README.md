@@ -37,7 +37,7 @@ The website runs thanks MySQL as DataBase manager, you can either install it dir
 	password : 'root',
 	//socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',  //uncomment this line 
 								   // if you're using Mamp 
-	database : 'shotgun_website'
+	database : 'shotgun_website'                               //the name of the database imported in MySQL
 });
 </code></pre>
 in the file <strong>model.js</strong>. If it doesn't work go on the WebStart page of MAMP and change the path with the indication provided here :
@@ -45,7 +45,7 @@ in the file <strong>model.js</strong>. If it doesn't work go on the WebStart pag
 
 <img src="Mamp_socket.png">
 
-After this step do note forget to import the database <strong>\_DATABASE_shotgun_.sql</strong> in MySQL.
+After this step do note forget to import the database <strong>\_DATABASE_shotgun_.sql</strong> in MySQL, and to name it : 'shotgun_website'.
 
 <h1>Quick Start</h1>
 
