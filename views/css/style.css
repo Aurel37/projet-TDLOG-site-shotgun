@@ -5,6 +5,7 @@
 	font-family: Optima, sans-serif;
 
 }
+
 body{
 	color: #003399;
 	width: 50%;
@@ -27,6 +28,7 @@ p{
   	padding: 40px;
   	width: 60%;
  }
+
 #form {
   background-color: #ffffff;
   margin: 100px auto;

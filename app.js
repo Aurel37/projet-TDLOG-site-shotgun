@@ -13,6 +13,7 @@ var model = require('./model');
 var url = require('url');
 var io = require('socket.io').listen(server);
 
+
 model.db_manager;
 
 function socket_add(tag, socket, req) {
@@ -21,9 +22,11 @@ function socket_add(tag, socket, req) {
 	});
 }
 
+
 io.use(sharedsession(session, {
 	autoSave: true
 }));
+
 
 app.use(express.static("views"));
 app.use(session)
@@ -51,6 +54,7 @@ console.log('number', typeof(req.session.number));
 		res.redirect('/shotgun');
 	}
 	else {
+	
 	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.year, req.session.number, req.session.sport]);
 	model.add_data_class(req.session.rank_langue_list, req.session.last_name);
 	model.add_data_langue(req.session.last_name, req.session.langue_selected);
