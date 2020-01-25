@@ -50,10 +50,14 @@ myresult = mycursor.fetchall()
 courses=[]
 capacities=[]
 
+# table of courses gathered by language
+language_courses = [[] for in range(9)]
+
 for x in myresult:
     (id_cours, id_creneau, id_langue, niveau, nom, enseignant, effectif)=x
     courses.append([id_cours, id_creneau, id_langue, niveau, nom])
     capacities.append(effectif)
+    language_courses[id_langue].append(id_cours)
     slots_courses[id_creneau].append(id_cours)
     
 nb_courses = len(courses)
@@ -148,6 +152,9 @@ prob += lpSum([weight[i,j]*allocation[(i,j)] for i in range(nb_students) for j i
 for i in range(nb_students):
     # each student must have the number of lessons he asked for
     prob += lpSum([allocation[(i,j)] for j in range(nb_courses)]) == nb_hours[i]
+    # each student must have at least one course of each language he put in his choice list
+    for l in language_wanted[i]:
+      prob += lpSum([allocation[(i,j)] for j in language_courses[l]]) >= 1
     for slot in slots_courses:
         # each student must have at the most 1 lesson per slot
         prob += lpSum([allocation[(i,j)] for j in slot]) <= 1
