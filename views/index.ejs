@@ -208,9 +208,8 @@
 	socket.on('langue_list', function(langue_list) {
 		var n = langue_list.length;	
 		// In the element langue, we put all the language available in the database
-		for (var i=0; i<n; i++)
+		for (var i=0; i<n; i++) {
 			document.getElementById("langue").innerHTML += '<option>' + langue_list[i].libelle;
-			
 		}
 	});
 

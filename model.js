@@ -152,13 +152,10 @@ function get_sport(callback){
 		}
 	});
 }
-<<<<<<< HEAD
-function get_langue(callback){
-	con.query('SELECT libelle FROM Langue',
-=======
+
 function get_langue( callback){
 	con.query('SELECT libelle FROM Langue WHERE libelle != "anglais"',
->>>>>>> 1cff41312574056ea3aeed708d0e85dd4e8ac1d6
+
 	function (err, result, fields) {
 		if (err)
 		{
