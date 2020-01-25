@@ -6,13 +6,16 @@ from pulp import LpVariable, LpProblem, LpMinimize, GLPK, lpSum
 import mysql.connector
 
 ## Connection à la base de donnée
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="root",
-  db="essai"
-)
+config = {
+  'user': 'root',
+  'password': 'root',
+  'host': 'localhost:889',
+  'database': 'shotgun_website',
+  'raise_on_warnings': True,
+}
 
+
+mydb = mysql.connector.connect(**config)
 ## Constante
 coef_choix=3
 
@@ -51,7 +54,7 @@ courses=[]
 capacities=[]
 
 # table of courses gathered by language
-language_courses = [[] for in range(10)]
+language_courses = [[] for _  in range(10)]
 
 for x in myresult:
     (id_cours, id_creneau, id_langue, niveau, nom, enseignant, effectif)=x
@@ -59,7 +62,7 @@ for x in myresult:
     capacities.append(effectif)
     language_courses[id_langue].append(id_cours)
     slots_courses[id_creneau].append(id_cours)
-    
+
 nb_courses = len(courses)
 nb_slots = len(slots_courses)
 
@@ -71,7 +74,7 @@ for x in myresult:
     (id, id_student, id_class, rank)=x
     choices.append([id_student-1, id_class, rank])
 
-        
+ 
 mycursor.execute("SELECT * FROM sports")
 myresult= mycursor.fetchall()
 sports=[]
@@ -109,7 +112,7 @@ def create_weight(choices):
     #Create table
     a=100
     weights=np.ones((nb_students, nb_courses))*a
-    
+
     # Courses chosed 
     for choice in choices:
         student=choice[0]
@@ -128,12 +131,11 @@ def create_weight(choices):
             if wrong_language(j,i):
                 weights[j,i] = imposs
 
-    
+
     return weights
 
 weight=create_weight(choices)
 
-    
 
 
 
