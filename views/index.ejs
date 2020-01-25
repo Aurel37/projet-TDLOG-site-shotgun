@@ -13,7 +13,11 @@
 	<h1>Site de shotgun</h1>
 		
 	<img id= "logo" src="/css/logo_pont.png">
-	<div class="tab">
+	<div class="tab"> <!-- 
+		tab is the div that contains one step of the form
+	-->
+
+	<!-- Step 1 --> 
 
 
 	<h2> Votre profil </h2>
@@ -27,23 +31,23 @@
 	</p>
 	<p>
 		Votre promo : 
-		<select name="year" size="1" id="year">
+		<select name="year" size="1" id="year"> 
 		</select>
-	
 	</p>
-
 	</div>
 	<div class="tab">
+		<!-- Step 2 --> 
 		<p>
-		Quelles langues choisissez vous ?
-		 
-		
+		Quelles secondes langues choisissez vous ?
 	<select multiple  name ="langue" size="3" id="langue">
 	</select>
+	<!--
+	multiple allows us to select several langue if we keep pressing the control button 
+-->
 	<p>
 		Veuillez maintenir la toûche controle pour sélectionner plusieurs langues.
 	</p>
-	Quel sport choisissez vous ?
+	Quel sport pratiquez vous ?
 	<select name="sport" size="1" id="sport">
 	</select>
 
@@ -56,6 +60,8 @@
 		</p>
 	</div>	
 	<div class="tab">
+
+		<!-- Step 3 --> 
 			Veuillez classer les cours disponibles pour vous:
 		<div class ="ranking_form_class1">
 				<ul class = "column" id = "rank_class1">
@@ -70,7 +76,7 @@
 	
 
 
-	
+	<!-- Set the buttons for switching the layers -->
 	<div style="overflow:auto;">
   		<div style="float:right;">
    	 		<button type="button" class="button"  id="prevBtn" onclick="change(-1)">Previous</button>
@@ -140,6 +146,7 @@
 		}
 				
 	};
+
 	var list_langue = document.querySelectorAll('.list_langue'),
 		list_size = list_langue.length;
 
@@ -200,16 +207,16 @@
 
 	socket.on('langue_list', function(langue_list) {
 		var n = langue_list.length;	
+		// In the element langue, we put all the language available in the database
 		for (var i=0; i<n; i++)
-		{
 			document.getElementById("langue").innerHTML += '<option>' + langue_list[i].libelle;
 			
-			//document.getElementById("langue").innerHTML += '<input class="inputLangue" type="checkbox" name="list_langue[]" value="'+ langue_list[i].libelle +'" > '+ langue_list[i].libelle +' <br>';
 		}
 	});
 
 	socket.on('sport_list', function(sport_list) {
 		var n = sport_list.length;
+		// In the element sport, we put all the sport available in the database
 		document.getElementById("sport").innerHTML = "";	
 		document.getElementById("sport").innerHTML += "<option>Choix de votre sport";
 		for (var i=0; i<n; i++)
@@ -229,11 +236,11 @@
 		for (var i = 0; i < d_n_b_rank_size; i++) {
 			d_n_b_rank[i].parentNode.removeChild(d_n_b_rank[i]);
 		}
-		//document.getElementById("rank_class1").innerHTML = "";
+
+		// We need to be able to get several languages that we will put into the socket 
 		document.getElementById("class1").innerHTML = "";
 		for (var i=0; i<n; i++)
 		{
-
 			document.getElementById("class1").innerHTML += "<li class = 'list_langue'>" + langue_list[i].libelle;
 
 		}
@@ -264,14 +271,13 @@
 	showSlide(counter)
 
 	 function getSelectValues(select) {
- 		var result = [];
+	 	// we get all the languages selected 
+ 		var result = ["anglais"]; // English is already selected because every students must have an english class
  		var options = select && select.options;
 		var opt;
-
   		for (var i=0, iLen=options.length; i<iLen; i++) {
     	opt = options[i];
-
-    	if (opt.selected) {
+    	if (opt.selected) { // we take all the languages selected
       		result.push(opt.value || opt.text);
     		}
   		}
@@ -288,7 +294,7 @@
 			document.getElementById("prevBtn").style.display = "none";
 
 		}
-		else{
+		else{ 
 			document.getElementById("prevBtn").style.display = "inline";
 			document.getElementById("nextBtn").style.display = "inline";
 
@@ -298,6 +304,7 @@
 			document.getElementById("finalBtn").style.display = "inline";
 			var x = document.getElementById("langue");
 			var y = getSelectValues(x);
+			// we put the languages selected into the socket 
 			socket.emit('langue_selected', y);
 			socket.emit('classs');
 	
@@ -309,13 +316,13 @@
 		}
 
 }
-	function change(n){
+	function change(n){ // See if we can change the layer, n is the step (1 or -1)
 		tab = document.getElementsByClassName("tab");
 		if( n > 0){
-			if(validate_part() ){
+			if(validate_part() ){ // Verify if we can move further
 				if (n + counter >= 0 && n + counter < tab.length){
-					tab[counter].style.display = "none";
-					counter = counter + n;
+					tab[counter].style.display = "none"; // We hide the current layer
+					counter = counter + n; // we move 
 					}
 				}
 			}
@@ -329,7 +336,7 @@
 		showSlide(counter);
 	}
 
-	function change_statu(element, cas_base){
+	function change_statu(element, cas_base){ // check if the student complete the element
 
 		var v = true;
 		if(element.value == cas_base){
@@ -345,7 +352,7 @@
 		return v;
 	}
 
-	function validate_part(){
+	function validate_part(){ 
 		var validate = true;
 		var x = document.getElementsByClassName("tab");
 		if(counter == 0){
