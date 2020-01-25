@@ -47,6 +47,13 @@ in the file <strong>model.js</strong>. If it doesn't work go on the WebStart pag
 
 After this step do note forget to import the database <strong>\_DATABASE_shotgun_.sql</strong> in MySQL, and to name it 'shotgun_website'.
 
+Finally you'll need to install the module "mysql" and "pulp" for python, simply run the followings commands on your terminal : 
+
+<pre><code> python -m pip install mysql-connector
+</code></pre>
+<pre><code> pip install pulp
+</code></pre>
+
 <h1>Quick Start</h1>
 
 To run the code simply use this command in your terminal (Mac0S or Linux otherwise use the Node.Js terminal) : 
