@@ -148,7 +148,7 @@ function get_sport(callback){
 	});
 }
 function get_langue( callback){
-	con.query('SELECT libelle FROM Langue',
+	con.query('SELECT libelle FROM Langue WHERE libelle != "anglais"',
 	function (err, result, fields) {
 		if (err)
 		{
