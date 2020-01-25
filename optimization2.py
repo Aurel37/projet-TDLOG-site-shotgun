@@ -51,7 +51,7 @@ courses=[]
 capacities=[]
 
 # table of courses gathered by language
-language_courses = [[] for in range(9)]
+language_courses = [[] for in range(10)]
 
 for x in myresult:
     (id_cours, id_creneau, id_langue, niveau, nom, enseignant, effectif)=x
