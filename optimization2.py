@@ -152,11 +152,12 @@ prob += lpSum([weight[i,j]*allocation[(i,j)] for i in range(nb_students) for j i
 for i in range(nb_students):
     # each student must have the number of lessons he asked for
     prob += lpSum([allocation[(i,j)] for j in range(nb_courses)]) == nb_hours[i]
-    # each student must have at least one course of each language he put in his choice list
-    for l in language_wanted[i]:
-      prob += lpSum([allocation[(i,j)] for j in language_courses[l]]) >= 1
+    # each student must have at least one course of english
+    prob += lpSum([allocation[(i,j)] for j in language_courses[0]]) >= 1
+    # each student must have at least one course of another language
+    prob += lpSum([allocation[(i,j)] for j in language_courses[0]]) < nb_hours[i]
+    # each student must have at the most 1 lesson per slot
     for slot in slots_courses:
-        # each student must have at the most 1 lesson per slot
         prob += lpSum([allocation[(i,j)] for j in slot]) <= 1
 for j in range(nb_courses):
     # a course cannot have more than the number a student he can host
