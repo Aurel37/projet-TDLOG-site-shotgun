@@ -9,7 +9,7 @@ import mysql.connector
 config = {
   'user': 'root',
   'password': 'root',
-  'host': 'localhost:889',
+  'unix_socket': '/Applications/MAMP/tmp/mysql/mysql.sock',
   'database': 'shotgun_website',
   'raise_on_warnings': True,
 }
@@ -157,7 +157,7 @@ for i in range(nb_students):
     # each student must have at least one course of english
     prob += lpSum([allocation[(i,j)] for j in language_courses[0]]) >= 1
     # each student must have at least one course of another language
-    prob += lpSum([allocation[(i,j)] for j in language_courses[0]]) < nb_hours[i]
+    prob += lpSum([allocation[(i,j)] for j in language_courses[0]]) <= nb_hours[i] - 1
     # each student must have at the most 1 lesson per slot
     for slot in slots_courses:
         prob += lpSum([allocation[(i,j)] for j in slot]) <= 1
@@ -178,15 +178,14 @@ for student in range(nb_students):
 
 print("Dissatisfaction per student =",  prob.objective.value()/nb_students)
 #print("choix =", choix)
-# store and display the results
-# with open("allocation.txt",'w') as f:
-#     for student in range(nb_students):
-#         string_row = "student " + str(student) + " get courses"
-#         for course in range(nb_courses):
-#             if allocation[(i,j)] == 1:
-#                 string_row += " " + str(course)
-#         string_row += "\n"
-#         # store
-#         f.write(string_row)
-#         # display
-#         print(string_row)
+#store and display the results
+with open("allocation.txt",'w') as f:
+     for student in range(nb_students):
+        string_row = "student " + students[student][1] + " " + students[student][2] + " get courses"
+        for course in range(nb_courses):
+            if int(allocation[(student,course)].value()) == 1:
+                string_row += " " + courses[course][4] + ","
+         # store
+        string_row += "\n"
+        f.write(string_row)
+         # display
