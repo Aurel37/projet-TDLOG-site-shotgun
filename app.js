@@ -13,24 +13,15 @@ var model = require('./model');
 var url = require('url');
 var io = require('socket.io').listen(server);
 
-
 model.db_manager;
-
-function socket_add(tag, socket, req) {
-	socket.on(tag, function(data) {
-		model.push_cookie(req.session.answers, tag, data);
-	});
-}
-
 
 io.use(sharedsession(session, {
 	autoSave: true
 }));
 
-
 app.use(express.static("views"));
-app.use(session)
 
+app.use(session)
 
 .get('/shotgun', function(req, res) {
 	res.render('index.ejs');
@@ -43,18 +34,15 @@ app.use(session)
 	console.log('first_name', typeof(req.session.first_name));
 	console.log('last_name', typeof(req.session.last_name));
 	console.log('year', typeof(req.session.year));
-console.log('langue_list', typeof(req.session.rank_langue_list));
-console.log('sport', typeof(req.session.sport));
-console.log('number', typeof(req.session.number));
-
-
-
+	console.log('langue_list', typeof(req.session.rank_langue_list));
+	console.log('sport', typeof(req.session.sport));
+	console.log('number', typeof(req.session.number));
 
 	if (typeof(req.session.first_name) ==  'undefined' || typeof(req.session.last_name) ==  'undefined' || typeof(req.session.year) ==  'undefined' || typeof(req.session.rank_langue_list) ==  'undefined' || typeof(req.session.sport) ==  'undefined' ||  typeof(req.session.number) ==  'undefined' || typeof(req.session.langue_selected) == 'undefined') {
 		res.redirect('/shotgun');
 	}
 	else {
-	
+
 	model.add_data_student_id([req.session.first_name, req.session.last_name, req.session.year, req.session.number, req.session.sport]);
 	model.add_data_class(req.session.rank_langue_list, req.session.last_name);
 	model.add_data_langue(req.session.last_name, req.session.langue_selected);
@@ -65,7 +53,6 @@ console.log('number', typeof(req.session.number));
 
 
 io.sockets.on('connection', function (socket){
-
 
 		model.get_promo(function(err, result) {
 				if (err) throw err;
@@ -137,12 +124,11 @@ io.sockets.on('connection', function (socket){
 			});
 		})
 
-		
-
 		socket.on('number', function(number) {
 			socket.handshake.session.number = number;
 			socket.handshake.session.save();
 		});
+
 		socket.on('rank_langue', function(rank) {
 			console.log('rank', rank);
 			socket.handshake.session.rank_langue_list = rank;

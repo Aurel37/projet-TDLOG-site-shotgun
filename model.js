@@ -4,8 +4,9 @@ var con = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
 	password : 'root',
-	socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',
-	database : 'shotgun_website'
+	socketPath : '/Applications/MAMP/tmp/mysql/mysql.sock',     //uncomment this line 
+								    // if you're using Mamp 
+	database : 'shotgun_website'                                //the name of the database imported in MySQL
 });
 
 con.connect(function(err) {
@@ -26,7 +27,8 @@ function analyse_word(word) {
 }
 
 function get_last_name(name, callback) {
-	if (typeof(name) != 'undefined') {
+	if (typeof(name) != 'undefined') 
+	{
 		var word = analyse_word(name);
 		con.query('SELECT last_name FROM Students WHERE last_name  = ?', 
 			[word],
@@ -46,14 +48,14 @@ function get_last_name(name, callback) {
 
 
 function add_data_student_id(data) {
-	if (typeof(data) != 'undefined') {
+	if (typeof(data) != 'undefined') 
+	{
 		con.query('INSERT INTO Students(first_name, last_name, year, number_class, sport) VALUES (?, ?, (SELECT id FROM Year WHERE libelle = ?), ?, (SELECT id FROM Sports WHERE libelle = ?))',
 			data,
 			function (err) {
 				if  (err) throw err;
 				console.log("1 record inserted");
-			});
-		
+			});	
 	}
 
 };
@@ -90,7 +92,7 @@ function add_data_class(data, name) {
 }
 
 function add_data_langue(last_name, data) {
-	if (typeof(data) != 'undefined')
+	if (typeof(data) != 'undefined' && typeof(last_name) != 'undefined')
 	{
 	var n = data.length;
 	for (var i = 0; i < n;  i++) {
@@ -123,15 +125,18 @@ function query_first_l(data, callback) {
 }
 
 function get_class(sport, promo, langue, callback){
-	con.query('SELECT Cours.libelle FROM Cours JOIN Langue ON Cours.id_langue = Langue.id WHERE Langue.libelle  IN ? AND Cours.id_slot != (SELECT id_slot FROM Sports WHERE libelle = ?) AND Cours.id_slot IN (SELECT For_who.id_creneau FROM For_who JOIN Year WHERE For_who.id_promo = (SELECT id FROM Year WHERE Year.libelle = ?))', [[langue], sport, promo], function(err, result){
-		if(err){
-			callback(err, null);
-		}
-		else{
-			callback(null, result);
-		}
+	if (typeof(sport) != 'undefined' && typeof(promo) != 'undefined' && typeof(langue) != 'undefined') 
+	{
+		con.query('SELECT Cours.libelle FROM Cours JOIN Langue ON Cours.id_langue = Langue.id WHERE Langue.libelle  IN ? AND Cours.id_slot != (SELECT id_slot FROM Sports WHERE libelle = ?) AND Cours.id_slot IN (SELECT For_who.id_creneau FROM For_who JOIN Year WHERE For_who.id_promo = (SELECT id FROM Year WHERE Year.libelle = ?))', [[langue], sport, promo], function(err, result){
+			if(err){
+				callback(err, null);
+			}
+			else {
+				callback(null, result);
+			}
 
-	});
+		});
+	}
 }
 
 function get_sport(callback){
@@ -147,7 +152,7 @@ function get_sport(callback){
 		}
 	});
 }
-function get_langue( callback){
+function get_langue(callback){
 	con.query('SELECT libelle FROM Langue',
 	function (err, result, fields) {
 		if (err)
@@ -191,7 +196,5 @@ exports.get_langue = get_langue;
 exports.get_promo = get_promo;
 exports.get_class = get_class;
 //exports.query_first_l = query_first_l;
-exports.push_cookie = push_cookie;
-
 //con.end((err) => {});
 
