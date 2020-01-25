@@ -16,7 +16,7 @@ mydb = mysql.connector.connect(
 ## Constante
 coef_choix=3
 
-imposs = 1000
+imposs = 10000
 
 ## Constante prise à partir de la base de donnée
 mycursor = mydb.cursor()
