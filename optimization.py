@@ -176,7 +176,7 @@ for student in range(nb_students):
             string_row += " " + courses[course][4] + ","
     print(string_row)
 
-print("Dissatisfaction per student =",  prob.objective.value()/nb_students)
+print("Dissatisfaction per student =",  prob.objective.value()/nb_students/coef_choix)
 #print("choix =", choix)
 #store and display the results
 with open("allocation.txt",'w') as f:
