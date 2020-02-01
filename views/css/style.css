@@ -29,14 +29,15 @@ p{
   	width: 60%;
  }
 
-#form {
-  background-color: #ffffff;
-  margin: 100px auto;
-  padding: 40px;
-  width: 70%;
-  min-width: 300px;
-  border: 10px solid#003399; 
+#form{
+ 	background-color: #ffffff;
+ 	margin: 100px auto;
+ 	padding: 40px;
+ 	width: 70%;
+ 	min-width: 300px;
+  	border: 10px solid#003399; 
 }
+
 .button{
 	color: white;
 	background-color: #003399;
@@ -46,25 +47,19 @@ p{
 	transition-duration: 0.4s;
 	border: 2px solid black; /* Green */
 }
-#logo {
-  background-image: url(/css/logo_pont.png);
-  background-repeat: no-repeat;
-  width: 80px;
-  height: 103px;
-  padding: 0;
+
+#logo{
+ 	background-image: url(/css/logo_pont.png);
+	background-repeat: no-repeat;
+	width: 80px;
+	height: 103px;
+	padding: 0;
 }
 
-.button:hover {
-  background-color: white; /* Green */
-  color: #003399;
+.button:hover{
+	background-color: white; /* Green */
+	color: #003399;
 }
-
-/*#row_langue:after {
-	content: "";
-	display: table;
-	clear: both;
-}*/
-
 
 .ranking_form_class1 {
 	display: flex;
@@ -80,7 +75,6 @@ input.invalide{
 
 input.invalide:hover{
 	background-color: white;
-
 }
 
 input.valide{
@@ -92,7 +86,6 @@ input.valide{
 
 input.valide:hover{
 	background-color: white;
-	
 }
 
 select.invalide{
@@ -100,26 +93,22 @@ select.invalide{
 	border: 2px solid red;
 }
 
-
 select.valide{
 	background-color: rgba(182, 243, 118, 0.25);
 	border: 2px solid green;
 }
 
-.column {
+.column{
 	background-color: white;
 	border: 1px solid black;
 	width: 50%;
 	height: 200px;
-
 	overflow: scroll;
 	padding: 10px;
 	border-radius: 5px;
 }
 
-
-
-.column li {
+.column li{
 	border: 1px solid #ddd; 
 	margin-top: -1px; 
 	background-color: #003399; 
@@ -129,8 +118,7 @@ select.valide{
 	display: block; 
 }
 
-#langue {
-
+#langue{
 	border-radius: 20%;
 }
 
