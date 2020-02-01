@@ -37,8 +37,8 @@
 	</div>
 	<div class="tab">
 		<!-- Step 2 --> 
-		<p>
-		Quelles secondes langues choisissez vous ?
+		<p> Vous devez prendre au moins un cours d'anglais.
+		Quelle(s) seconde(s) langue(s) choisissez vous ?
 	<select multiple  name ="langue" size="3" id="langue">
 	</select>
 	<!--
@@ -367,7 +367,7 @@
 			if(counter == 1){
 				var y = document.getElementById("langue");
 				var yy = getSelectValues(y);
-				if(yy.length > 0){
+				if(yy.length > 1){
 					y.classList.remove("invalide");				
 					y.className += " valide";	
 				}

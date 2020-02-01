@@ -47,7 +47,7 @@ in the file <strong>model.js</strong>. If it doesn't work go on the WebStart pag
 
 After this step do note forget to import the database <strong>\_DATABASE_shotgun_.sql</strong> in MySQL, and to name it 'shotgun_website'.
 
-Finally you'll need to install the module "mysql" and "pulp" for python, simply run the followings commands on your terminal : 
+Finally to run the optimization part you'll need to install the module "mysql" and "pulp" for python, simply run the followings commands on your terminal : 
 
 <pre><code> python -m pip install mysql-connector
 </code></pre>
@@ -60,3 +60,5 @@ To run the code simply use this command in your terminal (Mac0S or Linux otherwi
 <pre><code> node app.js
 </code></pre>
 Then browse the url : <a href="http://localhost:8080/shotgun">http://localhost:8080/shotgun</a>.
+
+Then to run the optimization part, run the file optimization.py.
