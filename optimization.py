@@ -60,8 +60,6 @@ slots_courses = []
 for x in myresult:
     slots_courses.append([])
 
-print(students)
-
 # From cours
 mycursor = mydb.cursor()
 mycursor.execute("SELECT * FROM cours")
