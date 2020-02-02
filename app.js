@@ -139,7 +139,6 @@ io.sockets.on('connection', function (socket){
 		});
 
 		socket.on('langue_selected', function(langue_selected){
-			console.log('langue slected' + langue_selected);
 			socket.handshake.session.langue_selected = langue_selected;
 			socket.handshake.session.save();
 		});
