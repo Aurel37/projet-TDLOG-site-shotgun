@@ -75,7 +75,6 @@ capacities = []
 language_courses = [[] for i in range(10)]
 
 for x in myresult:
-    print(x)
     (id_cours, id_creneau, id_langue, level, name, teacher, capacity) = x
     courses.append([id_cours, id_creneau, id_langue, level, name])
     capacities.append(capacity)
