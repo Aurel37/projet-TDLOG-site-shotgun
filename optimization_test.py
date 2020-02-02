@@ -1,19 +1,22 @@
+
 ## Optimization with glpk
 # https://pypi.org/project/PuLP/
 
 import numpy as np
 from pulp import LpVariable, LpProblem, LpMinimize, GLPK, lpSum
-
-
 import mysql.connector
 
-## Connection à la base de donnée
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="root",
-  passwd="root",
-  db="essai"
-)
+## Connection to the database
+config = {
+  'user': 'root',
+  'password': 'root',
+  'unix_socket': '/Applications/MAMP/tmp/mysql/mysql.sock',
+  'database': 'shotgun_website',
+  'raise_on_warnings': True,
+}
+
+
+mydb = mysql.connector.connect(**config)
 
 
 ## Constant
