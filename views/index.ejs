@@ -161,6 +161,11 @@
 
 	var socket = io.connect('http://localhost:8080');
 
+
+	/*
+	Put the data selected into the socket, we need to make one for selected text as well
+	*/
+
 	function send_data_selected(tag, data, socket, type) {
 		/* This function listens the client providing data and  send them  to the server thanks the sockets
 		 * @param {tag} the tag to enable the server to catch the data
@@ -191,12 +196,17 @@
 			socket.emit(tag, analyse);
 		});
 	}
-	
+	/*
+	 Put the names of the student 
+	*/
 	send_data_text('first_name', document.getElementById("first_name"), socket, 'blur');
 	send_data_text('last_name', document.getElementById("last_name"), socket, 'change');
 	socket.on('last_name', function(invalid) {
 		console.log('socket')
 		if (invalid) { 
+			/* 
+			If the student already put info in the data base 
+			*/
 			alert("Ce nom est déjà pris veuillez en choisir un autre")
 			document.getElementById("last_name").value = "";
 		}
@@ -206,8 +216,11 @@
 	send_data_selected('sport', document.getElementById("sport"), socket, 'change');
 	send_data_text('number', document.getElementById("number"), socket, 'change');
 
+	/*
+	We colect all the years available in the database and we put it into the element id
+	*/
+	socket.on('promo_list', function(promo_list) {
 
-	socket.on('promo_list', function(promo_list) {//socket.on catch the data send by the server 
 		var n = promo_list.length;
 		document.getElementById("year").innerHTML = "";	
 		document.getElementById("year").innerHTML += "<option>Choix de votre promo";
@@ -363,6 +376,10 @@
 	}
 
 	function validate_part(){ 
+		/*
+		We look if the form is valid. We change the statu of the element if they are valid or not,
+		in order to print the validatin of the elements.
+		*/
 		var validate = true;
 		var x = document.getElementsByClassName("tab");
 		if(counter == 0){
@@ -379,6 +396,9 @@
 				var y = document.getElementById("langue");
 				var yy = getSelectValues(y);
 				if(yy.length > 1){
+					/*
+					There is already inglish so we need to look if there are the second languages
+					*/
 					y.classList.remove("invalide");				
 					y.className += " valide";	
 				}
